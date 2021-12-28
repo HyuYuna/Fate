@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.mt-50 {
+	margin-top:50px;
+}
+.member_name {
+	font-weight : 700;
+	font-size : 22pt;
+	margin : 10pt;
+}
+
+.member_info_box {
+	color : #6B6B6B;
+	margin : 10pt;
+}
+
+.member_num {
+	font-size : 10pt;
+	margin-right : 10pt;
+}
+
+.member_date {
+	font-size : 10pt;
+}
+
+.grade {
+	font-size : 11pt;
+	margin : 10pt;
+	padding-bottom : 10pt;
+}
+

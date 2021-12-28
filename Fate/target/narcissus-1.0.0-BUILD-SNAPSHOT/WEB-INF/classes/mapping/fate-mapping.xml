@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fateDao">
+
+	<resultMap type="MemberVO" id="Member">
+		<result property="custno" column="custno" />
+		<result property="custname" column="CUSTNAME" />
+		<result property="phone" column="PHONE" />
+		<result property="address" column="address" />
+		<result property="joindate" column="JOINDATE" />
+		<result property="grade" column="GRADE" />
+		<result property="city" column="CITY" />
+	</resultMap>
+	<resultMap type="MoneyVO" id="Money">
+		<result property="custno" column="custno" />
+		<result property="price" column="price" /> 
+		<result property="custname" column="custname" /> 
+		<result property="grade" column="grade" /> 
+		<collection property="memberVO" resultMap="Member" /> 
+	</resultMap>
+	<resultMap type="HashMap" id="Maps">
+		<result property="custno" column="custno" />
+		<result property="custname" column="CUSTNAME" />
+		<result property="phone" column="PHONE" />
+		<result property="address" column="address" />
+		<result property="joindate" column="JOINDATE" />
+		<result property="grade" column="GRADE" />
+		<result property="city" column="CITY" />
+	</resultMap>
+	
+	
+	<select id="login" parameterType="MemberVO" resultType="MemberVO">
+	  <![CDATA[
+	   SELECT 
+	   	   * 
+	   FROM 
+	   	   USER 
+	   WHERE 
+	   	   PWD1 = #{checkPwd}
+	  ]]>
+	</select>
+	
+	<insert id="joinUser" parameterType="MemberVO">
+	 <![CDATA[
+		INSERT INTO USER
+		(
+			ID, 
+			PWD, 
+			PWD1
+		) VALUES (
+			#{id},
+			#{pwd}, 
+			#{pwd1}
+		) 	
+	 ]]>
+	 </insert>
+	 
+	 <update id="editUser" parameterType="MemberVO">
+	 <![CDATA[
+		UPDATE 
+			USER
+		SET
+			ID = #{id} ,
+			PWD = #{pwd}, 
+			PWD1 = #{pwd1}
+		WHERE
+			ID = #{id}
+	 ]]>
+	
+	</update>
+	
+	<insert id="insertMember" parameterType="MemberVO">
+ 	 <![CDATA[
+		INSERT INTO MEMBER
+		(
+			custno, 
+			custname, 
+			phone, 
+			address,
+			joindate, 
+			grade, 
+			city
+		) VALUES (
+			(select max(custno) from member as mem)+1,
+			#{custname}, 
+			#{phone}, 
+			#{address},
+			#{joindate}, 
+			#{grade}, 
+			#{city}
+		) 	
+		 ]]>
+	</insert>
+	
+	<insert id="insertFile" parameterType="MemberVO">
+ 	 <![CDATA[
+		INSERT INTO MEMBER_FILE
+		(
+			custno, 
+			custname, 
+			phone, 
+			address,
+			joindate, 
+			grade, 
+			city,
+			fname
+		) VALUES (
+			(select ifnull(max(custno), 0)+1 from member_file as mfi) , 
+			#{custname}, 
+			#{phone}, 
+			#{address},
+			#{joindate}, 
+			#{grade}, 
+			#{city} ,
+		 	#{fname}
+		) 
+		 ]]>
+	</insert>
+	
+	<delete id="deleteMember" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		MEMBER 
+	 	WHERE 
+	 		CUSTNO = #{custno}
+	 ]]>
+	</delete>
+	
+	<delete id="deleteFile" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		MEMBER_FILE
+	 	WHERE 
+	 		CUSTNO = #{custno}
+	 ]]>
+	</delete>
+	
+	<select id="selectAllmember" parameterType="MemberVO" resultMap="Member">
+		SELECT 
+			* 
+		FROM 
+			MEMBER
+		<where>
+			<if test="ch1=='custno'">
+				AND CUSTNO LIKE concat('%',#{ch2},'%')
+			</if>
+			<if test="ch1=='name'">
+				AND CUSTNAME LIKE concat('%',#{ch2},'%')
+			</if>
+		</where>
+		ORDER BY CUSTNO DESC
+	</select>
+	
+	<select id="selectAllMemberJson" resultType="Map">
+		SELECT 
+			* 
+		FROM 
+			MEMBER
+		ORDER BY CUSTNO DESC
+	</select>
+	
+	
+	<select id="selectAllFilemember" parameterType="MemberVO" resultType="MemberVO">
+	 <![CDATA[
+		SELECT 
+			* 
+		FROM 
+			MEMBER_FILE
+		ORDER BY CUSTNO DESC
+	 ]]>
+	</select>
+	
+	<select id="memberCnt" parameterType="MemberVO" resultType="Integer">
+	 <![CDATA[
+	 	SELECT 
+	 		COUNT(*)
+	 	FROM
+	 		MEMBER 
+	 ]]>
+	</select>
+	
+	<select id="memberFileCnt" parameterType="MemberVO" resultType="Integer">
+	 <![CDATA[
+	 	SELECT 
+	 		COUNT(*)
+	 	FROM
+	 		MEMBER_FILE
+	 ]]>
+	</select>
+	
+	<select id="selectMember" parameterType="Integer" resultType="MemberVO">
+	  <![CDATA[
+	   SELECT 
+	   	   * 
+	   FROM 
+	   	   MEMBER 
+	   WHERE 
+	   	   CUSTNO = #{custno}
+	  ]]>
+	</select>
+	
+	<update id="updateMember" parameterType="MemberVO">
+	 <![CDATA[
+		UPDATE 
+			MEMBER 
+		SET 
+			CUSTNAME= #{custname}, 
+			PHONE= #{phone}, 
+			ADDRESS= #{address},  
+			GRADE= #{grade}, 
+			CITY= #{city} 
+		WHERE 
+			CUSTNO = #{custno}
+	 ]]>
+	</update>
+	
+	<select id="moneylist" resultMap="Money">
+	  <![CDATA[
+	   SELECT 
+			M1.CUSTNO AS CUSTNO, M1.CUSTNAME AS CUSTNAME, M1.GRADE AS GRADE,  
+			SUM(M2.PRICE) AS PRICE 
+		FROM 
+			MEMBER M1
+		INNER JOIN 
+			MONEY M2 ON M1.CUSTNO = M2.CUSTNO 
+		GROUP BY 
+			M1.CUSTNO, M1.CUSTNAME, M1.GRADE 
+		ORDER BY 
+			SUM(M2.PRICE) 
+	  ]]>
+	</select>
+	
+	
+	
+	
+</mapper>

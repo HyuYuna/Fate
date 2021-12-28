@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:log4j="http://jakarta.apache.org/log4j/"> 
+
+	<!-- Appenders -->
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%-5p: %c - %m%n" />
+		</Console>
+	</Appenders>
+	 
+	<!-- Application Loggers -->
+	<Loggers>
+		<Logger name="java.sql" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="egovframework" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="org.springframework" level="DEBUG" additivity="false">
+			<AppenderRef ref="console" />
+		</Logger>
+        <!-- SQL 연결 상태 출력 -->
+        <Logger name="jdbc.connection" level="OFF" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- SQL만 출력 -->
+        <Logger name="jdbc.sqlonly" level="OFF" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- SQL과 경과 시간을 함께 출력 -->
+        <Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- SQL결과 상세하기 -->
+        <Logger name="jdbc.audit" level="OFF" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- SQL결과 상세하게 -->
+        <Logger name="jdbc.resultset" level="OFF" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- 결과 TABLE 형태로 출력 -->
+        <Logger name="jdbc.resultsettable" level="OFF" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+       	<!-- <Root level="DEBUG">
+            <AppenderRef ref="console" />
+        </Root> --> 
+        
+    </Loggers>
+</Configuration>

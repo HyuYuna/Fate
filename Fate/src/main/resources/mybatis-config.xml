@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.hyuyuna.narcissus.common.MemberVO" alias="MemberVO" />
+		<typeAlias type="com.hyuyuna.narcissus.common.MoneyVO" alias="MoneyVO" />
+		<typeAlias type="com.hyuyuna.narcissus.common.FileVO" alias="FileVO" />
+	</typeAliases>	  
+	
+	<mappers>
+		<mapper resource="mapping/fate-mapping.xml" />
+		<mapper resource="mapping/member-mapping.xml" />
+	</mappers>
+	
+</configuration>
