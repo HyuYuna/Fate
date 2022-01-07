@@ -28,9 +28,10 @@ public class MemberController {
 	
 	@Resource(name="memberService")
 	MemberService service;
-	
+	 
 	@Autowired
 	private SessionManager sessionManager;
+	
 	
 	@RequestMapping(value="/form.do")
 	public String form(Model model) throws Exception {
@@ -70,6 +71,15 @@ public class MemberController {
 	
 	@RequestMapping(value="/memberList.do")
 	public String list(MemberVO vo, Model model) throws Exception{
+		
+		/*AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+		AdminConnection connection = ctx.getBean("adminConnection", AdminConnection.class);
+		System.out.println("image : " + connection.getImagesDir());
+		ctx.close();*/ 
+		
+		/*String imageDir = AppConfig.getImageDir();
+		System.out.println("이미지 링크"+imageDir);*/
+		
 		List<MemberVO> list = service.selectAllMember(vo);
 		int cnt = service.memberCnt(vo);
 		
@@ -195,6 +205,7 @@ public class MemberController {
 	public String Filedetail(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
 
 		MemberVO detail = service.selectFileMember(vo.getCustno());
+		
 		model.addAttribute("detail", detail);
 		model.addAttribute("memberVO", new MemberVO());
 		model.addAttribute("mode",mode);
@@ -248,7 +259,7 @@ public class MemberController {
 		String storedFileName = file.getStoredFileName();
 		String originalFileName  = file.getOriginalFileName();
 		
-		byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\Fate\\sts-3.9.15.RELEASE\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Fate\\upfile\\"+storedFileName));
+		byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\Fate\\github\\files\\"+storedFileName));
 		
 		response.setContentType("application/octet-stream"); 
 		response.setContentLength(fileByte.length); 

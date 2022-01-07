@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class FileUtils {
 	
 	//String filePath = request.getSession().getServletContext().getRealPath("/upfile/");
-	private static final String filePath = "C:\\Fate\\sts-3.9.15.RELEASE\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\Fate\\upfile";
+	private static final String filePath = "C:\\Fate\\github\\files";
 	
 	public List<Map<String,Object>> parseInsertFileInfo(MemberVO vo, HttpServletRequest request) throws Exception{
 		
