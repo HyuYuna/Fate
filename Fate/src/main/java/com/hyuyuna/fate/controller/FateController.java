@@ -1,5 +1,10 @@
 package com.hyuyuna.fate.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +29,9 @@ public class FateController {
 	
 	@Autowired
 	private SessionManager sessionManager;
+	
+	@Value("#{directory['globals.imagesDir']}")
+	private String imagesDir;
 	
 	 public interface sessionDefine {
 		 String loginFate = "HyuYuna";
@@ -100,6 +109,53 @@ public class FateController {
 		service.joinUser(vo);
 		
 		return "redirect:memberList.do";
+	}
+	
+	
+	@RequestMapping(value="/getImage.do")
+	public void getImage(HttpServletRequest req, HttpSession session, HttpServletResponse res) throws Exception {
+		
+		String realFile = imagesDir;
+		String fileNm = req.getParameter("fileNm");
+		fileNm = fileNm.replaceAll("/images/", "");
+		
+		String ext = fileNm.substring(fileNm.lastIndexOf("."));
+		
+		String[] exts = new String[] { "jpg", "jpeg", "bmp", "png" };
+		
+		boolean uploadOK = false;
+		for(String a : exts) {
+			if(a.equals(ext.substring(1, ext.length()).toLowerCase())) {
+				uploadOK = true;
+				break;
+			}
+		}
+		
+		if(!uploadOK) return;
+		
+		BufferedOutputStream  out = null;
+		InputStream in = null;
+		
+		try {
+			res.setContentType("image/" + ext);
+			res.setHeader("Content-Disposition", "inline;filename=" + fileNm);
+			File file = new File(realFile + fileNm);
+			if(file.exists()) {
+				in = new FileInputStream(file);
+				out = new BufferedOutputStream(res.getOutputStream());
+				int len;
+				byte[] buf = new byte[1024];
+				while ((len = in.read(buf)) > 0 ) {
+					out.write(buf, 0, len);
+				}
+			} 
+		} catch (Exception e) {
+				System.out.println("오류");
+		} finally {
+			if(out != null){ out.flush(); }
+			if(out != null){ out.close(); }
+			if(in != null){ in.close(); }
+		}
 	}
 	
 }

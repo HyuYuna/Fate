@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class MemberVO {
 	private int custno;
+	private int num;
 	private String id;
 	private String checkPwd;
 	private String pwd;
@@ -24,7 +23,6 @@ public class MemberVO {
 	private String ch2;
 	
 	private String fname;
-	private MultipartFile uploadFile;
 	
 	private int page;
     private int records;
@@ -38,6 +36,12 @@ public class MemberVO {
 	}
 	public void setCustno(int custno) {
 		this.custno = custno;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getCustname() {
 		return custname;
@@ -80,12 +84,6 @@ public class MemberVO {
 	}
 	public void setFname(String fname) {
 		this.fname = fname;
-	}
-	public MultipartFile getUploadFile() {
-		return uploadFile;
-	}
-	public void setUploadFile(MultipartFile uploadFile) {
-		this.uploadFile = uploadFile;
 	}
 	
 	public String getFlag() {

@@ -35,9 +35,9 @@ public interface MemberService {
 	
 	public List<MoneyVO> moneylist();
 	
-	public void insertFileMember(MemberVO vo, HttpServletRequest request) throws Exception ;
+	public void insertFileMember(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
-	public void updateFileMember(MemberVO vo);
+	public void updateFileMember(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
 	public void deleteFileMember(int custno);
 

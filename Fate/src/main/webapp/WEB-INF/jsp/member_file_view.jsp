@@ -8,13 +8,13 @@
 		document.location.href = "memberList.do"
 	})
 	
-	$(document).on('click', 'a[name="filename"]', function() {
+	$(document).on('click', '#fileDown', function() {
 		fn_downloadFile($(this));
 	})
 	
 	function fn_detail(custno) {
 		let url = "memberFileDtl.do";
-		url = url + "?custno=" + custno + "&mode=edit";
+		url = url + "?custno=" + custno;
 		location.href = url;
 	}
 	
@@ -30,7 +30,9 @@
 		location.href = url;
 	}
 	
-	function fn_downloadFile(num) {
+	function fn_downloadFile(obj) {
+		console.log(obj.parent());
+		var num = obj.parent().find("#fileNum").val();
 		let url = "downloadFile.do";
 		url = url + "?num=" + num;
 		location.href = url;
@@ -54,7 +56,7 @@
 		<div class="grade">
 			<c:forEach var="file" items="${map}">
 				<input type="hidden" id="fileNum" value="${file.NUM}" />
-				<a href="javascript:void(0);" onclick="fn_downloadFile(${file.NUM})">${file.ORIGINAL_FILE_NAME}</a>
+				<a href="#this;" id="fileDown">${file.ORIGINAL_FILE_NAME}</a>
 				(${file.FILE_SIZE}kb)
 				<br/>
 			</c:forEach>

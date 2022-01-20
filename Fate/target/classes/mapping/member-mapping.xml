@@ -63,7 +63,7 @@
 		 ]]>
 	</insert>
 	
-	<insert id="insertFileMember" parameterType="MemberVO">
+	<insert id="insertFileMember" parameterType="Map">
  	 <![CDATA[
 		INSERT INTO MEMBER_FILE
 		(
@@ -113,6 +113,28 @@
 	 		CUSTNO = #{custno}
 	 ]]>
 	</delete>
+	
+	<update id="deleteFileGbY" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'Y'
+	 	WHERE 
+	 		CUSTNO = #{custno}
+	 ]]>
+	</update>
+	
+	<update id="deleteFileGbN" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'N'
+	 	WHERE 
+	 		NUM = #{num}
+	 ]]>
+	</update>
 	
 	<select id="selectAllmember" parameterType="MemberVO" resultMap="Member">
 		SELECT 
@@ -219,6 +241,8 @@
 			FILE
 		WHERE 
 	   	   CUSTNO = #{custno}
+	   	AND 
+	   		DEL_GB = 'N'
 	    ORDER BY 
 			CUSTNO DESC
 	  ]]>
@@ -233,7 +257,9 @@
 		FROM 
 			FILE
 		WHERE 
-	   	   NUM = #{num}
+	   	   NUM = #{num} 
+	   	   AND DEL_GB = 'N'
+	   		
 	  ]]>
 	</select>
 	
@@ -268,17 +294,16 @@
 	  ]]>
 	</select>
 	
-	<update id="updateFileMember" parameterType="MemberVO">
+	<update id="updateFileMember" parameterType="Map">
 	 <![CDATA[
 		UPDATE 
-			MEMBER _FILE
+			MEMBER_FILE
 		SET 
 			CUSTNAME= #{custname}, 
 			PHONE= #{phone}, 
 			ADDRESS= #{address},  
 			GRADE= #{grade}, 
-			CITY= #{city},
-			FNAME = #{fname} 
+			CITY= #{city} 
 		WHERE 
 			CUSTNO = #{custno}
 	 ]]>

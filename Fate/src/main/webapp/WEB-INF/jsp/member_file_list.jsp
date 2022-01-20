@@ -49,7 +49,7 @@
 							<c:if test="${m.getGrade() == 'C' }"> 직원 </c:if>
 						</td>
 						<td>${m.getCity()}</td>
-						<td><img src="C:\\Fate\\github\\files\\+${m.getFname()}" width="50" height="50"></td>
+						<td><img src="getImage.do?fileNm=${m.getFname()}" width="50" height="50"></td>
 					</tr>
 				</c:forEach>
 			</table>

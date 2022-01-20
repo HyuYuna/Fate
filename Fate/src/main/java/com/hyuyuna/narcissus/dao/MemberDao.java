@@ -76,12 +76,12 @@ public class MemberDao extends AbstractDao {
 		return (List<MoneyVO>)selectList("memberDao.moneylist");
 	}
 
-	public void insertFileMember(MemberVO vo) {
-		insert("memberDao.insertFileMember", vo);
+	public void insertFileMember(Map<String,Object> map) {
+		insert("memberDao.insertFileMember", map);
 	}
 	
-	public void updateFileMember(MemberVO vo) {
-		insert("memberDao.updateFileMember", vo);
+	public void updateFileMember(Map<String,Object> map) {
+		insert("memberDao.updateFileMember", map);
 	}
 
 	public void deleteFileMember(int custno) {
@@ -90,6 +90,14 @@ public class MemberDao extends AbstractDao {
 	
 	public void deleteFile(int custno) {
 		delete("memberDao.deleteFile", custno);
+	}
+	
+	public void deleteFileGbY(Map<String,Object> map) {
+		update("memberDao.deleteFileGbY", map);
+	}
+
+	public void deleteFileGbN(Map<String,Object> map) {
+		update("memberDao.deleteFileGbN", map);
 	}
 	
 	public void insertFile(Map<String,Object> map) {

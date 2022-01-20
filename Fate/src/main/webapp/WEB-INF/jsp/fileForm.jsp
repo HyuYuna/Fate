@@ -3,38 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="layout/header.jsp" />
 <script>
-	$(document).on('clock', '#btnList', function(e) {
+
+	let file_count = 1;
+	
+	$(document).on('click', '#btnList', function(e) {
 		document.location.href="memberFileList.do"
 	})
-
-	function fileCheck1() {
-		if(document.getElementById("uploadFile").value !="") {
-			var fileSize = document.getElementById("uploadFile").files[0].size;
-			var maxSize = 2 * 1024 * 1024;
-			
-			if (fileSize > maxSize) {
-				alert("첨부파일 사이즈는 " + fileSize + " 2MB 이내로 등록 가능합니다"); 
-				return false;
-			}
-		}
-		
-		var thumext = document.getElementById("uploadFile").value;
-		ths = thumext.indexOf(".");
-		console.log(ths);
-		thumext = thumext.slice(thumext.indexOf(".") + 1).toLowerCase();
-		console.log(thumext);
-		if(thumext != "jpg") {
-			alert("이미지 파일 jpg만 등록 가능합니다");
-			return false;
-		}
+	
+	function fn_addFile() {
+		var str = "<p><input type='file' name='uploadFile_"+(file_count++)+"'><a href='#this' class='btn btn-sm btn-primary' name='delete'>삭제</a></p>";
+		$("#fileDiv").append(str);
+		$("a[name='delete']").on("click", function(e) {
+			fn_deleteFile($(this));
+		});
 	}
+	
+	function fn_deleteFile(obj){
+		obj.parent().remove();
+	}
+
 </script>
 <section>
 <div class="container mt-50" role="main">
 	<div align="center"><font size=5><strong>(이미지)회원정보 입력하기</strong></font></div>
 	<br><br>
 	
-	<form action="fileInsert.do" method="POST" enctype="multipart/form-data" onSubmit="return fileCheck1()">
+	<form action="fileInsert.do" method="POST" enctype="multipart/form-data">
 		<div class="mb-3">
 			<label for="custname">회원성명</label>
 			<input type=text class="form-control" name=custname size=10 placeholder="이름을 입력해 주세요">
@@ -59,12 +53,16 @@
 			<label for="city">도시코드</label>
 			<input type=text class="form-control" name=city size=10 placeholder="코드를 입력해 주세요">
 		</div>
-		<div class="mb-3">
-			<label for="uploadFile">사진첨부</label> <br/>
-			<input type="file" name="uploadFile" id="uploadFile" size="10">
+		<div id="fileDiv" class="mb-3">
+			<label for="uploadFile">첨부파일</label> <br/>
+			<p>
+				<input type="file" name="uploadFile_0" id="uploadFile" >
+				<a href="#this" class="btn btn-sm btn-primary" id="delete" name="delete">삭제</a>
+ 			</p>
 		</div>
 		<br/>
 		<div>
+			<button type="button" class="btn btn-sm btn-primary" id="addFile" onclick="fn_addFile();">파일추가</button>
 			<button type="submit" class="btn btn-sm btn-primary" id="btnSave">저장</button>
 			<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
 		</div>

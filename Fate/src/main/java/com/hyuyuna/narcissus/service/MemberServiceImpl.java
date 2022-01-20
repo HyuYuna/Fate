@@ -83,19 +83,32 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public void insertFileMember(MemberVO vo, HttpServletRequest request) throws Exception {
-		dao.insertFileMember(vo);
+	public void insertFileMember(Map<String ,Object> map, HttpServletRequest request) throws Exception {
+		dao.insertFileMember(map);
 		
 		// 파일 등록
-		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(vo,request);
+		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(map,request);
 		for(int i=0; i<list.size(); i++) {
 			dao.insertFile(list.get(i));
 		}
 	}
 
 	@Override
-	public void updateFileMember(MemberVO vo) {
-		dao.updateFileMember(vo);
+	public void updateFileMember(Map<String,Object> map, HttpServletRequest request) throws Exception {
+		dao.updateFileMember(map);
+		
+		// 삭제 구분값 넣기
+		dao.deleteFileGbY(map);
+		List<Map<String,Object>> list = fileutils.parseInsertFileInfo(map, request);
+		Map<String, Object> fileMap = null;
+		for (int i=0, size=list.size(); i<size; i++) {
+			fileMap = list.get(i);
+			if (fileMap.get("IS_NEW").equals("Y")){
+				dao.insertFile(fileMap);
+			} else {
+				dao.deleteFileGbN(fileMap);
+			}
+		}
 	}
 	
 	@Override

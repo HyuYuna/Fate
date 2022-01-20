@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +29,14 @@ public class MemberController {
 	
 	@Resource(name="memberService")
 	MemberService service;
-	 
+	
 	@Autowired
 	private SessionManager sessionManager;
 	
 	
 	@RequestMapping(value="/form.do")
 	public String form(Model model) throws Exception {
-		return "form";
+		return "member_dtl";
 	}
 	
 	@RequestMapping(value="/fileForm.do")
@@ -71,14 +72,6 @@ public class MemberController {
 	
 	@RequestMapping(value="/memberList.do")
 	public String list(MemberVO vo, Model model) throws Exception{
-		
-		/*AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
-		AdminConnection connection = ctx.getBean("adminConnection", AdminConnection.class);
-		System.out.println("image : " + connection.getImagesDir());
-		ctx.close();*/ 
-		
-		/*String imageDir = AppConfig.getImageDir();
-		System.out.println("이미지 링크"+imageDir);*/
 		
 		List<MemberVO> list = service.selectAllMember(vo);
 		int cnt = service.memberCnt(vo);
@@ -190,26 +183,23 @@ public class MemberController {
 
 		MemberVO detail = service.selectMember(vo.getCustno());
 		
+		model.addAttribute("detail", detail);
+		model.addAttribute("memberVO", new MemberVO());
+		model.addAttribute("mode",mode);
+
+		return "member_dtl";
+	}
+	
+	@RequestMapping(value="/memberFileDtl.do")
+	public String Filedetail(MemberVO vo, Model model) throws Exception {
+
+		MemberVO detail = service.selectFileMember(vo.getCustno());
+		
 		List<Map<String,Object>> map = service.selectFileList(vo.getCustno());
 		
 		model.addAttribute("detail", detail);
 		model.addAttribute("map", map);
 		model.addAttribute("memberVO", new MemberVO());
-		model.addAttribute("mode",mode);
-
-		
-		return "member_dtl";
-	}
-	
-	@RequestMapping(value="/memberFileDtl.do")
-	public String Filedetail(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
-
-		MemberVO detail = service.selectFileMember(vo.getCustno());
-		
-		model.addAttribute("detail", detail);
-		model.addAttribute("memberVO", new MemberVO());
-		model.addAttribute("mode",mode);
-		
 		
 		return "member_file_dtl";
 	}
@@ -239,16 +229,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/fileInsert.do")
-	public String fileInsert(MemberVO vo, HttpServletRequest request) throws Exception  {
+	public String fileInsert(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
 		
-		String mode = request.getParameter("mode") == null ? "" : request.getParameter("mode");
+		service.insertFileMember(map, request);
 		
+		return "redirect:memberFileList.do";
+	}
+	
+	@RequestMapping(value="/fileUpdate.do")
+	public String fileUpdate(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
 		
-		if (mode == "edit") {
-			service.updateFileMember(vo);
-		} else {
-			service.insertFileMember(vo, request);
-		}
+		service.updateFileMember(map, request);
+		
 		return "redirect:memberFileList.do";
 	}
 	
