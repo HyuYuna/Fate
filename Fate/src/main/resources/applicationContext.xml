@@ -14,8 +14,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
-<context:component-scan base-package="com.hyuyuna.narcissus" />
-
+<context:component-scan base-package="com.hyuyuna.narcissus">
+	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+</context:component-scan>
 
 <context:property-placeholder  location="classpath:config/globals.properties"  />
 	
@@ -44,10 +45,9 @@
 	<constructor-arg index="0" ref="sessionFactory" />
 </bean>
 
-<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+<!-- <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
 	<property name="dataSource" ref="dataSource" />
 </bean>
-
 <tx:advice id="txAdvice" transaction-manager="txManager" >
 	<tx:attributes>
 		<tx:method name="get*" read-only="true" />
@@ -57,8 +57,10 @@
 <aop:config>		  
 	<aop:pointcut id="txPointcut" expression="execution(* com.hyuyuna.narcissus..Impl.*(..) )"   />
 	<aop:advisor  pointcut-ref="txPointcut"  advice-ref="txAdvice"/>
-</aop:config>
+</aop:config> -->
 
+<aop:aspectj-autoproxy/>
+<bean id="loggerAspect" class="com.hyuyuna.narcissus.common.LoggerAspect" />
 
 
 </beans>

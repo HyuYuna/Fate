@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import com.hyuyuna.narcissus.common.FileUtils;
-import com.hyuyuna.narcissus.common.FileVO;
-import com.hyuyuna.narcissus.common.MemberVO;
-import com.hyuyuna.narcissus.common.MoneyVO;
 import com.hyuyuna.narcissus.dao.MemberDao;
+import com.hyuyuna.narcissus.vo.FileVO;
+import com.hyuyuna.narcissus.vo.MemberVO;
+import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{

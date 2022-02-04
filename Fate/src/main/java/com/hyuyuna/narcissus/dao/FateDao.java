@@ -2,7 +2,7 @@ package com.hyuyuna.narcissus.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.hyuyuna.narcissus.common.MemberVO;
+import com.hyuyuna.narcissus.vo.MemberVO;
 
 @Repository("fateDao")
 public class FateDao extends AbstractDao {

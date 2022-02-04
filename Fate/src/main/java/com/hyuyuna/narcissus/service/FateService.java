@@ -1,6 +1,6 @@
 package com.hyuyuna.narcissus.service;
 
-import com.hyuyuna.narcissus.common.MemberVO;
+import com.hyuyuna.narcissus.vo.MemberVO;
 
 public interface FateService {
 	

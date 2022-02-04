@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.hyuyuna.narcissus.common.MemberVO;
 import com.hyuyuna.narcissus.dao.FateDao;
+import com.hyuyuna.narcissus.vo.MemberVO;
 
 @Service("fateService")
 public class FateServiceImpl implements FateService{

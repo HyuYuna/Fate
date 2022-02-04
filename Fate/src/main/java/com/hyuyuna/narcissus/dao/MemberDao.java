@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.hyuyuna.narcissus.common.FileVO;
-import com.hyuyuna.narcissus.common.MemberVO;
-import com.hyuyuna.narcissus.common.MoneyVO;
+import com.hyuyuna.narcissus.vo.FileVO;
+import com.hyuyuna.narcissus.vo.MemberVO;
+import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Repository("memberDao")
 public class MemberDao extends AbstractDao {

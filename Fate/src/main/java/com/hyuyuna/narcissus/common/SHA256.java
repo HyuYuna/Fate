@@ -1,4 +1,4 @@
-package com.hyuyuna.fate.controller;
+package com.hyuyuna.narcissus.common;
 
 import java.security.MessageDigest;
 

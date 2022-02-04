@@ -18,8 +18,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.hyuyuna.narcissus.common.MemberVO;
+import com.hyuyuna.narcissus.common.SHA256;
+import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.service.FateService;
+import com.hyuyuna.narcissus.vo.MemberVO;
 
 @Controller
 public class FateController {
@@ -30,7 +32,7 @@ public class FateController {
 	@Autowired
 	private SessionManager sessionManager;
 	
-	@Value("#{directory['globals.imagesDir']}")
+	@Value("#{directory['globals.filesDir']}")
 	private String imagesDir;
 	
 	 public interface sessionDefine {
@@ -139,7 +141,7 @@ public class FateController {
 		try {
 			res.setContentType("image/" + ext);
 			res.setHeader("Content-Disposition", "inline;filename=" + fileNm);
-			File file = new File(realFile + fileNm);
+			File file = new File(realFile + "/" + fileNm);
 			if(file.exists()) {
 				in = new FileInputStream(file);
 				out = new BufferedOutputStream(res.getOutputStream());

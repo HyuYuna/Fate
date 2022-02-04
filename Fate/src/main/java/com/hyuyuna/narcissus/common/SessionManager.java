@@ -1,4 +1,4 @@
-package com.hyuyuna.fate.controller;
+package com.hyuyuna.narcissus.common;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;

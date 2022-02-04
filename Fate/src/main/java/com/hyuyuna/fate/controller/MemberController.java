@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hyuyuna.narcissus.common.FileVO;
-import com.hyuyuna.narcissus.common.MemberVO;
-import com.hyuyuna.narcissus.common.MoneyVO;
+import com.hyuyuna.narcissus.common.SHA256;
+import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.service.MemberService;
+import com.hyuyuna.narcissus.vo.FileVO;
+import com.hyuyuna.narcissus.vo.MemberVO;
+import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Controller
 public class MemberController {

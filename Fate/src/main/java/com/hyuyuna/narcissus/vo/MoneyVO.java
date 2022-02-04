@@ -1,4 +1,4 @@
-package com.hyuyuna.narcissus.common;
+package com.hyuyuna.narcissus.vo;
 
 import org.springframework.web.multipart.MultipartFile;
 

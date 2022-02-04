@@ -1,5 +1,7 @@
 package com.hyuyuna.narcissus.common;
 
+import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,7 +22,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Component("fileUtils")
 public class FileUtils {
 	
-	private static final String filePath = "C:\\Fate\\github\\files";
+	@Value("#{directory['globals.imagesDir']}")
+	private String imagesPath;
+	
+	@Value("#{directory['globals.filesDir']}")
+	private String filePath;
 	
 	public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{
 		
@@ -50,6 +59,15 @@ public class FileUtils {
 				file = new File(filePath +"/" +storedFileName);
 				multipartFile.transferTo(file);
 				
+				String[] exts = {"jpg", "jpeg", "gif", "png", "bmp"};
+				
+				for (String ext: exts) {
+					if(ext.equals(originalFileExtension.toLowerCase())) {
+						makeThumbnail(file.getAbsolutePath() ,originalFileName, originalFileExtension);
+						break;
+					}
+				}
+				
 				listMap = new HashMap<String,Object>();
 				listMap.put("IS_NEW", "Y");
 				listMap.put("custno",custno);
@@ -69,6 +87,48 @@ public class FileUtils {
 			}
 		}
 		return list;
+	}
+	
+	
+	private void makeThumbnail(String filePath ,String fileName, String fileExt) throws Exception {
+		File file = new File(imagesPath);
+		
+		if(file.exists() == false) {
+			file.mkdirs();
+		}
+		
+		BufferedImage srcImg = ImageIO.read(new File(filePath));
+		
+		
+	    int dw = 250;
+	    int dh = 250;
+		
+		int ow = srcImg.getWidth();
+		int oh = srcImg.getHeight();
+		
+		int nw = ow;
+		int nh = (ow * dh) / dw;
+		
+		if (nh > oh) {
+			nw = (oh * dw) / dh;
+			nh = oh;
+		}
+		
+		if(nh > oh) { 
+			nw = (oh * dw) / dh; 
+			nh = oh; 
+		}
+		
+		BufferedImage cropImg = Scalr.crop(srcImg, (ow-nw)/2, (oh-nh)/2, nw, nh);
+		
+		BufferedImage destImg = Scalr.resize(cropImg, dw, dh);
+		
+		String thumbName = imagesPath + "/" + "THUMB_" + fileName;
+		File thumbFile = new File(thumbName);
+		
+		ImageIO.write(destImg, fileExt.toLowerCase(), thumbFile);
+		
+		
 	}
 
 }
