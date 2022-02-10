@@ -3,6 +3,7 @@ package com.hyuyuna.fate.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.Resource;
@@ -11,13 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.hyuyuna.narcissus.common.CommonUtils;
 import com.hyuyuna.narcissus.common.SHA256;
 import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.service.FateService;
@@ -158,6 +163,30 @@ public class FateController {
 			if(out != null){ out.close(); }
 			if(in != null){ in.close(); }
 		}
+	}
+	
+	@RequestMapping(value="/uploadSummernoteImageFile.do", produces = "application/json; charset=utf8", method=RequestMethod.POST)
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request , ModelMap model)  {
+		
+		String filePath = imagesDir;
+		String originalFileName = multipartFile.getOriginalFilename();
+		String originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+		String storedFileName =  CommonUtils.getRandomString() + "." +  originalFileExtension;
+		
+		File targetFile = new File(filePath + "/"+ storedFileName);
+		try {
+			InputStream fileStream = multipartFile.getInputStream();
+			FileUtils.copyInputStreamToFile(fileStream, targetFile);
+			
+			model.addAttribute("url", storedFileName);
+			model.addAttribute("fileName", originalFileName);
+			model.addAttribute("responseCode", "success");
+		} catch (IOException e) {
+			FileUtils.deleteQuietly(targetFile);
+			model.addAttribute("responseCode", "error");
+			e.printStackTrace();
+		}
+		return "jsonView";
 	}
 	
 }

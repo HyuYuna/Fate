@@ -59,8 +59,8 @@
 	<aop:advisor  pointcut-ref="txPointcut"  advice-ref="txAdvice"/>
 </aop:config> -->
 
-<aop:aspectj-autoproxy/>
-<bean id="loggerAspect" class="com.hyuyuna.narcissus.common.LoggerAspect" />
+<!-- <aop:aspectj-autoproxy/>
+<bean id="loggerAspect" class="com.hyuyuna.narcissus.common.LoggerAspect" /> -->
 
 
 </beans>

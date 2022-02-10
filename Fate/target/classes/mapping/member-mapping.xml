@@ -10,6 +10,7 @@
 		<result property="joindate" column="JOINDATE" />
 		<result property="grade" column="GRADE" />
 		<result property="city" column="CITY" />
+		<result property="content" column="CONTENT" />
 	</resultMap>
 	<resultMap type="MoneyVO" id="Money">
 		<result property="custno" column="custno" />
@@ -51,14 +52,16 @@
 			address,
 			joindate, 
 			grade, 
-			city
+			city,
+			content
 		) VALUES (
 			#{custname}, 
 			#{phone}, 
 			#{address},
 			#{joindate}, 
 			#{grade}, 
-			#{city}
+			#{city},
+			#{content}
 		) 	
 		 ]]>
 	</insert>
@@ -175,7 +178,7 @@
 		FROM 
 			MEMBER_FILE AS A
 		LEFT JOIN
-			FILE AS B ON A.CUSTNO = B.CUSTNO
+			FILE AS B ON A.CUSTNO = B.CUSTNO AND B.DEL_GB ='N'
 		GROUP BY
 			A.CUSTNO
 		ORDER BY 
@@ -271,8 +274,10 @@
 			CUSTNAME= #{custname}, 
 			PHONE= #{phone}, 
 			ADDRESS= #{address},  
+			JOINDATE= #{joindate},  
 			GRADE= #{grade}, 
-			CITY= #{city} 
+			CITY= #{city},
+			CONTENT= #{content}
 		WHERE 
 			CUSTNO = #{custno}
 	 ]]>

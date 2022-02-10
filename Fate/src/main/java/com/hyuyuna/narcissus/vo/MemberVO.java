@@ -19,6 +19,7 @@ public class MemberVO {
 	private String grade;
 	private String city;
 	private String flag;
+	private String content;
 	
 	private String ch1;
 	private String ch2;
@@ -86,12 +87,17 @@ public class MemberVO {
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
-	
 	public String getFlag() {
 		return flag;
 	}
 	public void setFlag(String flag) {
 		this.flag = flag;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	public String getCh1() {

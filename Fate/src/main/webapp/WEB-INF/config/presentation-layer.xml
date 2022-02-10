@@ -39,7 +39,7 @@
 	<property name="suffix" value=".jsp"></property>
 </bean>
 
-<aop:aspectj-autoproxy/>
-<bean id="loggerAspect" class="com.hyuyuna.narcissus.common.LoggerAspect" />
+<!-- <aop:aspectj-autoproxy/>
+<bean id="loggerAspect" class="com.hyuyuna.narcissus.common.LoggerAspect" /> -->
 
 </beans>
