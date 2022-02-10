@@ -20,7 +20,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hyuyuna.narcissus.common.CommonUtils;
 import com.hyuyuna.narcissus.common.SHA256;
@@ -166,7 +168,8 @@ public class FateController {
 	}
 	
 	@RequestMapping(value="/uploadSummernoteImageFile.do", produces = "application/json; charset=utf8", method=RequestMethod.POST)
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request , ModelMap model)  {
+	@ResponseBody
+	public ModelMap uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, ModelMap model)  {
 		
 		String filePath = imagesDir;
 		String originalFileName = multipartFile.getOriginalFilename();
@@ -186,7 +189,7 @@ public class FateController {
 			model.addAttribute("responseCode", "error");
 			e.printStackTrace();
 		}
-		return "jsonView";
+		return model;
 	}
 	
 }
