@@ -2,14 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <c:import url="layout/header.jsp" />
 <script>
 	$(document).on('click', '#btnList', function() {
 		document.location.href = "memberList.do"
-	})
-	
-	$(document).on('click', '#fileDown', function() {
-		fn_downloadFile($(this));
 	})
 	
 	function fn_detail(custno) {
@@ -30,9 +28,9 @@
 		location.href = url;
 	}
 	
-	function fn_downloadFile(obj) {
-		console.log(obj.parent());
-		var num = obj.parent().find("#fileNum").val();
+	function fn_downloadFile(num) {
+		//console.log(obj.parent());
+	 	//let num = obj.parent().find("#fileNum").val();
 		let url = "downloadFile.do";
 		url = url + "?num=" + num;
 		location.href = url;
@@ -54,9 +52,9 @@
 		</div>
 		<div class="grade">고객등급 : <c:out value="${detail.grade}" /> </div>
 		<div class="grade">
-			<c:forEach var="file" items="${map}">
-				<input type="hidden" id="fileNum" value="${file.NUM}" />
-				<a href="#this;" id="fileDown">${file.ORIGINAL_FILE_NAME}</a>
+			<c:forEach var="file" items="${map}" varStatus="status">
+				<input type="hidden" id="fileNum" name="fileNum${status.index}" value="${file.NUM}" />
+				<a href="#" onclick="fn_downloadFile('${file.NUM}')" id="fileDown">${file.ORIGINAL_FILE_NAME}</a>
 				(${file.FILE_SIZE}kb)
 				<br/>
 			</c:forEach>

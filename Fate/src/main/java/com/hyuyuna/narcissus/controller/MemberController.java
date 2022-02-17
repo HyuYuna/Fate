@@ -1,4 +1,4 @@
-package com.hyuyuna.fate.controller;
+package com.hyuyuna.narcissus.controller;
 
 import java.io.File;
 import java.net.URLEncoder;
