@@ -72,13 +72,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/memberList.do")
-	public String list(MemberVO vo, Model model) throws Exception{
+	public String list(MemberVO vo, Model model, HttpServletRequest request,
+			@RequestParam(required= false, defaultValue = "1") int range) throws Exception{
+		
+		int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page")); 
+		int listCnt = service.memberCnt(vo);
+		
+		vo.setPage(page);
+		vo.setRange(range);
+		vo.setListCnt(listCnt);
+		vo.pageInfo(page, range, listCnt);
 		
 		List<MemberVO> list = service.selectAllMember(vo);
-		int cnt = service.memberCnt(vo);
 		
-		model.addAttribute("cnt", cnt);
+		model.addAttribute("vo", vo);
+		model.addAttribute("cnt", listCnt);
 		model.addAttribute("list", list);
+		
 		return "member_list";
 	}
 	

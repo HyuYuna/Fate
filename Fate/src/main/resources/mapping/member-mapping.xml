@@ -146,23 +146,16 @@
 			MEMBER
 		<where>
 			<if test="ch1=='custno'">
-				AND CUSTNO LIKE concat('%',#{ch2},'%')
+				AND CUSTNO LIKE CONCAT('%',#{ch2},'%')
 			</if>
 			<if test="ch1=='name'">
-				AND CUSTNAME LIKE concat('%',#{ch2},'%')
+				AND CUSTNAME LIKE CONCAT('%',#{ch2},'%')
 			</if>
 		</where>
 		ORDER BY CUSTNO DESC
 		LIMIT #{startList} , #{listSize}
 	</select>
-	
-	<select id="selectAllMemberCnt" resultType="int">
-		SELECT
-			COUNT(*) as listCnt
-		FROM
-			MEMBER
-	</select>
-	
+
 	<select id="selectAllMemberJson" resultType="Map">
 		SELECT 
 			* 
@@ -197,7 +190,7 @@
 	<select id="memberCnt" parameterType="MemberVO" resultType="Integer">
 	 <![CDATA[
 	 	SELECT 
-	 		COUNT(*)
+	 		COUNT(*) as listCnt
 	 	FROM
 	 		MEMBER 
 	 ]]>
