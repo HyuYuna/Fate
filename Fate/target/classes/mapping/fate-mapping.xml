@@ -3,7 +3,7 @@
 <mapper namespace="fateDao">
 
 
-	<select id="login" parameterType="MemberVO" resultType="MemberVO">
+	<select id="login" parameterType="memberVO" resultType="memberVO">
 	  <![CDATA[
 	   SELECT 
 	   	   * 
@@ -14,7 +14,7 @@
 	  ]]>
 	</select>
 	
-	<insert id="joinUser" parameterType="MemberVO">
+	<insert id="joinUser" parameterType="memberVO">
 	 <![CDATA[
 		INSERT INTO USER
 		(

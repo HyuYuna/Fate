@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="layout/header.jsp" />
 <script>
 
 	let file_count = 1;
@@ -11,7 +10,7 @@
 	})
 	
 	function fn_addFile() {
-		var str = "<p><input type='file' name='uploadFile_"+(file_count++)+"'><a href='#this' class='btn btn-sm btn-primary' name='delete'>삭제</a></p>";
+		const str = "<p><input type='file' name='uploadFile_"+(file_count++)+"'><a href='#this' class='btn btn-sm btn-primary' name='delete'>삭제</a></p>";
 		$("#fileDiv").append(str);
 		$("a[name='delete']").on("click", function(e) {
 			fn_deleteFile($(this));
@@ -69,4 +68,3 @@
 	</form>
 </div>
 </section>
-<c:import url="layout/footer.jsp" />

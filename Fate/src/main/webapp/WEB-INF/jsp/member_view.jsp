@@ -2,20 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
-<c:import url="layout/header.jsp" />
 <script>
 	$(document).on('click', '#btnList', function() {
 		document.location.href = "memberList.do"
 	})
 	
+	let url;
+	
 	function fn_detail(custno) {
-		var url = "memberDtl.do";
+		url = "memberDtl.do";
 		url = url + "?custno=" + custno + "&mode=edit";
 		location.href = url;
 	}
 	
 	function fn_delete(custno) {
-		var url = "delete.do";
+		url = "delete.do";
 		url = url + "?custno=" + custno;
 		location.href = url;
 	}
@@ -44,4 +45,3 @@
 	</div>
 </div>
 </section>
-<c:import url="layout/footer.jsp" />

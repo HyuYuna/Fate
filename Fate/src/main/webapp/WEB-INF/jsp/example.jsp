@@ -6,10 +6,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/grid/i18n/grid.locale-kr.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/grid/minified/jquery.jqGrid.min.js"></script>
-<c:import url="layout/header.jsp" />
 <script type="text/javascript">
 
-var mydata = [
+const mydata = [
 	{id:"1",invdate:"2010-05-24",name:"test",note:"note",tax:"10.00",total:"2111.00"} ,
 	{id:"2",invdate:"2010-05-25",name:"test2",note:"note2",tax:"20.00",total:"320.00"},
 	{id:"3",invdate:"2007-09-01",name:"test3",note:"note3",tax:"30.00",total:"430.00"},

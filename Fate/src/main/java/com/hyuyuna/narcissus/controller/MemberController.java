@@ -23,7 +23,6 @@ import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.service.MemberService;
 import com.hyuyuna.narcissus.vo.FileVO;
 import com.hyuyuna.narcissus.vo.MemberVO;
-import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Controller
 public class MemberController {
@@ -37,12 +36,12 @@ public class MemberController {
 	
 	@RequestMapping(value="/form.do")
 	public String form(Model model) throws Exception {
-		return "member_dtl";
+		return "member_dtl.main";
 	}
 	
 	@RequestMapping(value="/fileForm.do")
 	public String fileForm(Model model) throws Exception {
-		return "fileForm";
+		return "fileForm.main";
 	}
 	
 	@RequestMapping(value="/example.do")
@@ -50,12 +49,12 @@ public class MemberController {
 		
 		MemberVO member = (MemberVO)sessionManager.getSession(request);
 		
-		return "example";
+		return "example.main";
 	}
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(Model model) throws Exception {
-		return "grid";
+		return "grid.main";
 	}
 	
 	@RequestMapping(value="/save.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -89,7 +88,7 @@ public class MemberController {
 		model.addAttribute("cnt", listCnt);
 		model.addAttribute("list", list);
 		
-		return "member_list";
+		return "member_list.main";
 	}
 	
 	/*@RequestMapping(value="/memberListJson.do")
@@ -130,7 +129,7 @@ public class MemberController {
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("list", list);
 		
-		return "member_file_list";
+		return "member_file_list.main";
 	}
 	
 	@RequestMapping(value="/delete.do")
@@ -172,7 +171,7 @@ public class MemberController {
 		
 		model.addAttribute("detail", detail);
 		
-		return "member_view";
+		return "member_view.main";
 	}
 	
 	@RequestMapping(value="/memberFileView.do")
@@ -185,7 +184,7 @@ public class MemberController {
 		model.addAttribute("detail", detail);
 		model.addAttribute("map", map);
 		
-		return "member_file_view";
+		return "member_file_view.main";
 	}
 		
 	
@@ -198,7 +197,7 @@ public class MemberController {
 		model.addAttribute("memberVO", new MemberVO());
 		model.addAttribute("mode",mode);
 
-		return "member_dtl";
+		return "member_dtl.main";
 	}
 	
 	@RequestMapping(value="/memberFileDtl.do")
@@ -212,7 +211,7 @@ public class MemberController {
 		model.addAttribute("map", map);
 		model.addAttribute("memberVO", new MemberVO());
 		
-		return "member_file_dtl";
+		return "member_file_dtl.main";
 	}
 	
 	@RequestMapping(value="/editUser.do")
@@ -228,15 +227,6 @@ public class MemberController {
 		service.editUser(vo);
 		
 		return "redirect:memberList.do";
-	}
-	
-	@RequestMapping(value="/moneyList.do")
-	public String moneyList(MoneyVO vo , Model model)  throws Exception {
-		
-		List<MoneyVO> list = service.moneylist();
-		model.addAttribute("moneylist",list);
-		
-		return "money_list";
 	}
 	
 	@RequestMapping(value="/fileInsert.do")

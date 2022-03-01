@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MemberVO extends pageVO{
+public class MemberVO extends PageVO{
 	
 	private int custno;
 	private int num;
@@ -21,8 +21,8 @@ public class MemberVO extends pageVO{
 	private String flag;
 	private String content;
 	
-	private String ch1;
-	private String ch2;
+	private String searchType;
+	private String keyword;
 	
 	private String fname;
 	
@@ -100,17 +100,17 @@ public class MemberVO extends pageVO{
 		this.content = content;
 	}
 	
-	public String getCh1() {
-		return ch1;
+	public String getSearchType() {
+		return searchType;
 	}
-	public void setCh1(String ch1) {
-		this.ch1 = ch1;
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
-	public String getCh2() {
-		return ch2;
+	public String getKeyword() {
+		return keyword;
 	}
-	public void setCh2(String ch2) {
-		this.ch2 = ch2;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	public String getCheckPwd() {
 		return checkPwd;

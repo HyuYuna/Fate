@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.hyuyuna.narcissus.vo.FileVO;
 import com.hyuyuna.narcissus.vo.MemberVO;
-import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Repository("memberDao")
 public class MemberDao extends AbstractDao {
@@ -20,8 +19,7 @@ public class MemberDao extends AbstractDao {
 
 	@SuppressWarnings("unchecked")
 	public List<MemberVO> selectAllmember(MemberVO vo) {
-		flag = vo.getFlag();
-		if (flag == "f") {
+		if (vo.getFlag() == "f") {
 			return (List<MemberVO>)selectList("memberDao.selectAllFilemember", vo);
 		} else {
 			return (List<MemberVO>)selectList("memberDao.selectAllmember", vo);
@@ -34,10 +32,10 @@ public class MemberDao extends AbstractDao {
 	}
 	
 	public int memberCnt(MemberVO vo) {
-		if (flag == "f") {
+		if (vo.getFlag() == "f") {
 			return (Integer)selectOne("memberDao.memberFileCnt");
 		} else {
-			return (Integer)selectOne("memberDao.memberCnt");
+			return (Integer)selectOne("memberDao.memberCnt", vo);
 		}
 	}
 	
@@ -69,11 +67,6 @@ public class MemberDao extends AbstractDao {
 	
 	public FileVO selectFileInfo(int num) {
 		return (FileVO)selectOne("memberDao.selectFileInfo", num);
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<MoneyVO> moneylist() {
-		return (List<MoneyVO>)selectList("memberDao.moneylist");
 	}
 
 	public void insertFileMember(Map<String,Object> map) {

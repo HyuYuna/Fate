@@ -46,7 +46,14 @@ public class FateController {
 	 } 
 	
 	@RequestMapping(value="/main.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String Main() {
+	public String main() {
+		
+		return "redirect:memberList.do";
+		
+	}
+	
+	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String login() {
 		
 		return "login";
 		
@@ -65,7 +72,7 @@ public class FateController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "redirect:memberList.do"; 
+		return "redirect:login.do"; 
 	}
 	
 	private void expiredCookie(HttpServletResponse response, String cookieName) {
@@ -74,7 +81,7 @@ public class FateController {
 		response.addCookie(cookie);
 	} 
 	
-	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/actionLogin.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String login(MemberVO vo, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		try {
@@ -94,7 +101,7 @@ public class FateController {
 				session.setAttribute("login", member);
 				session.setMaxInactiveInterval(3000);
 				
-				return "redirect:memberList.do";
+				return "main";
 			}
 			
 		} catch (Exception e) {

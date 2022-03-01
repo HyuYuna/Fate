@@ -4,26 +4,29 @@
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:import url="layout/header.jsp" />
 <script>
+	
+	let url;
+	
 	$(document).on('click', '#btnList', function() {
-		document.location.href = "memberList.do"
+		document.location.href = "memberFileList.do"
 	})
 	
+	
 	function fn_detail(custno) {
-		let url = "memberFileDtl.do";
+		url = "memberFileDtl.do";
 		url = url + "?custno=" + custno;
 		location.href = url;
 	}
 	
 	function fn_delete(custno,filename) {
-		let url = "deleteFileMember.do";
+		url = "deleteFileMember.do";
 		url = url + "?custno=" + custno + "&fname=" + filename;
 		location.href = url;
 	}
 	
 	function fn_fileDelete(filename) {
-		let url ="deleteFile.do";
+		url ="deleteFile.do";
 		url = url + "?filename=" + filename;
 		location.href = url;
 	}
@@ -31,7 +34,7 @@
 	function fn_downloadFile(num) {
 		//console.log(obj.parent());
 	 	//let num = obj.parent().find("#fileNum").val();
-		let url = "downloadFile.do";
+		url = "downloadFile.do";
 		url = url + "?num=" + num;
 		location.href = url;
 	}
@@ -68,4 +71,3 @@
 	</div>
 </div>
 </section>
-<c:import url="layout/footer.jsp" />

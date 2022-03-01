@@ -1,40 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:import url="layout/header.jsp" />
 <script>
+
+	let url;
+
+ 	$(document).ready(function(){
+ 		const searchType = "${vo.searchType}";
+ 		if(searchType != "" || searchType == null){
+ 			$('select[name=searchType]').val('${vo.searchType}').prop("selected",true);
+ 		}
+ 	});
+
 	function fn_view(custno) {
-		var url = "memberView.do";
+		url = "memberView.do";
 		url = url + "?custno=" + custno;
 		location.href = url;
 	}
 	
-	function fn_prev(page, range, rangeSize) {
+	function fn_prev(page, range, rangeSize, searchType, keyword) {
 	    var page = ((range - 2) * rangeSize) + 1;
 	    var range = range - 1;
 		
-	    var url = "${pageContext.request.contextPath}/memberList.do";
+	    url = "${pageContext.request.contextPath}/memberList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
+		url = url + "&searchType=" + searchType;
+	 	url = url + "&keyword=" + keyword; 
 		
 		location.href = url;
 	}
 	
-	function fn_pageination(page, range, rangeSize, searchType, keyword) {
-		var url = "${pageContext.request.contextPath}/memberList.do";
+	function fn_pagination(page, range, rangeSize, searchType, keyword) {
+		url = "${pageContext.request.contextPath}/memberList.do";
 	 	url = url + "?page=" + page;
 	 	url = url + "&range=" + range;
+	 	url = url + "&searchType=" + searchType;
+	 	url = url + "&keyword=" + keyword; 
 	 	
 	 	location.href = url;
 	}
 	
-	function fn_next(page, range, rangeSize) {
+	function fn_next(page, range, rangeSize, searchType, keyword) {
 		var page = parseInt(range * rangeSize) + 1;
 		var range = parseInt(range) + 1;
 		
-		var url = "${pageContext.request.contextPath}/memberList.do";
+		url = "${pageContext.request.contextPath}/memberList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
+		url = url + "&searchType=" + searchType;
+	 	url = url + "&keyword=" + keyword; 
 		
 		location.href = url;
 	}
@@ -73,11 +88,11 @@
 		</div>
 		
 		<form action="memberList.do" style="margin-bottom:5px;">
-			<select name="ch1">
+			<select name="searchType">
 				<option value="custno">번호</option>
 				<option value="name">이름</option>
 			</select>
-			<input type="text" name="ch2">
+			<input type="text" name="keyword" value="${vo.keyword}">
 			<button type="submit" class="btn btn-primary">검색하기</button>
 		</form>
 		
@@ -85,17 +100,19 @@
 			<ul class="pagination">
 				<c:if test="${vo.prev}">
 					<li class="page-item">
-						<a class="page-link" href="#" onclick="fn_prev('${vo.page}','${vo.range}','${vo.rangeSize}')">Previous</a>
+						<a class="page-link" href="#" onclick="fn_prev('${vo.page}','${vo.range}','${vo.rangeSize}', '${vo.searchType}', '${vo.keyword}')">Previous</a>
 					</li>
 				</c:if>
 				
 				<c:forEach begin="${vo.startPage}" end="${vo.endPage}" var="idx">
-					<a class="page-link" href="#" onclick="fn_pageination(${idx},'${vo.range}','${vo.rangeSize}')">${idx}</a>
+					<li class="page-item <c:out value="${vo.page == idx ? 'active' : '' } " /> ">
+						<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${vo.range}', '${vo.rangeSize}', '${vo.searchType}', '${vo.keyword}')"> ${idx} </a>
+					</li>
 				</c:forEach>
 				
 				<c:if test="${vo.next}">
 					<li class="page-item">
-						<a class="page-link" href="#" onClick="fn_next('${vo.page}', '${vo.range}', '${vo.rangeSize}')">Next</a>
+						<a class="page-link" href="#" onClick="fn_next('${vo.page}', '${vo.range}', '${vo.rangeSize}', '${vo.searchType}', '${vo.keyword}')">Next</a>
 					</li>
 				</c:if>
 			</ul>
@@ -103,4 +120,3 @@
 
 	</div>
 </section>
-<c:import url="layout/footer.jsp" />

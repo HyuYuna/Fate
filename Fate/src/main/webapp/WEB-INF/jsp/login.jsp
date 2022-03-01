@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.7.2.min.js"></script>
-<title>Insert title here</title>
+<title>로그인</title>
 </head>
 <style>
 html {
@@ -182,8 +182,8 @@ body {
 <script>
 	function logins() {
 		if(confirm("로그인하시겠습니다")) {
-			var url = document.login;
-			url.action="/fate/login.do";
+			const url = document.login;
+			url.action="/fate/actionLogin.do";
 			url.submit();
 		}
 	}

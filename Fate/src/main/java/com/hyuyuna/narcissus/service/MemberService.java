@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.hyuyuna.narcissus.vo.FileVO;
 import com.hyuyuna.narcissus.vo.MemberVO;
-import com.hyuyuna.narcissus.vo.MoneyVO;
 
 public interface MemberService {
 	
@@ -32,8 +31,6 @@ public interface MemberService {
 	public List<Map<String, Object>> selectFileList(int custno);
 	
 	public FileVO selectFileInfo(int num);
-	
-	public List<MoneyVO> moneylist();
 	
 	public void insertFileMember(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	

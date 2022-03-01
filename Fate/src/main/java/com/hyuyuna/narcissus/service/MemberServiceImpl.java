@@ -12,7 +12,6 @@ import com.hyuyuna.narcissus.common.FileUtils;
 import com.hyuyuna.narcissus.dao.MemberDao;
 import com.hyuyuna.narcissus.vo.FileVO;
 import com.hyuyuna.narcissus.vo.MemberVO;
-import com.hyuyuna.narcissus.vo.MoneyVO;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService{
@@ -75,11 +74,6 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public FileVO selectFileInfo(int num) {
 		return dao.selectFileInfo(num);
-	}
-	
-	@Override
-	public List<MoneyVO> moneylist() {
-		return dao.moneylist();
 	}
 	
 	@Override

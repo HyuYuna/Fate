@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="memberDao">
 
-	<resultMap type="MemberVO" id="Member">
+	<resultMap type="memberVO" id="member">
 		<result property="custno" column="custno" />
 		<result property="custname" column="CUSTNAME" />
 		<result property="phone" column="PHONE" />
@@ -11,13 +11,6 @@
 		<result property="grade" column="GRADE" />
 		<result property="city" column="CITY" />
 		<result property="content" column="CONTENT" />
-	</resultMap>
-	<resultMap type="MoneyVO" id="Money">
-		<result property="custno" column="custno" />
-		<result property="price" column="price" /> 
-		<result property="custname" column="custname" /> 
-		<result property="grade" column="grade" /> 
-		<collection property="memberVO" resultMap="Member" /> 
 	</resultMap>
 	<resultMap type="HashMap" id="Maps">
 		<result property="custno" column="custno" />
@@ -30,7 +23,7 @@
 	</resultMap>
 	
 	 
-	 <update id="editUser" parameterType="MemberVO">
+	 <update id="editUser" parameterType="memberVO">
 	 <![CDATA[
 		UPDATE 
 			USER
@@ -43,7 +36,7 @@
 	 ]]>
 	</update>
 	
-	<insert id="insertMember" parameterType="MemberVO">
+	<insert id="insertMember" parameterType="memberVO">
  	 <![CDATA[
 		INSERT INTO MEMBER
 		(
@@ -139,17 +132,17 @@
 	 ]]>
 	</update>
 	
-	<select id="selectAllmember" parameterType="MemberVO" resultMap="Member">
+	<select id="selectAllmember" parameterType="memberVO" resultMap="member">
 		SELECT 
 			* 
 		FROM 
 			MEMBER
 		<where>
-			<if test="ch1=='custno'">
-				AND CUSTNO LIKE CONCAT('%',#{ch2},'%')
+			<if test="searchType=='custno'">
+				AND CUSTNO LIKE CONCAT('%',#{keyword},'%')
 			</if>
-			<if test="ch1=='name'">
-				AND CUSTNAME LIKE CONCAT('%',#{ch2},'%')
+			<if test="searchType=='name'">
+				AND CUSTNAME LIKE CONCAT('%',#{keyword},'%')
 			</if>
 		</where>
 		ORDER BY CUSTNO DESC
@@ -165,7 +158,7 @@
 	</select>
 	
 	
-	<select id="selectAllFilemember" parameterType="MemberVO" resultType="MemberVO">
+	<select id="selectAllFilemember" parameterType="memberVO" resultType="memberVO">
 	 <![CDATA[
 		SELECT 
 			A.custno ,
@@ -187,16 +180,22 @@
 	 ]]>
 	</select>
 	
-	<select id="memberCnt" parameterType="MemberVO" resultType="Integer">
-	 <![CDATA[
+	<select id="memberCnt" parameterType="memberVO" resultType="Integer">
 	 	SELECT 
 	 		COUNT(*) as listCnt
 	 	FROM
 	 		MEMBER 
-	 ]]>
+	 	<where>
+			<if test="searchType=='custno'">
+				AND CUSTNO LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType=='name'">
+				AND CUSTNAME LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</where>
 	</select>
 	
-	<select id="memberFileCnt" parameterType="MemberVO" resultType="Integer">
+	<select id="memberFileCnt" parameterType="memberVO" resultType="Integer">
 	 <![CDATA[
 	 	SELECT 
 	 		COUNT(*)
@@ -205,7 +204,7 @@
 	 ]]>
 	</select>
 	
-	<select id="selectMember" parameterType="Integer" resultType="MemberVO">
+	<select id="selectMember" parameterType="Integer" resultType="memberVO">
 	  <![CDATA[
 	   SELECT 
 	   	   * 
@@ -216,7 +215,7 @@
 	  ]]>
 	</select>
 	
-	<select id="selectFileMember" parameterType="Integer" resultType="MemberVO">
+	<select id="selectFileMember" parameterType="Integer" resultType="memberVO">
 	  <![CDATA[
 	    SELECT 
 			custno ,
@@ -252,7 +251,7 @@
 	  ]]>
 	</select>
 	
-	<select id="selectFileInfo" parameterType="Integer" resultType="FileVO">
+	<select id="selectFileInfo" parameterType="Integer" resultType="fileVO">
 	  <![CDATA[
 	    SELECT 
 			CUSTNO ,
@@ -267,7 +266,7 @@
 	  ]]>
 	</select>
 	
-	<update id="updateMember" parameterType="MemberVO">
+	<update id="updateMember" parameterType="memberVO">
 	 <![CDATA[
 		UPDATE 
 			MEMBER 
@@ -283,22 +282,6 @@
 			CUSTNO = #{custno}
 	 ]]>
 	</update>
-	
-	<select id="moneylist" resultMap="Money">
-	  <![CDATA[
-	   SELECT 
-			M1.CUSTNO AS CUSTNO, M1.CUSTNAME AS CUSTNAME, M1.GRADE AS GRADE,  
-			SUM(M2.PRICE) AS PRICE 
-		FROM 
-			MEMBER M1
-		INNER JOIN 
-			MONEY M2 ON M1.CUSTNO = M2.CUSTNO 
-		GROUP BY 
-			M1.CUSTNO, M1.CUSTNAME, M1.GRADE 
-		ORDER BY 
-			SUM(M2.PRICE) 
-	  ]]>
-	</select>
 	
 	<update id="updateFileMember" parameterType="Map">
 	 <![CDATA[

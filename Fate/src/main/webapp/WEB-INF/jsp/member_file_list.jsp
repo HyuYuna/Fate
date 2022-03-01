@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:import url="layout/header.jsp" />
 <script>
+
+	let url;
+
 	function fn_view(custno) {
-		var url = "memberFileView.do";
+		url = "memberFileView.do";
 		url = url + "?custno=" + custno+"&mode=file";
 		location.href = url;
 	}
 	
 	function fn_delete(custno,filename) {
-		var url = "deleteFile.do";
+		url = "deleteFile.do";
 		url = url + "?custno=" + custno + "&fname=" + filename;
 		location.href = url;
 	}
@@ -56,4 +58,3 @@
 		</div>
 	</div>
 </section>
-<c:import url="layout/footer.jsp" />

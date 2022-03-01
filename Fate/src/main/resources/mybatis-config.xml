@@ -2,14 +2,15 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.hyuyuna.narcissus.vo.MemberVO" alias="MemberVO" />
-		<typeAlias type="com.hyuyuna.narcissus.vo.MoneyVO" alias="MoneyVO" />
-		<typeAlias type="com.hyuyuna.narcissus.vo.FileVO" alias="FileVO" />
+		<typeAlias type="com.hyuyuna.narcissus.vo.MemberVO" alias="memberVO" />
+		<typeAlias type="com.hyuyuna.narcissus.vo.FileVO" alias="fileVO" />
+		<typeAlias type="com.hyuyuna.narcissus.vo.ReplyVO" alias="replyVO" />
 	</typeAliases>	  
 	
 	<mappers>
 		<mapper resource="mapping/fate-mapping.xml" />
 		<mapper resource="mapping/member-mapping.xml" />
+		<mapper resource="mapping/reply-mapping.xml" />
 	</mappers>
 	
 </configuration>

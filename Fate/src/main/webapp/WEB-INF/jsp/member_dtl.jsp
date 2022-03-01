@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
-<c:import url="layout/header.jsp" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.css" />
 <script src="${pageContext.request.contextPath}/resources/summernote/summernote-bs4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.min.js"></script>
@@ -12,7 +11,6 @@
 		$('#summernote').summernote({
 	        minHeight: 370,
 	        maxHeight: null,
-	        focus: true, 
 	        lang : 'ko-KR',
 	        callbacks : {
 	        	onImageUpload : function(files, editor, welEditable) {
@@ -32,7 +30,7 @@
 	   })
 	   
 	   
-		var mode = '<c:out value="${mode}" />';
+		let mode = '<c:out value="${mode}" />';
 		if (mode == 'edit'){
 			$("input:hidden[name='custno']").val(<c:out value="${detail.custno}" />);
 			$("input:hidden[name='mode']").val('<c:out value="${mode}" />');
@@ -108,4 +106,3 @@
 	</form>
 </div>
 </section>
-<c:import url="layout/footer.jsp" />

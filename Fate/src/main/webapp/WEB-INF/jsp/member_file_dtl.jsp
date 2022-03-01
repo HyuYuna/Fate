@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<c:import url="layout/header.jsp" />
 <section>
 <script>
 	$(document).on('click', '#delete', function(e) {
@@ -22,10 +21,10 @@
 		$("#city").val('<c:out value="${detail.city}"/>');
 	});
 	
-	var file_count = "${fn:length(map)+1}";
+	let file_count = "${fn:length(map)+1}";
 	
 	function fn_addFile() {
-		var str = "<p><input type='file' id='uploadFile_"+(file_count)+"' name='uploadFile_"+(file_count)+"'><a href='#this' class='btn btn-sm btn-primary' id='delete' name='delete_"+(file_count)+"'>삭제</a></p>";
+		const str = "<p><input type='file' id='uploadFile_"+(file_count)+"' name='uploadFile_"+(file_count)+"'><a href='#this' class='btn btn-sm btn-primary' id='delete' name='delete_"+(file_count)+"'>삭제</a></p>";
 		$("#fileDiv").append(str);
 		$("#delete_"+(file_count++)).on("click", function(e) {
 			fn_deleteFile($(this));
@@ -91,4 +90,3 @@
 	</form>
 	</div>
 </section>
-<c:import url="layout/footer.jsp" />
