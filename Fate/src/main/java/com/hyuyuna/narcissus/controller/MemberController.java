@@ -1,15 +1,12 @@
 package com.hyuyuna.narcissus.controller;
 
-import java.io.File;
-import java.net.URLEncoder;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hyuyuna.narcissus.common.SHA256;
 import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.service.MemberService;
-import com.hyuyuna.narcissus.vo.FileVO;
 import com.hyuyuna.narcissus.vo.MemberVO;
+import com.hyuyuna.narcissus.vo.ReplyVO;
 
 @Controller
 public class MemberController {
@@ -36,12 +33,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/form.do")
 	public String form(Model model) throws Exception {
-		return "member_dtl.main";
-	}
-	
-	@RequestMapping(value="/fileForm.do")
-	public String fileForm(Model model) throws Exception {
-		return "fileForm.main";
+		return "member/member_dtl.main";
 	}
 	
 	@RequestMapping(value="/example.do")
@@ -88,7 +80,7 @@ public class MemberController {
 		model.addAttribute("cnt", listCnt);
 		model.addAttribute("list", list);
 		
-		return "member_list.main";
+		return "member/member_list.main";
 	}
 	
 	/*@RequestMapping(value="/memberListJson.do")
@@ -119,18 +111,6 @@ public class MemberController {
 
 		return obj;
 	} 
-
-	@RequestMapping(value = "/memberFileList.do")
-	public String fileList(MemberVO vo, Model model) throws Exception {
-		vo.setFlag("f");
-		List<MemberVO> list = service.selectAllMember(vo);
-		int cnt = service.memberCnt(vo);
-		
-		model.addAttribute("cnt", cnt);
-		model.addAttribute("list", list);
-		
-		return "member_file_list.main";
-	}
 	
 	@RequestMapping(value="/delete.do")
 	public String delete(MemberVO vo) throws Exception {
@@ -138,31 +118,6 @@ public class MemberController {
 		return "redirect:memberList.do";
 	}
 	
-	@RequestMapping(value="deleteFile.do")
-	public void deleteFile(HttpServletRequest request,
-				@RequestParam("filename") String filename) {
-		String realPath = request.getSession().getServletContext().getRealPath("/upfile/");
-		File file = new File(realPath+ "/" + filename);
-		file.delete();
-	}
-	
-	@RequestMapping(value="/deleteFileMember.do")
-	public String deleteFile(MemberVO vo, HttpServletRequest request) {
-			
-		int custno = vo.getCustno();
-		String realPath = request.getSession().getServletContext().getRealPath("/upfile/");
-		
-		
-			String fname = request.getParameter("fname");
-			File file = new File(realPath+ "/"+ fname);
-			file.delete();
-			System.out.println(realPath+fname);
-		
-		service.deleteFileMember(custno);
-		
-		return "redirect:memberFileList.do";
-
-	}
 	
 	@RequestMapping(value="/memberView.do")
 	public String memberView(MemberVO vo, Model model) throws Exception {
@@ -170,23 +125,10 @@ public class MemberController {
 		MemberVO detail = service.selectMember(vo.getCustno());
 		
 		model.addAttribute("detail", detail);
+		model.addAttribute("replyVO", new ReplyVO());
 		
-		return "member_view.main";
+		return "member/member_view.main";
 	}
-	
-	@RequestMapping(value="/memberFileView.do")
-	public String memberFileView(MemberVO vo, Model model) throws Exception {
-		
-		MemberVO detail = service.selectFileMember(vo.getCustno());
-		
-		List<Map<String,Object>> map = service.selectFileList(vo.getCustno());
-		
-		model.addAttribute("detail", detail);
-		model.addAttribute("map", map);
-		
-		return "member_file_view.main";
-	}
-		
 	
 	@RequestMapping(value="/memberDtl.do")
 	public String detail(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
@@ -197,21 +139,7 @@ public class MemberController {
 		model.addAttribute("memberVO", new MemberVO());
 		model.addAttribute("mode",mode);
 
-		return "member_dtl.main";
-	}
-	
-	@RequestMapping(value="/memberFileDtl.do")
-	public String Filedetail(MemberVO vo, Model model) throws Exception {
-
-		MemberVO detail = service.selectFileMember(vo.getCustno());
-		
-		List<Map<String,Object>> map = service.selectFileList(vo.getCustno());
-		
-		model.addAttribute("detail", detail);
-		model.addAttribute("map", map);
-		model.addAttribute("memberVO", new MemberVO());
-		
-		return "member_file_dtl.main";
+		return "member/member_dtl.main";
 	}
 	
 	@RequestMapping(value="/editUser.do")
@@ -229,42 +157,5 @@ public class MemberController {
 		return "redirect:memberList.do";
 	}
 	
-	@RequestMapping(value="/fileInsert.do")
-	public String fileInsert(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
-		
-		service.insertFileMember(map, request);
-		
-		return "redirect:memberFileList.do";
-	}
-	
-	@RequestMapping(value="/fileUpdate.do")
-	public String fileUpdate(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
-		
-		service.updateFileMember(map, request);
-		
-		return "redirect:memberFileList.do";
-	}
-	
-	@RequestMapping(value="/downloadFile.do")
-	public void downloadFile(HttpServletResponse response, @RequestParam("num") int num ) throws Exception {
-		
-		FileVO file = service.selectFileInfo(num);
-		String storedFileName = file.getStoredFileName();
-		String originalFileName  = file.getOriginalFileName();
-		
-		byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\Fate\\github\\files\\"+storedFileName));
-		
-		response.setContentType("application/octet-stream"); 
-		response.setContentLength(fileByte.length); 
-		
-		response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(originalFileName,"UTF-8")+"\";"); 
-		response.setHeader("Content-Transfer-Encoding", "binary"); 
-		
-		response.getOutputStream().write(fileByte); 
-		response.getOutputStream().flush(); 
-		response.getOutputStream().close(); 
-		
-	}
-
 
 }

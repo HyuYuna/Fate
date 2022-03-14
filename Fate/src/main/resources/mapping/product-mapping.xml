@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productDao">
+
+
+	<insert id="insertProduct" parameterType="Map">
+ 	 <![CDATA[
+		INSERT INTO PRODUCT
+		(
+			pdname, 
+			tel, 
+			address,
+			joindate
+		) VALUES (
+			#{pdname}, 
+			#{tel}, 
+			#{address},
+			#{joindate}
+		) 
+		 ]]>
+		 <selectKey keyProperty="serial" resultType="int" order="AFTER">
+		 	SELECT LAST_INSERT_ID()
+		 </selectKey>
+	</insert>
+	
+	<delete id="deleteProduct" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		PRODUCT
+	 	WHERE 
+	 		SERIAL = #{serial}
+	 ]]>
+	</delete>
+	
+	<delete id="deleteFile" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		FILE
+	 	WHERE 
+	 		SERIAL = #{serial}
+	 ]]>
+	</delete>
+	
+	<update id="deleteFileGbY" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'Y'
+	 	WHERE 
+	 		SERIAL = #{serial}
+	 ]]>
+	</update>
+	
+	<update id="deleteFileGbN" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'N'
+	 	WHERE 
+	 		NUM = #{num}
+	 ]]>
+	</update>
+	
+	<select id="selectAllProduct" parameterType="productVO" resultType="productVO">
+	 <![CDATA[
+		SELECT 
+			A.serial ,
+			A.pdname ,
+			A.tel ,
+			A.address , 
+			A.joindate ,
+			B.STORED_FILE_NAME AS fname
+		FROM 
+			PRODUCT AS A
+		LEFT JOIN
+			FILE AS B ON A.serial = B.serial AND B.DEL_GB ='N'
+		GROUP BY
+			A.SERIAL
+		ORDER BY 
+			A.SERIAL DESC
+	 ]]>
+	</select>
+	
+	<select id="productCnt" parameterType="productVO" resultType="Integer">
+	 <![CDATA[
+	 	SELECT 
+	 		COUNT(*)
+	 	FROM
+	 		PRODUCT
+	 ]]>
+	</select>
+
+	<select id="selectProduct" parameterType="Integer" resultType="productVO">
+	  <![CDATA[
+	    SELECT 
+			serial ,
+			pdname ,
+			tel ,
+			address , 
+			joindate
+		FROM 
+			PRODUCT
+		WHERE 
+	   	   SERIAL = #{serial}
+	    ORDER BY 
+			SERIAL DESC
+	  ]]>
+	</select>
+	
+	<select id="selectFileList" parameterType="Integer" resultType="Map">
+	  <![CDATA[
+	    SELECT 
+			NUM ,
+			ORIGINAL_FILE_NAME,
+		    ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+		FROM 
+			FILE
+		WHERE 
+	   	   SERIAL = #{serial}
+	   	AND 
+	   		DEL_GB = 'N'
+	    ORDER BY 
+			SERIAL DESC
+	  ]]>
+	</select>
+	
+	<select id="selectFileInfo" parameterType="Integer" resultType="fileVO">
+	  <![CDATA[
+	    SELECT 
+			serial ,
+			ORIGINAL_FILE_NAME as originalFileName,
+		    STORED_FILE_NAME as storedFileName
+		FROM 
+			FILE
+		WHERE 
+	   	   NUM = #{num} 
+	   	   AND DEL_GB = 'N'
+	   		
+	  ]]>
+	</select>
+
+	<update id="updateProduct" parameterType="Map">
+	 <![CDATA[
+		UPDATE 
+			PRODUCT
+		SET 
+			PDNAME= #{pdname}, 
+			TEL= #{tel}, 
+			ADDRESS= #{address}
+		WHERE 
+			SERIAL = #{serial}
+	 ]]>
+	</update>
+	
+	<insert id="insertFile" parameterType="HashMap">
+ 	 <![CDATA[
+		INSERT INTO FILE
+		(
+			SERIAL, 
+			ORIGINAL_FILE_NAME, 
+			STORED_FILE_NAME,
+			FILE_SIZE 
+		) VALUES (
+			#{serial}, 
+			#{ORIGINAL_FILE_NAME}, 
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		) 
+		 ]]>
+	</insert>
+	
+	
+</mapper>

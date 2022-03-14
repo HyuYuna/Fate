@@ -3,7 +3,7 @@ package com.hyuyuna.narcissus.vo;
 public class ReplyVO {
 	
 	private int num;
-	private int custno;
+	private int serial;
 	private String content;
 	private String reg_id;
 	private String reg_dt;
@@ -16,11 +16,11 @@ public class ReplyVO {
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public int getCustno() {
-		return custno;
+	public int getSerial() {
+		return serial;
 	}
-	public void setCustno(int custno) {
-		this.custno = custno;
+	public void setSerial(int serial) {
+		this.serial = serial;
 	}
 	public String getContent() {
 		return content;

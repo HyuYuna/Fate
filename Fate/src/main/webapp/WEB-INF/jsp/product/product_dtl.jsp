@@ -11,14 +11,11 @@
 	})
 	
 	$(document).ready(function(){
-		$("input:hidden[name='custno']").val('<c:out value="${detail.custno}" />');
-		$("input:hidden[name='mode']").val('<c:out value="${mode}" />');
-		$("#custname").val('<c:out value="${detail.custname}"/>');
-		$("#phone").val('<c:out value="${detail.phone}"/>');
+		$("input:hidden[name='serial']").val('<c:out value="${detail.serial}" />');
+		$("#pdname").val('<c:out value="${detail.pdname}"/>');
+		$("#tel").val('<c:out value="${detail.tel}"/>');
 		$("#address").val('<c:out value="${detail.address}"/>');
 		$("#joindate").val('<c:out value="${detail.joindate}"/>');
-		$("#grade").val('<c:out value="${detail.grade}"/>');
-		$("#city").val('<c:out value="${detail.city}"/>');
 	});
 	
 	let file_count = "${fn:length(map)+1}";
@@ -39,18 +36,17 @@
 	
 </script>
 <div class="container mt-50" role="main">
-	<div align="center"><font size=5><strong>회원정보 수정하기</strong></font></div> <br>
+	<div align="center"><font size=5><strong>제품 정보 수정하기</strong></font></div> <br>
 	<br><br>
-	<form action="fileUpdate.do" method="POST" id="form" enctype="multipart/form-data">
-		<input type="hidden" name="custno" />
-		<input type="hidden" name="mode" />
+	<form action="productUpdate.do" method="POST" id="form" enctype="multipart/form-data">
+		<input type="hidden" name="serial" />
 		<div class="mb-3">
 			<label for="custname">회원성명</label>
-			<input type=text class="form-control" name=custname id=custname size=10 placeholder="이름을 입력해 주세요">
+			<input type=text class="form-control" name=pdname id=pdname size=10 placeholder="이름을 입력해 주세요">
 		</div>
 		<div class="mb-3">
-			<label for="phone">회원전화</label>
-			<input type=text class="form-control" name=phone id=phone size=20 placeholder="번호을 입력해 주세요">
+			<label for="tel">회원전화</label>
+			<input type=text class="form-control" name=tel id=tel size=20 placeholder="번호을 입력해 주세요">
 		</div>
 		<div class="mb-3">
 			<label for="address">회원주소</label>
@@ -59,14 +55,6 @@
 			<div class="mb-3">
 			<label for="joindate">가입일자</label>
 			<input type=text class="form-control" name=joindate id=joindate size=10 placeholder="날짜를 입력해 주세요">
-		</div>
-		<div class="mb-3">
-			<label for="grade">고객등급<br>[A:VIP,B:일반,C:직원]</label>
-			<input type=text class="form-control" name=grade id=grade size=10 placeholder="등급을 입력해 주세요">
-		</div>
-		<div class="mb-3">
-			<label for="city">도시코드</label>
-			<input type=text class="form-control" name=city id=city size=10 placeholder="코드를 입력해 주세요">
 		</div>
 		<div id="fileDiv" class="mb-3">
 			<label for="uploadFile">첨부파일</label> <br/>
@@ -84,7 +72,7 @@
 		<div>
 			<button type="button" class="btn btn-sm btn-primary" id="addFile" onclick="fn_addFile();">파일추가</button>
 			<button type="submit" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-			<button type="button" class="btn btn-sm btn-primary" onClick="location.href='memberList.do'" id="btnList">목록</button>
+			<button type="button" class="btn btn-sm btn-primary" onClick="location.href='productList.do'" id="btnList">목록</button>
 			<button type="reset" class="btn btn-sm btn-primary" value="다시 입력">초기화</button>
 		</div>
 	</form>

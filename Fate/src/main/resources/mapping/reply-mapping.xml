@@ -2,38 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replyDao">
 	 
-	<select id="getReplyList" parameterType="replyVO">
+	<select id="getReplyList" resultType="replyVO">
 		SELECT
 			NUM ,
-			CUSTNO ,
+			SERIAL ,
 			CONTENT ,
 			REG_ID ,
 			REG_DT ,
 			EDIT_DT
 		FROM
-			TBL_REPLY
+			PD_REPLY
 		WHERE
-			CUSTNO = #{custno}
+			SERIAL = #{serial}
 		ORDER BY
 			REG_DT DESC
 	</select>
 	
 	<insert id="saveReply" parameterType="replyVO">
-		INSERT INTO TBL_REPLY
+		INSERT INTO PD_REPLY
 			(
-				BID, 
+				SERIAL, 
 				CONTENT, 
 				REG_ID, 
 				REG_DT, 
 				EDIT_DT
 			) VALUES (
-				#{bid},
+				#{serial},
 				#{content},
 				#{reg_id},
 				now(),
 				now(),
 			)
 	</insert>
+	
+	<update id="updateReply" parameterType="replyVO">
+		UPDATE 
+			PD_REPLY
+		SET
+			CONTENT = #{content}, 
+			EDIT_DT = now()
+		WHERE
+			num = #{num}
+	</update>
+
+
+	<delete id="deleteReply" parameterType="int">
+		DELETE FROM 
+			PD_REPLY
+		WHERE
+			num = #{num}
+	</delete>
+
+
+
 
 
 

@@ -40,7 +40,7 @@ public class FileUtils {
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String,Object> listMap = null;
 		
-		int custno = Integer.parseInt(String.valueOf(map.get("custno")));
+		int serial = Integer.parseInt(String.valueOf(map.get("serial")));
 		String requestName = null;
 		String num = null;
 		
@@ -70,7 +70,7 @@ public class FileUtils {
 				
 				listMap = new HashMap<String,Object>();
 				listMap.put("IS_NEW", "Y");
-				listMap.put("custno",custno);
+				listMap.put("serial",serial);
 				listMap.put("ORIGINAL_FILE_NAME", originalFileName); 
 				listMap.put("STORED_FILE_NAME", storedFileName);
 				listMap.put("FILE_SIZE", multipartFile.getSize());

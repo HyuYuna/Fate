@@ -11,19 +11,10 @@ import com.hyuyuna.narcissus.vo.MemberVO;
 @Repository("memberDao")
 public class MemberDao extends AbstractDao {
 	
-	String flag;
-
-	public void insertMember(MemberVO vo) {
-		insert("memberDao.insertMember" , vo);
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<MemberVO> selectAllmember(MemberVO vo) {
-		if (vo.getFlag() == "f") {
-			return (List<MemberVO>)selectList("memberDao.selectAllFilemember", vo);
-		} else {
-			return (List<MemberVO>)selectList("memberDao.selectAllmember", vo);
-		}
+		return (List<MemberVO>)selectList("memberDao.selectAllmember", vo);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -32,11 +23,11 @@ public class MemberDao extends AbstractDao {
 	}
 	
 	public int memberCnt(MemberVO vo) {
-		if (vo.getFlag() == "f") {
-			return (Integer)selectOne("memberDao.memberFileCnt");
-		} else {
-			return (Integer)selectOne("memberDao.memberCnt", vo);
-		}
+		return (Integer)selectOne("memberDao.memberCnt", vo);
+	}
+	
+	public void insertMember(MemberVO vo) {
+		insert("memberDao.insertMember" , vo);
 	}
 	
 	public void deleteMember(int custno) {

@@ -59,30 +59,6 @@
 		 ]]>
 	</insert>
 	
-	<insert id="insertFileMember" parameterType="Map">
- 	 <![CDATA[
-		INSERT INTO MEMBER_FILE
-		(
-			custname, 
-			phone, 
-			address,
-			joindate, 
-			grade, 
-			city
-		) VALUES (
-			#{custname}, 
-			#{phone}, 
-			#{address},
-			#{joindate}, 
-			#{grade}, 
-			#{city} 
-		) 
-		 ]]>
-		 <selectKey keyProperty="custno" resultType="int" order="AFTER">
-		 	SELECT LAST_INSERT_ID()
-		 </selectKey>
-	</insert>
-	
 	<delete id="deleteMember" parameterType="Integer">
 	 <![CDATA[
 	 	DELETE FROM 
@@ -91,46 +67,6 @@
 	 		CUSTNO = #{custno}
 	 ]]>
 	</delete>
-	
-	<delete id="deleteFileMember" parameterType="Integer">
-	 <![CDATA[
-	 	DELETE FROM 
-	 		MEMBER_FILE
-	 	WHERE 
-	 		CUSTNO = #{custno}
-	 ]]>
-	</delete>
-	
-	<delete id="deleteFile" parameterType="Integer">
-	 <![CDATA[
-	 	DELETE FROM 
-	 		FILE
-	 	WHERE 
-	 		CUSTNO = #{custno}
-	 ]]>
-	</delete>
-	
-	<update id="deleteFileGbY" parameterType="Map">
-	 <![CDATA[
-	 	UPDATE  
-	 		FILE
-	 	SET
-	 		DEL_GB = 'Y'
-	 	WHERE 
-	 		CUSTNO = #{custno}
-	 ]]>
-	</update>
-	
-	<update id="deleteFileGbN" parameterType="Map">
-	 <![CDATA[
-	 	UPDATE  
-	 		FILE
-	 	SET
-	 		DEL_GB = 'N'
-	 	WHERE 
-	 		NUM = #{num}
-	 ]]>
-	</update>
 	
 	<select id="selectAllmember" parameterType="memberVO" resultMap="member">
 		SELECT 
@@ -158,28 +94,6 @@
 	</select>
 	
 	
-	<select id="selectAllFilemember" parameterType="memberVO" resultType="memberVO">
-	 <![CDATA[
-		SELECT 
-			A.custno ,
-			A.custname ,
-			A.phone ,
-			A.address , 
-			A.joindate ,
-			A.grade ,
-			A.city ,
-			B.STORED_FILE_NAME AS fname
-		FROM 
-			MEMBER_FILE AS A
-		LEFT JOIN
-			FILE AS B ON A.CUSTNO = B.CUSTNO AND B.DEL_GB ='N'
-		GROUP BY
-			A.CUSTNO
-		ORDER BY 
-			A.CUSTNO DESC
-	 ]]>
-	</select>
-	
 	<select id="memberCnt" parameterType="memberVO" resultType="Integer">
 	 	SELECT 
 	 		COUNT(*) as listCnt
@@ -195,14 +109,6 @@
 		</where>
 	</select>
 	
-	<select id="memberFileCnt" parameterType="memberVO" resultType="Integer">
-	 <![CDATA[
-	 	SELECT 
-	 		COUNT(*)
-	 	FROM
-	 		MEMBER_FILE
-	 ]]>
-	</select>
 	
 	<select id="selectMember" parameterType="Integer" resultType="memberVO">
 	  <![CDATA[
@@ -212,57 +118,6 @@
 	   	   MEMBER 
 	   WHERE 
 	   	   CUSTNO = #{custno}
-	  ]]>
-	</select>
-	
-	<select id="selectFileMember" parameterType="Integer" resultType="memberVO">
-	  <![CDATA[
-	    SELECT 
-			custno ,
-			custname ,
-			phone ,
-			address , 
-			joindate ,
-			grade ,
-			city 
-		FROM 
-			MEMBER_FILE
-		WHERE 
-	   	   CUSTNO = #{custno}
-	    ORDER BY 
-			CUSTNO DESC
-	  ]]>
-	</select>
-	
-	<select id="selectFileList" parameterType="Integer" resultType="Map">
-	  <![CDATA[
-	    SELECT 
-			NUM ,
-			ORIGINAL_FILE_NAME,
-		    ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
-		FROM 
-			FILE
-		WHERE 
-	   	   CUSTNO = #{custno}
-	   	AND 
-	   		DEL_GB = 'N'
-	    ORDER BY 
-			CUSTNO DESC
-	  ]]>
-	</select>
-	
-	<select id="selectFileInfo" parameterType="Integer" resultType="fileVO">
-	  <![CDATA[
-	    SELECT 
-			CUSTNO ,
-			ORIGINAL_FILE_NAME as originalFileName,
-		    STORED_FILE_NAME as storedFileName
-		FROM 
-			FILE
-		WHERE 
-	   	   NUM = #{num} 
-	   	   AND DEL_GB = 'N'
-	   		
 	  ]]>
 	</select>
 	
@@ -282,38 +137,5 @@
 			CUSTNO = #{custno}
 	 ]]>
 	</update>
-	
-	<update id="updateFileMember" parameterType="Map">
-	 <![CDATA[
-		UPDATE 
-			MEMBER_FILE
-		SET 
-			CUSTNAME= #{custname}, 
-			PHONE= #{phone}, 
-			ADDRESS= #{address},  
-			GRADE= #{grade}, 
-			CITY= #{city} 
-		WHERE 
-			CUSTNO = #{custno}
-	 ]]>
-	</update>
-	
-	<insert id="insertFile" parameterType="HashMap">
- 	 <![CDATA[
-		INSERT INTO FILE
-		(
-			custno, 
-			ORIGINAL_FILE_NAME, 
-			STORED_FILE_NAME,
-			FILE_SIZE 
-		) VALUES (
-			#{custno}, 
-			#{ORIGINAL_FILE_NAME}, 
-			#{STORED_FILE_NAME},
-			#{FILE_SIZE}
-		) 
-		 ]]>
-	</insert>
-	
 	
 </mapper>

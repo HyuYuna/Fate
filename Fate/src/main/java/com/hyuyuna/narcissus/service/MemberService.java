@@ -10,13 +10,13 @@ import com.hyuyuna.narcissus.vo.MemberVO;
 
 public interface MemberService {
 	
-	public void insertMember(MemberVO vo);
-	
 	public List<MemberVO> selectAllMember(MemberVO vo);
 	
 	public List<Map<String, Object>> selectAllMemberJson();
 	
 	public int memberCnt(MemberVO vo);
+	
+	public void insertMember(MemberVO vo);
 	
 	public void deleteMember(int custno);
 	
@@ -26,16 +26,4 @@ public interface MemberService {
 	
 	public MemberVO selectMember(int custno);
 	
-	public MemberVO selectFileMember(int custno) throws Exception;
-	
-	public List<Map<String, Object>> selectFileList(int custno);
-	
-	public FileVO selectFileInfo(int num);
-	
-	public void insertFileMember(Map<String, Object> map, HttpServletRequest request) throws Exception ;
-	
-	public void updateFileMember(Map<String, Object> map, HttpServletRequest request) throws Exception ;
-	
-	public void deleteFileMember(int custno);
-
 }

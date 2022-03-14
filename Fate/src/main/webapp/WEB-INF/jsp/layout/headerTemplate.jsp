@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" />
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     <style>
       .bd-placeholder-img {
@@ -42,15 +43,15 @@
           <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">등록</a>
 	        <div class="dropdown-menu" aria-labelledby="dropdown01">
-	          <a class="dropdown-item" href="form.do">회원등록</a>
-	          <a class="dropdown-item" href="fileForm.do">이미지 회원등록</a>
+	          <a class="dropdown-item" href="form.do">회원 등록</a>
+	          <a class="dropdown-item" href="productForm.do">물품 등록</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-expanded="false">조회/수정</a>
 	        <div class="dropdown-menu" aria-labelledby="dropdown02">
-	          <a class="dropdown-item" href="memberList.do">회원목록 조회/수정</a>
-	          <a class="dropdown-item" href="memberFileList.do?flag=f">이미지 회원목록 조회/수정</a>
+	          <a class="dropdown-item" href="memberList.do">회원 목록 조회/수정</a>
+	          <a class="dropdown-item" href="productList.do">물품 목록 조회/수정</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">

@@ -32,7 +32,7 @@
 	   
 		let mode = '<c:out value="${mode}" />';
 		if (mode == 'edit'){
-			$("input:hidden[name='custno']").val(<c:out value="${detail.custno}" />);
+			$("input:hidden[name='custno']").val('<c:out value="${detail.custno}" />');
 			$("input:hidden[name='mode']").val('<c:out value="${mode}" />');
 			$("#custname").val('<c:out value="${detail.custname}"/>');
 			$("#phone").val('<c:out value="${detail.phone}"/>');

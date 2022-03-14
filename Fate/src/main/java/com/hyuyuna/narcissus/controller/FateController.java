@@ -90,7 +90,7 @@ public class FateController {
 			MemberVO member = service.login(vo);
 			if (member == null) {
 				model.addAttribute("message","로그인에 실패하였습니다");
-				return "redirect:main.do";
+				return "redirect:login.do";
 			} else {
 				/*
 				 * Cookie idCookie = new Cookie("memberId", String.valueOf(member.getId()));
@@ -101,13 +101,13 @@ public class FateController {
 				session.setAttribute("login", member);
 				session.setMaxInactiveInterval(3000);
 				
-				return "main";
+				return "redirect:main.do";
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("message", "로그인에 실패하였습니다");
-			return "redirect:main.do";
+			return "redirect:login.do";
 		}
 		
 	}
