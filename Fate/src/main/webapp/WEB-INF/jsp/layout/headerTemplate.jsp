@@ -9,7 +9,6 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" />
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.bundle.min.js"></script>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     <style>
       .bd-placeholder-img {

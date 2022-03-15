@@ -41,19 +41,19 @@
 	<form action="productUpdate.do" method="POST" id="form" enctype="multipart/form-data">
 		<input type="hidden" name="serial" />
 		<div class="mb-3">
-			<label for="custname">회원성명</label>
+			<label for="custname">제품명</label>
 			<input type=text class="form-control" name=pdname id=pdname size=10 placeholder="이름을 입력해 주세요">
 		</div>
 		<div class="mb-3">
-			<label for="tel">회원전화</label>
+			<label for="tel">연락처</label>
 			<input type=text class="form-control" name=tel id=tel size=20 placeholder="번호을 입력해 주세요">
 		</div>
 		<div class="mb-3">
-			<label for="address">회원주소</label>
+			<label for="address">판매주소</label>
 			<input type=text class="form-control" name=address id=address size=40 placeholder="주소를 입력해 주세요">
 		</div>
 			<div class="mb-3">
-			<label for="joindate">가입일자</label>
+			<label for="joindate">등록일자</label>
 			<input type=text class="form-control" name=joindate id=joindate size=10 placeholder="날짜를 입력해 주세요">
 		</div>
 		<div id="fileDiv" class="mb-3">
