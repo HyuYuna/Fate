@@ -125,8 +125,7 @@ public class MemberController {
 		MemberVO detail = service.selectMember(vo.getCustno());
 		
 		model.addAttribute("detail", detail);
-		model.addAttribute("replyVO", new ReplyVO());
-		
+
 		return "member/member_view.main";
 	}
 	

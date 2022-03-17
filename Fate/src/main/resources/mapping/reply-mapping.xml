@@ -31,7 +31,7 @@
 				#{content},
 				#{reg_id},
 				now(),
-				now(),
+				now()
 			)
 	</insert>
 	

@@ -6,10 +6,10 @@
 
 <script>
 	
-	let url;
-	let htmls;
-	let paramData;
-	let headers;
+	let url = null;
+	let htmls = null;
+	let paramData = null;
+	let headers = null;
 	
 	$(document).ready(function(){
 		showReplyList();
@@ -169,6 +169,23 @@
 			
 		});
 		
+	}
+	
+	function fn_deleteReply(num) {
+		paramData = {"num": num};
+		
+		$.ajax({
+			url : "deleteReply.do" ,
+			data : paramData ,
+			type : 'POST' ,
+			dataType : 'text' ,
+			success : function(result) {
+				showReplyList();
+			} , 
+			error : function(error) {
+				console.log("에러 : " + error);
+			} 
+		});
 	}
 	
 	

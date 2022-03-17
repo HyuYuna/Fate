@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +39,7 @@ public class ReplyController {
 	
 	@RequestMapping(value="/saveReply.do", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> saveReply(@RequestParam ReplyVO replyVO) throws Exception {
+	public Map<String,Object> saveReply(@RequestBody ReplyVO replyVO) throws Exception {
 		Map<String, Object> result = new HashMap();
 		
 		try {
@@ -54,7 +55,8 @@ public class ReplyController {
 	
 	
 	@RequestMapping(value="/updateReply.do", method=RequestMethod.POST)
-	public Map<String,Object> updateReply(@RequestParam ReplyVO replyVO) throws Exception {
+	@ResponseBody
+	public Map<String,Object> updateReply(@RequestBody ReplyVO replyVO) throws Exception {
 		Map<String, Object> result = new HashMap();
 		try {
 			service.updateReply(replyVO);
@@ -66,6 +68,21 @@ public class ReplyController {
 		
 		return result;
 	
+	}
+	
+	@RequestMapping(value="/deleteReply.do", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> deleteReply(@RequestParam("num") int num) throws Exception {
+		Map<String, Object> result = new HashMap();
+		try {
+			service.deleteReply(num);
+			result.put("status", "OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("status", "False");
+		}
+		
+		return result;
 	}
 	
 }
