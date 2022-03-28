@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 public class SHA256 {
 
 
-
 	public static String getSHA256(String data) {
 
 		String SHA = "";
@@ -26,6 +25,7 @@ public class SHA256 {
 		return SHA;
 	}
 	
+	// 암호화
 	public static String encrypt(String planText) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");

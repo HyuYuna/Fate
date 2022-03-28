@@ -1,6 +1,7 @@
 package com.hyuyuna.narcissus.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,24 +32,19 @@ public class MemberController {
 	private SessionManager sessionManager;
 	
 	
+	// 회원 등록 화면
 	@RequestMapping(value="/form.do")
 	public String form(Model model) throws Exception {
 		return "member/member_dtl.main";
 	}
 	
-	@RequestMapping(value="/example.do")
-	public String example(Model model, HttpServletRequest request) throws Exception {
-		
-		MemberVO member = (MemberVO)sessionManager.getSession(request);
-		
-		return "example.main";
-	}
-	
+	// 그리드 화면
 	@RequestMapping(value="/grid.do")
 	public String grid(Model model) throws Exception {
 		return "grid.main";
 	}
 	
+	// 회원 저장 및 수정
 	@RequestMapping(value="/save.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String insert(MemberVO vo,
 				@RequestParam("mode") String mode) throws Exception {
@@ -62,6 +58,7 @@ public class MemberController {
 		return "redirect:memberList.do";
 	}
 	
+	// 회원 목록
 	@RequestMapping(value="/memberList.do")
 	public String list(MemberVO vo, Model model, HttpServletRequest request,
 			@RequestParam(required= false, defaultValue = "1") int range) throws Exception{
@@ -83,7 +80,8 @@ public class MemberController {
 		return "member/member_list.main";
 	}
 	
-	/*@RequestMapping(value="/memberListJson.do")
+	
+	/* @RequestMapping(value="/memberListJson.do")
 	public ModelAndView memberListJson(HttpSession session,
 					@ModelAttribute("MemberVO") MemberVO vo){
 		
@@ -97,7 +95,7 @@ public class MemberController {
 		return mnv;
 	} */
 
-	@RequestMapping(value="/memberListJson.do", method=RequestMethod.POST)
+	/* @RequestMapping(value="/memberListJson.do", method=RequestMethod.POST)
 	@ResponseBody
 	public MemberVO memberListJson(
 						@RequestParam(value="page", required=false) String page,
@@ -110,15 +108,52 @@ public class MemberController {
 		obj.setRows(memberList);
 
 		return obj;
+	} */
+	
+    // 회원 목록(그리드용)
+	@RequestMapping(value="/memberListJson.do", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> memberListJson(
+						@RequestParam(value="page", required=false) int page,
+						@RequestParam(value="rows", required=false) int rows,
+						@RequestParam(value="sidx", required=false) String sidx,
+						@RequestParam(value="sord", required=false) String sord) {
+		
+		int startCount = (page-1) * rows + 1;
+		int endCount = page * rows;
+		int total;
+		int records;
+							
+		List<MemberVO> memberList = null;
+		
+		HashMap<String, Object> order = new HashMap<String, Object>();
+		order.put("SORD", sord);
+		order.put("SIDX", sidx);
+		order.put("startCount", startCount);
+		order.put("endCount", endCount);
+		
+		memberList = service.selectAllMemberJson(order);
+		
+		HashMap<String, Object> resMap = new HashMap<String, Object>();
+		total = service.totalPage(rows);
+		records = service.totalRecords();
+		
+		resMap.put("page", page);
+		resMap.put("total", total);
+		resMap.put("records", records);
+		resMap.put("rows", memberList);
+		
+		return resMap;
 	} 
 	
+	// 회원 삭제
 	@RequestMapping(value="/delete.do")
 	public String delete(MemberVO vo) throws Exception {
 		service.deleteMember(vo.getCustno());
 		return "redirect:memberList.do";
 	}
 	
-	
+	// 회원 정보화면
 	@RequestMapping(value="/memberView.do")
 	public String memberView(MemberVO vo, Model model) throws Exception {
 		
@@ -129,6 +164,7 @@ public class MemberController {
 		return "member/member_view.main";
 	}
 	
+	// 회원 상세
 	@RequestMapping(value="/memberDtl.do")
 	public String detail(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
 
@@ -139,21 +175,6 @@ public class MemberController {
 		model.addAttribute("mode",mode);
 
 		return "member/member_dtl.main";
-	}
-	
-	@RequestMapping(value="/editUser.do")
-	public String editUser(MemberVO vo, Model model) throws Exception {
-
-		try {
-			String shapass = SHA256.getSHA256(vo.getPwd());
-			vo.setPwd1(shapass);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		service.editUser(vo);
-		
-		return "redirect:memberList.do";
 	}
 	
 

@@ -11,24 +11,33 @@
 	$(document).ready(function() {
 		jQuery("#list").jqGrid({
 			url : "/fate/memberListJson.do",
+			styleUI : 'Bootstrap' ,
 			datatype : "json",
 			mtype: 'POST',
 			jsonReader: {
-		         repeatitems:false
+		         total : "total" ,
+		         records : "records" ,
+		         page : "page" ,
+	        	 repeatitems : false
 		    },
 			height : 250,
-			colNames : [ '번호', '이름', '등급', '도시' ],
+			colNames : [ '번호', '이름', '주소', '등급', '도시' ],
 			colModel : [ 
 				{name : 'custno', align : 'right'}, 
 				{name : 'custname', align : 'right'}, 
+				{name : 'address', align : 'right'}, 
 				{name : 'grade', align : 'right'}, 
 				{name : 'city', align : 'right',hidden:true, editrules: {edithidden: true}}
-			],
+			],	
 			rowNum:10,
 			rowList:[10,20,30],
 			pager:'#pager',
 			viewrecords : true,
-		    caption:"JSON Example"
+			multiselect : true,
+			showpage : true,
+		    caption:"회원 관리" ,
+		    sortorder : "asc",
+		    sortname : "custno"
 		});
 		jQuery("#list").jqGrid('navGrid','#pager',{edit:false,add:false,del:false});
 	});
@@ -37,10 +46,8 @@
 </script>
 
 <body>
-	<div class="row">
-	<div>
+	<div style="margin:8px;">
 		<table id="list"></table>
 		<div id="pager"></div>
 	</div>
-</div>
 </body>

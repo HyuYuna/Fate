@@ -17,6 +17,7 @@ public class SessionManager {
 	 public static final String SESSION_COOKIE_NAME = "Fate";
 	 private Map<String,Object> sessionStore = new ConcurrentHashMap<>();
 	 
+	 // 세션 생성
 	 public void createSession(Object value, HttpServletResponse response) {
 		 
 		 String sessionId = UUID.randomUUID().toString();
@@ -26,6 +27,7 @@ public class SessionManager {
 		 response.addCookie(cookie);
 	 }
 	 
+	 // 세션 가져오기
 	 public Object getSession(HttpServletRequest request) throws UnsupportedEncodingException {
  		 Cookie cookie = findCookie(request, SESSION_COOKIE_NAME);
 		 if (cookie == null) {
@@ -34,6 +36,7 @@ public class SessionManager {
 		 return sessionStore.get(cookie.getValue());
 	 }
 	 
+	// 세션 만료
 	public void expire(HttpServletRequest request) throws UnsupportedEncodingException {
 		 Cookie cookie = findCookie(request, SESSION_COOKIE_NAME);
 		 if (cookie != null) {
@@ -41,6 +44,7 @@ public class SessionManager {
 		 }
 	 }
 	 
+	// 세선 찾기
 	 public Cookie findCookie(HttpServletRequest request, String cookieName) throws UnsupportedEncodingException {
 		 if (request.getCookies() == null) {
 			 return null;

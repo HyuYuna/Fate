@@ -10,82 +10,53 @@ import com.hyuyuna.narcissus.vo.MemberVO;
 
 @Repository("memberDao")
 public class MemberDao extends AbstractDao {
-	
 
+	// 전체 회원 목록
 	@SuppressWarnings("unchecked")
 	public List<MemberVO> selectAllmember(MemberVO vo) {
 		return (List<MemberVO>)selectList("memberDao.selectAllmember", vo);
 	}
 	
+	// 전체 회원(그리드용)
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectAllMemberJson() {
-		return (List<Map<String, Object>>)selectList("memberDao.selectAllMemberJson");
+	public List<MemberVO> selectAllMemberJson(Map<String, Object> map) {
+		return (List<MemberVO>)selectList("memberDao.selectAllMemberJson", map);
 	}
 	
+	// 회원수
 	public int memberCnt(MemberVO vo) {
 		return (Integer)selectOne("memberDao.memberCnt", vo);
 	}
 	
+	// 총 페이지
+	public int totalPage(int rows) {
+		return (Integer)selectOne("memberDao.totalPage", rows);
+	}
+	
+	// 총 회원수
+	public int totalRecords() {
+		return (Integer)selectOne("memberDao.totalRecords");
+	}
+
+	// 회원 등록
 	public void insertMember(MemberVO vo) {
 		insert("memberDao.insertMember" , vo);
 	}
 	
+	// 회원 삭제
 	public void deleteMember(int custno) {
 		delete("memberDao.deleteMember", custno);
 	}
 
+	// 회원 수정
 	public void updateMember(MemberVO vo) {
 		int k = (Integer)update("memberDao.updateMember", vo);
 		System.out.println("으으윽"+ k);
 	}
 	
-	public void editUser(MemberVO vo) {
-		update("memberDao.editUser", vo);
-	}
-
+	// 회원 상세
 	public MemberVO selectMember(int custno) {
 		return (MemberVO)selectOne("memberDao.selectMember", custno);
-	}
-	
-	public MemberVO selectFileMember(int custno) {
-		return (MemberVO)selectOne("memberDao.selectFileMember", custno);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectFileList(int custno) {
-		return (List<Map<String, Object>>)selectList("memberDao.selectFileList", custno);
-	}
-	
-	public FileVO selectFileInfo(int num) {
-		return (FileVO)selectOne("memberDao.selectFileInfo", num);
-	}
-
-	public void insertFileMember(Map<String,Object> map) {
-		insert("memberDao.insertFileMember", map);
-	}
-	
-	public void updateFileMember(Map<String,Object> map) {
-		insert("memberDao.updateFileMember", map);
-	}
-
-	public void deleteFileMember(int custno) {
-		delete("memberDao.deleteFileMember", custno);
-	}
-	
-	public void deleteFile(int custno) {
-		delete("memberDao.deleteFile", custno);
-	}
-	
-	public void deleteFileGbY(Map<String,Object> map) {
-		update("memberDao.deleteFileGbY", map);
-	}
-
-	public void deleteFileGbN(Map<String,Object> map) {
-		update("memberDao.deleteFileGbN", map);
-	}
-	
-	public void insertFile(Map<String,Object> map) {
-		insert("memberDao.insertFile", map);
 	}
 	 
 }

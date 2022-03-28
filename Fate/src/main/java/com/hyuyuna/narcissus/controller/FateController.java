@@ -16,6 +16,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,7 @@ public class FateController {
 		
 	}
 	
+	// 로그인
 	@RequestMapping(value="login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String login() {
 		
@@ -59,6 +61,7 @@ public class FateController {
 		
 	}
 	
+	// 로그아웃
 	@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletResponse response, HttpServletRequest request) {
 		/*expiredCookie(response, "memberId");
@@ -75,12 +78,14 @@ public class FateController {
 		return "redirect:login.do"; 
 	}
 	
+	// 쿠키 만료시간 설정
 	private void expiredCookie(HttpServletResponse response, String cookieName) {
 		Cookie cookie = new Cookie(cookieName, null);
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
 	} 
 	
+	// 로그인
 	@RequestMapping(value="/actionLogin.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String login(MemberVO vo, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
@@ -112,6 +117,8 @@ public class FateController {
 		
 	}
 	
+	
+	// 회원 가입
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
 	public String join(MemberVO vo) throws Exception {
 		
@@ -126,7 +133,34 @@ public class FateController {
 		return "redirect:memberList.do";
 	}
 	
+	// 회원 수정
+	@RequestMapping(value="/editUser.do")
+	public String editUser(MemberVO vo, Model model) throws Exception {
+
+		try {
+			String shapass = SHA256.getSHA256(vo.getPwd());
+			vo.setPwd1(shapass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		service.editUser(vo);
+		
+		return "redirect:memberList.do";
+	}
 	
+	// 아이디 중복체크
+	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int idCheck(@RequestParam("id") String id) {
+		
+		int check = service.idCheck(id);
+		
+		return check;
+	}
+	
+	
+	// 이미지 파일 가져오기
 	@RequestMapping(value="/getImage.do")
 	public void getImage(HttpServletRequest req, HttpSession session, HttpServletResponse res) throws Exception {
 		
@@ -173,6 +207,7 @@ public class FateController {
 		}
 	}
 	
+	// 첨부파일 업로드
 	@RequestMapping(value="/uploadSummernoteImageFile.do", produces = "application/json; charset=utf8", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelMap uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, ModelMap model)  {

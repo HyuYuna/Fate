@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="productDao">
 
-
+	<!-- 제품 등록 -->
 	<insert id="insertProduct" parameterType="Map">
  	 <![CDATA[
 		INSERT INTO PRODUCT
@@ -23,6 +23,21 @@
 		 </selectKey>
 	</insert>
 	
+	<!-- 제품 수정 -->
+	<update id="updateProduct" parameterType="Map">
+	 <![CDATA[
+		UPDATE 
+			PRODUCT
+		SET 
+			PDNAME= #{pdname}, 
+			TEL= #{tel}, 
+			ADDRESS= #{address}
+		WHERE 
+			SERIAL = #{serial}
+	 ]]>
+	</update>
+	
+	 <!-- 제품 삭제 -->
 	<delete id="deleteProduct" parameterType="Integer">
 	 <![CDATA[
 	 	DELETE FROM 
@@ -32,37 +47,7 @@
 	 ]]>
 	</delete>
 	
-	<delete id="deleteFile" parameterType="Integer">
-	 <![CDATA[
-	 	DELETE FROM 
-	 		FILE
-	 	WHERE 
-	 		SERIAL = #{serial}
-	 ]]>
-	</delete>
-	
-	<update id="deleteFileGbY" parameterType="Map">
-	 <![CDATA[
-	 	UPDATE  
-	 		FILE
-	 	SET
-	 		DEL_GB = 'Y'
-	 	WHERE 
-	 		SERIAL = #{serial}
-	 ]]>
-	</update>
-	
-	<update id="deleteFileGbN" parameterType="Map">
-	 <![CDATA[
-	 	UPDATE  
-	 		FILE
-	 	SET
-	 		DEL_GB = 'N'
-	 	WHERE 
-	 		NUM = #{num}
-	 ]]>
-	</update>
-	
+	<!--  제품 목록 -->
 	<select id="selectAllProduct" parameterType="productVO" resultType="productVO">
 	 <![CDATA[
 		SELECT 
@@ -83,15 +68,7 @@
 	 ]]>
 	</select>
 	
-	<select id="productCnt" parameterType="productVO" resultType="Integer">
-	 <![CDATA[
-	 	SELECT 
-	 		COUNT(*)
-	 	FROM
-	 		PRODUCT
-	 ]]>
-	</select>
-
+	<!-- 제품 상세 -->
 	<select id="selectProduct" parameterType="Integer" resultType="productVO">
 	  <![CDATA[
 	    SELECT 
@@ -109,6 +86,17 @@
 	  ]]>
 	</select>
 	
+	<!-- 제품 수 -->
+	<select id="productCnt" parameterType="productVO" resultType="Integer">
+	 <![CDATA[
+	 	SELECT 
+	 		COUNT(*)
+	 	FROM
+	 		PRODUCT
+	 ]]>
+	</select>
+
+	<!-- 제품 첨부파일 목록 -->
 	<select id="selectFileList" parameterType="Integer" resultType="Map">
 	  <![CDATA[
 	    SELECT 
@@ -126,6 +114,7 @@
 	  ]]>
 	</select>
 	
+	<!-- 제품 첨부파일 정보 -->
 	<select id="selectFileInfo" parameterType="Integer" resultType="fileVO">
 	  <![CDATA[
 	    SELECT 
@@ -141,19 +130,7 @@
 	  ]]>
 	</select>
 
-	<update id="updateProduct" parameterType="Map">
-	 <![CDATA[
-		UPDATE 
-			PRODUCT
-		SET 
-			PDNAME= #{pdname}, 
-			TEL= #{tel}, 
-			ADDRESS= #{address}
-		WHERE 
-			SERIAL = #{serial}
-	 ]]>
-	</update>
-	
+	<!-- 파일 저장 -->
 	<insert id="insertFile" parameterType="HashMap">
  	 <![CDATA[
 		INSERT INTO FILE
@@ -171,5 +148,38 @@
 		 ]]>
 	</insert>
 	
+	<!--  파일 삭제 -->
+	<delete id="deleteFile" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		FILE
+	 	WHERE 
+	 		SERIAL = #{serial}
+	 ]]>
+	</delete>
+	
+	<!-- 파일 삭제 구분값 입력 -->
+	<update id="deleteFileGbY" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'Y'
+	 	WHERE 
+	 		SERIAL = #{serial}
+	 ]]>
+	</update>
+	
+	<!-- 파일 삭제 구분값 입력 취소 -->
+	<update id="deleteFileGbN" parameterType="Map">
+	 <![CDATA[
+	 	UPDATE  
+	 		FILE
+	 	SET
+	 		DEL_GB = 'N'
+	 	WHERE 
+	 		NUM = #{num}
+	 ]]>
+	</update>
 	
 </mapper>

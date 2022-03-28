@@ -27,7 +27,7 @@ public class ReplyController {
 	@Autowired
 	private SessionManager sessionManager;
 	
-	
+	// 댓글 목록
 	@RequestMapping(value="/getReplyList.do", method=RequestMethod.POST)
 	@ResponseBody
 	public List<ReplyVO> getReplyList(@RequestParam("serial") int serial) throws Exception {
@@ -36,7 +36,7 @@ public class ReplyController {
 		return replyList;
 	} 
 	
-	
+	// 댓글 저장
 	@RequestMapping(value="/saveReply.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> saveReply(@RequestBody ReplyVO replyVO) throws Exception {
@@ -53,7 +53,7 @@ public class ReplyController {
 		return result;
 	}
 	
-	
+	// 댓글 수정
 	@RequestMapping(value="/updateReply.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> updateReply(@RequestBody ReplyVO replyVO) throws Exception {
@@ -70,6 +70,7 @@ public class ReplyController {
 	
 	}
 	
+	// 댓글 삭제
 	@RequestMapping(value="/deleteReply.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> deleteReply(@RequestParam("num") int num) throws Exception {

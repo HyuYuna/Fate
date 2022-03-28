@@ -13,6 +13,7 @@ public class LoggerAspect {
 	static String name = "";
 	static String type= "";
 	
+	// 비즈니스단 주석
 	@Around("execution(* com..controller.*Controller.*(..)) or execution(* com..service.*Impl.*(..)) or execution(* com..dao.*Dao.*(..))")
 	public Object logPrint(ProceedingJoinPoint joinPoint) throws Throwable {
 		
