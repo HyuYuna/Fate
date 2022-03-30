@@ -34,13 +34,13 @@ public class ProductController {
 	
 	// 제품 등록 화면
 	@RequestMapping(value="/productForm.do")
-	public String fileForm(Model model) throws Exception {
+	public String productForm(Model model) throws Exception {
 		return "product/product_reg.main";
 	}
 	
 	// 제품 목록
 	@RequestMapping(value = "/productList.do")
-	public String fileList(ProductVO vo, Model model) throws Exception {
+	public String productList(ProductVO vo, Model model) throws Exception {
 		List<ProductVO> list = service.selectAllProduct(vo);
 		// 제품 수
 		int cnt = service.productCnt(vo);
@@ -53,7 +53,7 @@ public class ProductController {
 	
 	// 제품 정보화면
 	@RequestMapping(value="/productView.do")
-	public String memberFileView(ProductVO vo, Model model) throws Exception {
+	public String productView(ProductVO vo, Model model) throws Exception {
 		
 		ProductVO detail = service.selectProduct(vo.getSerial());
 		
@@ -69,7 +69,7 @@ public class ProductController {
 		
 	// 제품 상세
 	@RequestMapping(value="/productDtl.do")
-	public String Filedetail(ProductVO vo, Model model) throws Exception {
+	public String productDtl(ProductVO vo, Model model) throws Exception {
 
 		ProductVO detail = service.selectProduct(vo.getSerial());
 		
@@ -93,7 +93,7 @@ public class ProductController {
 	
 	// 제품 수정
 	@RequestMapping(value="/productUpdate.do")
-	public String fileUpdate(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
+	public String productUpdate(@RequestParam Map<String,Object> map, HttpServletRequest request) throws Exception  {
 		
 		service.updateProduct(map, request);
 		
@@ -102,7 +102,7 @@ public class ProductController {
 	
 	// 제품 삭제
 	@RequestMapping(value="/deleteProduct.do")
-	public String deleteFile(ProductVO vo, HttpServletRequest request) {
+	public String deleteProduct(ProductVO vo, HttpServletRequest request) {
 			
 		int serial = vo.getSerial();
 		String realPath = request.getSession().getServletContext().getRealPath("/upfile/");

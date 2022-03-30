@@ -64,7 +64,7 @@
 <div class="container mt-50" role="main">
 	<div align="center"><font size=5><strong>회원정보 수정하기</strong></font></div> <br>
 	<br><br>
-	<form name="form" id="form" action="save.do">
+	<form name="form" id="form" action="memberSave.do">
 		<c:if test="${mode eq 'edit'}">
 			<input type="hidden" name="custno" />
 		</c:if>

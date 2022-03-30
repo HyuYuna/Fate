@@ -16,7 +16,7 @@
 	}
 	
 	function fn_delete(custno) {
-		url = "delete.do";
+		url = "memberDelete.do";
 		url = url + "?custno=" + custno;
 		location.href = url;
 	}

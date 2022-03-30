@@ -13,6 +13,7 @@
 			url : "/fate/memberListJson.do",
 			styleUI : 'Bootstrap' ,
 			datatype : "json",
+			contentType : "application/json" ,
 			mtype: 'POST',
 			jsonReader: {
 		         total : "total" ,
@@ -23,10 +24,10 @@
 			height : 250,
 			colNames : [ '번호', '이름', '주소', '등급', '도시' ],
 			colModel : [ 
-				{name : 'custno', align : 'right'}, 
-				{name : 'custname', align : 'right'}, 
-				{name : 'address', align : 'right'}, 
-				{name : 'grade', align : 'right'}, 
+				{name : 'custno', align : 'right'},
+				{name : 'custname', align : 'right', editable:true, edittype:"text"},
+				{name : 'address', align : 'right', editable:true, edittype:"text"},
+				{name : 'grade', align : 'right', editable:true, edittype:"text"},
 				{name : 'city', align : 'right',hidden:true, editrules: {edithidden: true}}
 			],	
 			rowNum:10,
@@ -37,11 +38,19 @@
 			showpage : true,
 		    caption:"회원 관리" ,
 		    sortorder : "asc",
-		    sortname : "custno"
+		    sortname : "custno",	
+		    sortable : true,
+		    emptyRecords : "데이터가 없습니다",
+		    editurl : "/fate/editMemberGrid.do"
 		});
-		jQuery("#list").jqGrid('navGrid','#pager',{edit:false,add:false,del:false});
+		jQuery("#list").jqGrid(
+			'navGrid',
+			'#pager',
+			{closeAfterEdit: true, reloadAfterSubmit: true},
+            {closeAfterAdd: true, reloadAfterSubmit: true},
+            {reloadAfterSubmit: true}
+		);
 	});
-	
 
 </script>
 

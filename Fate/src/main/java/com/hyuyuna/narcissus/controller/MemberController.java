@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,20 +34,14 @@ public class MemberController {
 	
 	
 	// 회원 등록 화면
-	@RequestMapping(value="/form.do")
-	public String form(Model model) throws Exception {
+	@RequestMapping(value="/memberForm.do")
+	public String memberForm(Model model) throws Exception {
 		return "member/member_dtl.main";
 	}
 	
-	// 그리드 화면
-	@RequestMapping(value="/grid.do")
-	public String grid(Model model) throws Exception {
-		return "grid.main";
-	}
-	
 	// 회원 저장 및 수정
-	@RequestMapping(value="/save.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String insert(MemberVO vo,
+	@RequestMapping(value="/memberSave.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String memberSave(MemberVO vo,
 				@RequestParam("mode") String mode) throws Exception {
 
 		if(mode.equals("edit")) {
@@ -60,7 +55,7 @@ public class MemberController {
 	
 	// 회원 목록
 	@RequestMapping(value="/memberList.do")
-	public String list(MemberVO vo, Model model, HttpServletRequest request,
+	public String memberList(MemberVO vo, Model model, HttpServletRequest request,
 			@RequestParam(required= false, defaultValue = "1") int range) throws Exception{
 		
 		int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page")); 
@@ -80,6 +75,42 @@ public class MemberController {
 		return "member/member_list.main";
 	}
 	
+	// 회원 삭제
+	@RequestMapping(value="/memberDelete.do")
+	public String memberDelete(MemberVO vo) throws Exception {
+		service.deleteMember(vo.getCustno());
+		return "redirect:memberList.do";
+	}
+	
+	// 회원 정보화면
+	@RequestMapping(value="/memberView.do")
+	public String memberView(MemberVO vo, Model model) throws Exception {
+		
+		MemberVO detail = service.selectMember(vo.getCustno());
+		
+		model.addAttribute("detail", detail);
+
+		return "member/member_view.main";
+	}
+	
+	// 회원 상세
+	@RequestMapping(value="/memberDtl.do")
+	public String memberDtl(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
+
+		MemberVO detail = service.selectMember(vo.getCustno());
+		
+		model.addAttribute("detail", detail);
+		model.addAttribute("memberVO", new MemberVO());
+		model.addAttribute("mode",mode);
+
+		return "member/member_dtl.main";
+	}
+	
+	// 그리드 화면
+	@RequestMapping(value="/memberGrid.do")
+	public String memberGrid(Model model) throws Exception {
+		return "member/member_grid.main";
+	}
 	
 	/* @RequestMapping(value="/memberListJson.do")
 	public ModelAndView memberListJson(HttpSession session,
@@ -146,35 +177,20 @@ public class MemberController {
 		return resMap;
 	} 
 	
-	// 회원 삭제
-	@RequestMapping(value="/delete.do")
-	public String delete(MemberVO vo) throws Exception {
-		service.deleteMember(vo.getCustno());
-		return "redirect:memberList.do";
-	}
-	
-	// 회원 정보화면
-	@RequestMapping(value="/memberView.do")
-	public String memberView(MemberVO vo, Model model) throws Exception {
+	// 회원 수정(그리드용)
+	@RequestMapping(value="/editMemberGrid.do", method=RequestMethod.POST)
+	public String editMemberGrid(HttpServletRequest request, 
+				@RequestParam("oper") String oper,
+				@RequestBody MemberVO vo) {
+		if(oper.equals("add")) {
+			service.insertMember(vo);
+		} else if(oper.equals("edit")) {
+			service.updateMember(vo);
+		} else if(oper.equals("del")) {
+			service.deleteMember(vo.getCustno());
+		}
 		
-		MemberVO detail = service.selectMember(vo.getCustno());
-		
-		model.addAttribute("detail", detail);
-
-		return "member/member_view.main";
-	}
-	
-	// 회원 상세
-	@RequestMapping(value="/memberDtl.do")
-	public String detail(MemberVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
-
-		MemberVO detail = service.selectMember(vo.getCustno());
-		
-		model.addAttribute("detail", detail);
-		model.addAttribute("memberVO", new MemberVO());
-		model.addAttribute("mode",mode);
-
-		return "member/member_dtl.main";
+		return "jsonView";
 	}
 	
 
