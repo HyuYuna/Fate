@@ -1,209 +1,364 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-1.7.2.min.js"></script>
 <title>로그인</title>
 </head>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.min.js"></script>
 <style>
-html {
-	height: 100%;
+:root {
+	/* COLORS */
+	--white: #e9e9e9;
+	--gray: #333;
+	--blue: #0367a6;
+	--lightblue: #008997;
+
+	/* RADII */
+	--button-radius: 0.7rem;
+
+	/* SIZES */
+	--max-width: 758px;
+	--max-height: 420px;
+
+	font-size: 16px;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
+	align-items: center;
+	background-color: var(--white);
+	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: grid;
+	height: 100vh;
+	place-items: center;
+}
+
+.form__title {
+	font-weight: 300;
 	margin: 0;
-	padding: 0;
-	font-family: sans-serif;
-	background: linear-gradient(#141e30, #243b55);
+	margin-bottom: 1.25rem;
 }
 
-.login-box {
+.link {
+	color: var(--gray);
+	font-size: 0.9rem;
+	margin: 1.5rem 0;
+	text-decoration: none;
+}
+
+.container {
+	background-color: var(--white);
+	border-radius: var(--button-radius);
+	box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+		0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+	height: var(--max-height);
+	max-width: var(--max-width);
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+
+.container__form {
+	height: 100%;
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 400px;
-	padding: 40px;
-	transform: translate(-50%, -50%);
-	background: rgba(0, 0, 0, .5);
-	box-sizing: border-box;
-	box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-	border-radius: 10px;
+	top: 0;
+	transition: all 0.6s ease-in-out;
 }
 
-.login-box h2 {
-	margin: 0 0 30px;
-	padding: 0;
-	color: #fff;
+.container--signin {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+}
+
+.container.right-panel-active .container--signin {
+	transform: translateX(100%);
+}
+
+.container--signup {
+	left: 0;
+	opacity: 0;
+	width: 50%;
+	z-index: 1;
+}
+
+.container.right-panel-active .container--signup {
+	animation: show 0.6s;
+	opacity: 1;
+	transform: translateX(100%);
+	z-index: 5;
+}
+
+.container__overlay {
+	height: 100%;
+	left: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	transition: transform 0.6s ease-in-out;
+	width: 50%;
+	z-index: 100;
+}
+
+.container.right-panel-active .container__overlay {
+	transform: translateX(-100%);
+}
+
+.overlay {
+	background-color: var(--lightblue);
+	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100%;
+	left: -100%;
+	position: relative;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+	width: 200%;
+}
+
+.container.right-panel-active .overlay {
+	transform: translateX(50%);
+}
+
+.overlay__panel {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+	width: 50%;
+}
+
+.overlay--left {
+	transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay--left {
+	transform: translateX(0);
+}
+
+.overlay--right {
+	right: 0;
+	transform: translateX(0);
+}
+
+.container.right-panel-active .overlay--right {
+	transform: translateX(20%);
+}
+
+.btn {
+	background-color: var(--blue);
+	background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
+	border-radius: 20px;
+	border: 1px solid var(--blue);
+	color: var(--white);
+	cursor: pointer;
+	font-size: 0.8rem;
+	font-weight: bold;
+	letter-spacing: 0.1rem;
+	padding: 0.9rem 4rem;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+.form > .btn {
+	margin-top: 1.5rem;
+}
+
+.btn:active {
+	transform: scale(0.95);
+}
+
+.btn:focus {
+	outline: none;
+}
+
+.form {
+	background-color: var(--white);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 3rem;
+	height: 100%;
 	text-align: center;
 }
 
-.login-box .user-box {
-	position: relative;
-}
-
-.login-box .user-box input {
-	width: 100%;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #fff;
-	margin-bottom: 30px;
+.input {
+	background-color: #fff;
 	border: none;
-	border-bottom: 1px solid #fff;
-	outline: none;
-	background: transparent;
-}
-
-.login-box .user-box label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #fff;
-	pointer-events: none;
-	transition: .5s;
-}
-
-.login-box .user-box input:focus ~ label, .login-box .user-box input:valid 
-	~ label {
-	top: -20px;
-	left: 0;
-	color: #03e9f4;
-	font-size: 12px;
-}
-
-.login-box form button {
-	background: transparent;
-	border-color: transparent;
-	position: relative;
-	display: inline-block;
-	padding: 10px 20px;
-	color: #03e9f4;
-	font-size: 16px;
-	text-decoration: none;
-	text-transform: uppercase;
-	overflow: hidden;
-	transition: .5s;
-	margin-top: 40px;
-	letter-spacing: 4px
-}
-
-.login-box button:hover {
-	background: #03e9f4;
-	color: #fff;
-	border-radius: 5px;
-	box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0
-		100px #03e9f4;
-}
-
-.login-box button span {
-	position: absolute;
-	display: block;
-}
-
-.login-box button span:nth-child(1) {
-	top: 0;
-	left: -100%;
+	padding: 0.9rem 0.9rem;
+	margin: 0.5rem 0;
 	width: 100%;
-	height: 2px;
-	background: linear-gradient(90deg, transparent, #03e9f4);
-	animation: btn-anim1 1s linear infinite;
 }
 
-@keyframes btn-anim1 {
-  0% {
-    left: -100%;
-  }
-  50%,100% {
-    left: 100%;
-  }
-}
+@keyframes show {
+	0%,
+	49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
 
-.login-box button span:nth-child(2) {
-	top: -100%;
-	right: 0;
-	width: 2px;
-	height: 100%;
-	background: linear-gradient(180deg, transparent, #03e9f4);
-	animation: btn-anim2 1s linear infinite;
-	animation-delay: .25s
-}
-
-@keyframes btn-anim2 {
-  0% {
-    top: -100%;
-  }
-  50%,100% {
-    top: 100%;
-  }
-}
-
-.login-box button span:nth-child(3) {
-	bottom: 0;
-	right: -100%;
-	width: 100%;
-	height: 2px;
-	background: linear-gradient(270deg, transparent, #03e9f4);
-	animation: btn-anim3 1s linear infinite;
-	animation-delay: .5s
-}
-
-@keyframes btn-anim3 {
-  0% {
-    right: -100%;
-  }
-  50%,100% {
-    right: 100%;
-  }
-}
-
-.login-box button span:nth-child(4) {
-	bottom: -100%;
-	left: 0;
-	width: 2px;
-	height: 100%;
-	background: linear-gradient(360deg, transparent, #03e9f4);
-	animation: btn-anim4 1s linear infinite;
-	animation-delay: .75s
-}
-
-@keyframes btn-anim4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,100% {
-    bottom: 100%;
-  }
+	50%,
+	100% {
+		opacity: 1;
+		z-index: 5;
+	}
 }
 </style>
+
+
+<body>
+	<div class="container right-panel-active">
+	
+	<!-- Sign Up -->
+	<div class="container__form container--signup">
+		<form action="join.do" class="form" id="form1" method="post">
+			<h2 class="form__title">Sign Up</h2>
+			<!-- <input type="text" placeholder="User" class="input" /> -->
+			<input type="text" name="id" id="signId" placeholder="ID" class="input" />
+			<button type="button" onClick="javascript:idCheck();">중복확인</button>
+			<input type="password" name="pwd" id="signPw" placeholder="Password" class="input" />
+			<button type="button" onclick="javascript:join();" class="btn">Sign Up</button>
+		</form>
+	</div>
+
+	<!-- Sign In -->
+	<div class="container__form container--signin">
+		<form name="login" class="form" id="form2" >
+			<h2 class="form__title">Sign In</h2>
+			<input type="text" name="id" placeholder="ID" class="input" />
+			<input type="password" name="pwd" placeHolder="Password" class="input" />
+			<!-- <a href="#" class="link">Forgot your password?</a> -->
+			<button type="button" onClick="javascript:logins();" class="btn">Sign In</button>
+		</form>
+	</div>
+
+	<!-- Overlay -->
+	<div class="container__overlay">
+		<div class="overlay">
+			<div class="overlay__panel overlay--left">
+				<button class="btn" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay__panel overlay--right">
+				<button class="btn" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+	
+	</div>
+</body>
+
 <script>
+	const signInBtn = document.getElementById("signIn");
+	const signUpBtn = document.getElementById("signUp");
+	const fistForm = document.getElementById("form1");
+	const secondForm = document.getElementById("form2");
+	const container = document.querySelector(".container");
+	
+	let idChk = "N";
+	
+	let url;
+	
+	signInBtn.addEventListener("click", () => {
+		container.classList.remove("right-panel-active");
+	});
+	
+	signUpBtn.addEventListener("click", () => {
+		container.classList.add("right-panel-active");
+	});
+	
+	fistForm.addEventListener("submit", (e) => e.preventDefault());
+	secondForm.addEventListener("submit", (e) => e.preventDefault());
+
 	function logins() {
 		if(confirm("로그인하시겠습니다")) {
-			const url = document.login;
+			url = document.login;
 			url.action="/fate/actionLogin.do";
 			url.submit();
 		}
 	}
+	
+	function join() {
+		
+		if(idChk != "Y") {
+			alert("ID 중복확인을 해주세요");
+			return false;
+		}
+		
+		let form = document.createElement('form');
+		
+		form.setAttribute("method", 'post');
+		form.setAttribute("action", 'join.do');
+		
+		let obj;
+		console.log(document.getElementById("signId"));
+		
+		obj = document.createElement('input');
+		obj.setAttribute("type", 'hidden');
+		obj.setAttribute("name", 'id');
+		obj.setAttribute("value", document.getElementById("signId").value);
+		form.appendChild(obj);
+		
+		obj = document.createElement('input');
+		obj.setAttribute("type", 'hidden');
+		obj.setAttribute("name", 'pwd');
+		obj.setAttribute("value", document.getElementById("signPw").value);
+		form.appendChild(obj);
+		
+		
+		document.body.appendChild(form);
+		form.submit();
+		
+	}
+	
+	function idCheck() {
+		
+		let signId = $("#signId").val();
+		
+		if(signId == null || signId == '') {
+			alert("아이디를 입력해주세요");
+			return false;
+		} 
+		
+		$.ajax({
+			type : 'POST' ,
+			url : "idCheck.do" ,
+			data : {"id" : signId } ,
+			dataType : 'text' ,
+			success : function(result) {
+				if(result == 0) {
+					alert("사용할 수 있는 아이디입니다");
+					idChk = "Y";
+					$("#signId").attr("readonly", true);
+				} else {
+					alert("중복된 아이디입니다");
+				}
+			} , 
+			error : function(error) {
+				console.log("에러 : " + error);				
+			}
+		});
+		
+	}
+	
+	
 </script>
 
-<body>
-	<div class="login-box">
-		<h2>Login</h2>
-		<form name="login" method="post">
-			<div class="user-box">
-				<input type="text" name="id"> <label>Username</label>
-			</div>
-			<div class="user-box">
-				<input type="password" name="pwd"> <label>Password</label>
-			</div>
-			<button type="button" onClick="javascript:logins();">
-				<span></span> <span></span> <span></span> <span></span> Submit
-			</button>
-		</form>
-	</div>
-
-</body>
 </html>

@@ -2,15 +2,16 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.hyuyuna.narcissus.vo.ProductVO" alias="productVO" />
-		<typeAlias type="com.hyuyuna.narcissus.vo.MemberVO" alias="memberVO" />
-		<typeAlias type="com.hyuyuna.narcissus.vo.FileVO" alias="fileVO" />
-		<typeAlias type="com.hyuyuna.narcissus.vo.ReplyVO" alias="replyVO" />
+		<typeAlias type="com.hyuyuna.narcissus.fate.vo.UserVO" alias="userVO" />
+		<typeAlias type="com.hyuyuna.narcissus.product.vo.ProductVO" alias="productVO" />
+		<typeAlias type="com.hyuyuna.narcissus.customer.vo.CustomerVO" alias="customerVO" />
+		<typeAlias type="com.hyuyuna.narcissus.common.FileVO" alias="fileVO" />
+		<typeAlias type="com.hyuyuna.narcissus.reply.vo.ReplyVO" alias="replyVO" />
 	</typeAliases>	  
 	
 	<mappers>
 		<mapper resource="mapping/fate-mapping.xml" />
-		<mapper resource="mapping/member-mapping.xml" />
+		<mapper resource="mapping/customer-mapping.xml" />
 		<mapper resource="mapping/product-mapping.xml" />
 		<mapper resource="mapping/reply-mapping.xml" />
 	</mappers>
