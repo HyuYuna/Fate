@@ -11,8 +11,8 @@
 	})
 	
 	$(document).ready(function(){
-		$("input:hidden[name='serial']").val('<c:out value="${detail.serial}" />');
-		$("#pdname").val('<c:out value="${detail.pdname}"/>');
+		$("input:hidden[name='productIdx']").val('<c:out value="${detail.productIdx}" />');
+		$("#productName").val('<c:out value="${detail.productName}"/>');
 		$("#tel").val('<c:out value="${detail.tel}"/>');
 		$("#address").val('<c:out value="${detail.address}"/>');
 		$("#joindate").val('<c:out value="${detail.joindate}"/>');
@@ -39,10 +39,10 @@
 	<div align="center"><font size=5><strong>제품 정보 수정하기</strong></font></div> <br>
 	<br><br>
 	<form action="productUpdate.do" method="POST" id="form" enctype="multipart/form-data">
-		<input type="hidden" name="serial" />
+		<input type="hidden" name="productIdx" />
 		<div class="mb-3">
 			<label for="custname">제품명</label>
-			<input type=text class="form-control" name=pdname id=pdname size=10 placeholder="이름을 입력해 주세요">
+			<input type=text class="form-control" name=productName id=productName size=10 placeholder="이름을 입력해 주세요">
 		</div>
 		<div class="mb-3">
 			<label for="tel">연락처</label>
@@ -60,7 +60,7 @@
 			<label for="uploadFile">첨부파일</label> <br/>
 			<c:forEach var="row" items="${map}" varStatus="var">
 				<p>
-					<input type="hidden" name="num_${var.index}" id="num" value="${row.NUM}" >
+					<input type="hidden" name="fileIdx_${var.index}" id="fileIdx" value="${row.FILE_IDX}" >
 					<a href="#this" id="name_${var.index}" name="name_${var.index}">${row.ORIGINAL_FILE_NAME}</a>
 					<input name="uploadfile_${var.index}" type="file" id="uploadFile_${var.index}" >
 					(${row.FILE_SIZE}kb)

@@ -19,8 +19,8 @@ public class ProductDao extends AbstractDao {
 	}
 	
 	// 제품 상세
-	public ProductVO selectProduct(int serial) {
-		return (ProductVO)selectOne("productDao.selectProduct", serial);
+	public ProductVO selectProduct(int productIdx) {
+		return (ProductVO)selectOne("productDao.selectProduct", productIdx);
 	}
 	
 	// 제품 수
@@ -30,13 +30,13 @@ public class ProductDao extends AbstractDao {
 	
 	// 제품 첨부파일 목록
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> selectFileList(int serial) {
-		return (List<Map<String, Object>>)selectList("productDao.selectFileList", serial);
+	public List<Map<String, Object>> selectFileList(int productIdx) {
+		return (List<Map<String, Object>>)selectList("productDao.selectFileList", productIdx);
 	}
 	
 	// 제품 첨부파일 정보
-	public FileVO selectFileInfo(int num) {
-		return (FileVO)selectOne("productDao.selectFileInfo", num);
+	public FileVO selectFileInfo(int fileIdx) {
+		return (FileVO)selectOne("productDao.selectFileInfo", fileIdx);
 	}
 
 	// 제품 등록
@@ -50,8 +50,8 @@ public class ProductDao extends AbstractDao {
 	}
 
 	// 제품 삭제
-	public void deleteProduct(int serial) {
-		delete("productDao.deleteProduct", serial);
+	public void deleteProduct(int productIdx) {
+		delete("productDao.deleteProduct", productIdx);
 	}
 	
 	// 파일 저장
@@ -60,8 +60,8 @@ public class ProductDao extends AbstractDao {
 	}
 	
 	// 파일 삭제
-	public void deleteFile(int serial) {
-		delete("productDao.deleteFile", serial);
+	public void deleteFile(int productIdx) {
+		delete("productDao.deleteFile", productIdx);
 	}
 	
 	// 파일 삭제 구분값 입력

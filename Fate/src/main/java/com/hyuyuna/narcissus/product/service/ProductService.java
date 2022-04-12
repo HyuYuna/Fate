@@ -14,16 +14,16 @@ public interface ProductService {
 	public List<ProductVO> selectAllProduct(ProductVO vo);
 	
 	// 제품 상세
-	public ProductVO selectProduct(int serial) throws Exception;
+	public ProductVO selectProduct(int productIdx) throws Exception;
 	
 	// 제품 수
 	public int productCnt(ProductVO vo);
 	
 	// 제품 첨부파일 목록
-	public List<Map<String, Object>> selectFileList(int serial);
+	public List<Map<String, Object>> selectFileList(int productIdx);
 	
 	// 제품 첨부파일 정보
-	public FileVO selectFileInfo(int num);
+	public FileVO selectFileInfo(int fileIdx);
 	
 	// 제품 등록
 	public void insertProduct(Map<String, Object> map, HttpServletRequest request) throws Exception ;
@@ -32,6 +32,6 @@ public interface ProductService {
 	public void updateProduct(Map<String, Object> map, HttpServletRequest request) throws Exception ;
 	
 	// 제품 삭제
-	public void deleteProduct (int custno);
+	public void deleteProduct (int productIdx);
 
 }

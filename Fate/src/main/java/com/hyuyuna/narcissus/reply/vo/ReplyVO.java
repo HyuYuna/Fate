@@ -2,25 +2,26 @@ package com.hyuyuna.narcissus.reply.vo;
 
 public class ReplyVO {
 	
-	private int num;
-	private int serial;
+	private int replyIdx;
+	private int productIdx;
 	private String content;
-	private String reg_id;
-	private String reg_dt;
-	private String edit_dt;
+	private String register;
+	private String register_dt;
+	private String update_dt;
 	
 	
-	public int getNum() {
-		return num;
+	
+	public int getReplyIdx() {
+		return replyIdx;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setReplyIdx(int replyIdx) {
+		this.replyIdx = replyIdx;
 	}
-	public int getSerial() {
-		return serial;
+	public int getProductIdx() {
+		return productIdx;
 	}
-	public void setSerial(int serial) {
-		this.serial = serial;
+	public void setProductIdx(int productIdx) {
+		this.productIdx = productIdx;
 	}
 	public String getContent() {
 		return content;
@@ -28,24 +29,24 @@ public class ReplyVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getReg_id() {
-		return reg_id;
+	public String getRegister() {
+		return register;
 	}
-	public void setReg_id(String reg_id) {
-		this.reg_id = reg_id;
+	public void setRegister(String register) {
+		this.register = register;
 	}
-	public String getReg_dt() {
-		return reg_dt;
+	public String getRegister_dt() {
+		return register_dt;
 	}
-	public void setReg_dt(String reg_dt) {
-		this.reg_dt = reg_dt;
+	public void setRegister_dt(String register_dt) {
+		this.register_dt = register_dt;
 	}
-	public String getEdit_dt() {
-		return edit_dt;
+	public String getUpdate_dt() {
+		return update_dt;
 	}
-	public void setEdit_dt(String edit_dt) {
-		this.edit_dt = edit_dt;
+	public void setUpdate_dt(String update_dt) {
+		this.update_dt = update_dt;
 	}
 	
-
+	
 }

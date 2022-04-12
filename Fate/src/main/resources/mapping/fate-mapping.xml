@@ -26,7 +26,7 @@
 			USER_ID = #{userId}
 	 </select>
 	 
-	 <!-- 회원 가입 -->
+	 <!-- 고객 가입 -->
 	<insert id="joinUser" parameterType="userVO">
 	 <![CDATA[
 		INSERT INTO USER
@@ -42,7 +42,7 @@
 	 ]]>
 	 </insert>
 	 
-	 <!-- 회원 수정 -->
+	 <!-- 고객 수정 -->
 	 <update id="editUser" parameterType="userVO">
 	  <![CDATA[
 		UPDATE 

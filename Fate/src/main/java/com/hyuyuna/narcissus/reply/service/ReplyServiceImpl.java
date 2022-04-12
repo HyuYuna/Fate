@@ -16,8 +16,8 @@ public class ReplyServiceImpl implements ReplyService{
 	ReplyDao dao;
 	
 	// 댓글 목록
-	public List<ReplyVO> getReplyList(int serial) {
-		return dao.getReplyList(serial);
+	public List<ReplyVO> getReplyList(int productIdx) {
+		return dao.getReplyList(productIdx);
 	}
 	
 	// 댓글 저장
@@ -31,8 +31,8 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 	
 	// 댓글 삭제
-	public int deleteReply(int num) {
-		return dao.deleteReply(num);
+	public int deleteReply(int replyIdx) {
+		return dao.deleteReply(replyIdx);
 	}
 	 
 }

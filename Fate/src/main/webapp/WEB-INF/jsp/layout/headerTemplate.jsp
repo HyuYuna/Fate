@@ -42,21 +42,21 @@
           <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">등록</a>
 	        <div class="dropdown-menu" aria-labelledby="dropdown01">
-	          <a class="dropdown-item" href="memberForm.do">회원 등록</a>
+	          <a class="dropdown-item" href="customerForm.do">고객 등록</a>
 	          <a class="dropdown-item" href="productForm.do">제품 등록</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-expanded="false">조회/수정</a>
 	        <div class="dropdown-menu" aria-labelledby="dropdown02">
-	          <a class="dropdown-item" href="memberList.do">회원 목록 조회/수정</a>
+	          <a class="dropdown-item" href="customerList.do">고객 목록 조회/수정</a>
 	          <a class="dropdown-item" href="productList.do">제품 목록 조회/수정</a>
 	        </div>
 	      </li>
 	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-expanded="false">그리드</a>
 	        <div class="dropdown-menu" aria-labelledby="dropdown03">
-	          <a class="dropdown-item" href="memberGrid.do">그리드</a>
+	          <a class="dropdown-item" href="customerGrid.do">그리드</a>
 	 	        </div>
 	      </li>
       	</ul>

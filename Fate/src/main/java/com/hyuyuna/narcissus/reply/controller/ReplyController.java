@@ -30,8 +30,8 @@ public class ReplyController {
 	// 댓글 목록
 	@RequestMapping(value="/getReplyList.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<ReplyVO> getReplyList(@RequestParam("serial") int serial) throws Exception {
-		List<ReplyVO> replyList = service.getReplyList(serial);
+	public List<ReplyVO> getReplyList(@RequestParam("productIdx") int productIdx) throws Exception {
+		List<ReplyVO> replyList = service.getReplyList(productIdx);
 		
 		return replyList;
 	} 
@@ -73,10 +73,10 @@ public class ReplyController {
 	// 댓글 삭제
 	@RequestMapping(value="/deleteReply.do", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> deleteReply(@RequestParam("num") int num) throws Exception {
+	public Map<String,Object> deleteReply(@RequestParam("replyIdx") int replyIdx) throws Exception {
 		Map<String, Object> result = new HashMap();
 		try {
-			service.deleteReply(num);
+			service.deleteReply(replyIdx);
 			result.put("status", "OK");
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -64,7 +64,7 @@ public class FateController {
 	// 로그아웃
 	@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletResponse response, HttpServletRequest request) {
-		/*expiredCookie(response, "memberId");
+		/*expiredCookie(response, "userId");
 		try {
 			sessionManager.expire(request);
 		} catch (UnsupportedEncodingException e) {
@@ -92,18 +92,18 @@ public class FateController {
 		try {
 			String decrypt = SHA256.encrypt(vo.getPassword());
 			vo.setCheckPwd(decrypt);
-			UserVO member = service.login(vo);
-			if (member == null) {
+			UserVO user = service.login(vo);
+			if (user == null) {
 				model.addAttribute("message","로그인에 실패하였습니다");
 				return "redirect:login.do";
 			} else {
 				/*
-				 * Cookie idCookie = new Cookie("memberId", String.valueOf(member.getId()));
+				 * Cookie idCookie = new Cookie("userId", String.valueOf(user.getId()));
 				 * response.addCookie(idCookie);
 				 */
-				/*sessionManager.createSession(member, response);*/
+				/*sessionManager.createSession(user, response);*/
 				HttpSession session = request.getSession();
-				session.setAttribute("login", member);
+				session.setAttribute("login", user);
 				session.setMaxInactiveInterval(3000);
 				
 				return "redirect:main.do";
@@ -118,7 +118,7 @@ public class FateController {
 	}
 	
 	
-	// 회원 가입
+	// 고객 가입
 	@RequestMapping(value="/join.do", method=RequestMethod.POST)
 	public String join(UserVO vo) throws Exception {
 		
@@ -133,7 +133,7 @@ public class FateController {
 		return "redirect:customerList.do";
 	}
 	
-	// 회원 수정
+	// 고객 수정
 	@RequestMapping(value="/editUser.do")
 	public String editUser(UserVO vo, Model model) throws Exception {
 

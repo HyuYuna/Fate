@@ -8,9 +8,9 @@ import com.hyuyuna.narcissus.common.PageVO;
 
 public class ProductVO extends PageVO{
 	
-	private int serial;
+	private int productIdx;
 	private int num;
-	private String pdname;
+	private String productName;
 	private String tel;
     private String address;
 	private String joindate;
@@ -26,12 +26,14 @@ public class ProductVO extends PageVO{
     
     private List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 
-	public int getSerial() {
-		return serial;
+
+    
+	public int getProductIdx() {
+		return productIdx;
 	}
 
-	public void setSerial(int serial) {
-		this.serial = serial;
+	public void setProductIdx(int productIdx) {
+		this.productIdx = productIdx;
 	}
 
 	public int getNum() {
@@ -42,12 +44,12 @@ public class ProductVO extends PageVO{
 		this.num = num;
 	}
 
-	public String getPdname() {
-		return pdname;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setPdname(String pdname) {
-		this.pdname = pdname;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public String getTel() {
@@ -129,9 +131,6 @@ public class ProductVO extends PageVO{
 	public void setRows(List<Map<String, Object>> rows) {
 		this.rows = rows;
 	}
-	
-	
-	
 	
 	
 }

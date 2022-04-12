@@ -55,10 +55,10 @@ public class ProductController {
 	@RequestMapping(value="/productView.do")
 	public String productView(ProductVO vo, Model model) throws Exception {
 		
-		ProductVO detail = service.selectProduct(vo.getSerial());
+		ProductVO detail = service.selectProduct(vo.getProductIdx());
 		
 		// 제품 첨부파일 목록
-		List<Map<String,Object>> map = service.selectFileList(vo.getSerial());
+		List<Map<String,Object>> map = service.selectFileList(vo.getProductIdx());
 		
 		model.addAttribute("detail", detail);
 		model.addAttribute("map", map);
@@ -71,10 +71,10 @@ public class ProductController {
 	@RequestMapping(value="/productDtl.do")
 	public String productDtl(ProductVO vo, Model model) throws Exception {
 
-		ProductVO detail = service.selectProduct(vo.getSerial());
+		ProductVO detail = service.selectProduct(vo.getProductIdx());
 		
 		// 제품 첨부파일 목록
-		List<Map<String,Object>> map = service.selectFileList(vo.getSerial());
+		List<Map<String,Object>> map = service.selectFileList(vo.getProductIdx());
 		
 		model.addAttribute("detail", detail);
 		model.addAttribute("map", map);
@@ -104,7 +104,7 @@ public class ProductController {
 	@RequestMapping(value="/deleteProduct.do")
 	public String deleteProduct(ProductVO vo, HttpServletRequest request) {
 			
-		int serial = vo.getSerial();
+		int productIdx = vo.getProductIdx();
 		String realPath = request.getSession().getServletContext().getRealPath("/upfile/");
 		
 			String fname = request.getParameter("fname");
@@ -112,7 +112,7 @@ public class ProductController {
 			file.delete();
 			System.out.println(realPath+fname);
 		
-		service.deleteProduct(serial);
+		service.deleteProduct(productIdx);
 		
 		return "redirect:productList.do";
 	}
@@ -128,10 +128,10 @@ public class ProductController {
 	
 	// 파일 다운로드
 	@RequestMapping(value="/downloadFile.do")
-	public void downloadFile(HttpServletResponse response, @RequestParam("num") int num ) throws Exception {
+	public void downloadFile(HttpServletResponse response, @RequestParam("fileIdx") int fileIdx ) throws Exception {
 		
 		// 제품 첨부파일 정보
-		FileVO file = service.selectFileInfo(num);
+		FileVO file = service.selectFileInfo(fileIdx);
 		
 		String storedFileName = file.getStoredFileName();
 		String originalFileName  = file.getOriginalFileName();

@@ -3,23 +3,23 @@
 .mt-50 {
 	margin-top:50px;
 }
-.member_name {
+.name {
 	font-weight : 700;
 	font-size : 22pt;
 	margin : 10pt;
 }
 
-.member_info_box {
+.info_box {
 	color : #6B6B6B;
 	margin : 10pt;
 }
 
-.member_num {
+.idx {
 	font-size : 10pt;
 	margin-right : 10pt;
 }
 
-.member_date {
+.date {
 	font-size : 10pt;
 }
 

@@ -30,8 +30,8 @@ public class ProductServiceImpl implements ProductService{
 	
 	// 제품 상세
 	@Override
-	public ProductVO selectProduct(int serial) throws Exception {
-		return dao.selectProduct(serial);
+	public ProductVO selectProduct(int productIdx) throws Exception {
+		return dao.selectProduct(productIdx);
 	}
 	
 	// 제품 수
@@ -42,14 +42,14 @@ public class ProductServiceImpl implements ProductService{
 	
 	// 제품 첨부파일 목록
 	@Override
-	public List<Map<String ,Object>> selectFileList(int serial) {
-		return dao.selectFileList(serial);
+	public List<Map<String ,Object>> selectFileList(int productIdx) {
+		return dao.selectFileList(productIdx);
 	}
 	
 	// 제품 첨부파일 정보
 	@Override
-	public FileVO selectFileInfo(int num) {
-		return dao.selectFileInfo(num);
+	public FileVO selectFileInfo(int fileIdx) {
+		return dao.selectFileInfo(fileIdx);
 	}
 	
 	// 제품 등록
@@ -88,11 +88,11 @@ public class ProductServiceImpl implements ProductService{
 	
 	// 제품 삭제
 	@Override
-	public void deleteProduct(int serial) {
-		dao.deleteProduct(serial);
+	public void deleteProduct(int productIdx) {
+		dao.deleteProduct(productIdx);
 		
 		//파일 삭제
-		dao.deleteFile(serial);
+		dao.deleteFile(productIdx);
 	}
 	 
 }

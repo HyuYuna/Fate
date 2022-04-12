@@ -5,33 +5,33 @@
 	<!-- 댓글 목록 -->
 	<select id="getReplyList" resultType="replyVO">
 		SELECT
-			NUM ,
-			SERIAL ,
+			REPLY_IDX ,
+			PRODUCT_IDX ,
 			CONTENT ,
-			REG_ID ,
-			REG_DT ,
-			EDIT_DT
+			REGISTER, 
+			REGIST_DT, 
+			UPDATE_DT
 		FROM
-			PD_REPLY
+			PRODUCT_REPLY
 		WHERE
-			SERIAL = #{serial}
+			PRODUCT_IDX = #{productIdx}
 		ORDER BY
-			REG_DT DESC
+			REGIST_DT DESC
 	</select>
 	
 	<!-- 댓글 저장 -->
 	<insert id="saveReply" parameterType="replyVO">
-		INSERT INTO PD_REPLY
+		INSERT INTO PRODUCT_REPLY
 			(
-				SERIAL, 
+				PRODUCT_IDX, 
 				CONTENT, 
-				REG_ID, 
-				REG_DT, 
-				EDIT_DT
+				REGISTER, 
+				REGIST_DT, 
+				UPDATE_DT
 			) VALUES (
-				#{serial},
+				#{productIdx},
 				#{content},
-				#{reg_id},
+				#{register},
 				now(),
 				now()
 			)
@@ -40,20 +40,20 @@
 	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="replyVO">
 		UPDATE 
-			PD_REPLY
+			PRODUCT_REPLY
 		SET
 			CONTENT = #{content}, 
-			EDIT_DT = now()
+			UPDATE_DT = now()
 		WHERE
-			num = #{num}
+			REPLY_IDX = #{replyIdx}
 	</update>
 
 	<!-- 댓글 삭제 -->
 	<delete id="deleteReply" parameterType="int">
 		DELETE FROM 
-			PD_REPLY
+			PRODUCT_REPLY
 		WHERE
-			num = #{num}
+			REPLY_IDX = #{replyIdx}
 	</delete>
 
 

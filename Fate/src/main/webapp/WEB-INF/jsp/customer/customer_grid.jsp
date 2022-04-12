@@ -10,7 +10,7 @@
 
 	$(document).ready(function() {
 		jQuery("#list").jqGrid({
-			url : "/fate/memberListJson.do",
+			url : "/fate/customerListJson.do",
 			styleUI : 'Bootstrap',
 			datatype : "json",
 			contentType: "application/json; charset=UTF-8",
@@ -24,8 +24,8 @@
 			height : 250,
 			colNames : [ '번호', '이름', '주소', '등급', '도시' ],
 			colModel : [ 
-				{name : 'custno', align : 'right', key:true},
-				{name : 'custname', align : 'right', editable:true, edittype:"text"},
+				{name : 'customerIdx', align : 'right', key:true},
+				{name : 'customerName', align : 'right', editable:true, edittype:"text"},
 				{name : 'address', align : 'right', editable:true, edittype:"text"},
 				{name : 'grade', align : 'right', editable:true, edittype:"text"},
 				{name : 'city', align : 'right',hidden:true, editrules: {edithidden: true}}
@@ -36,12 +36,12 @@
 			viewrecords : true,
 			multiselect : true,
 			showpage : true,
-		    caption:"회원 관리" ,
+		    caption:"고객 관리" ,
 		    sortorder : "asc",
-		    sortname : "custno",	
+		    sortname : "customer_idx",	
 		    sortable : true,
 		    emptyRecords : "데이터가 없습니다",
-		    editurl : "/fate/editMemberGrid.do"
+		    editurl : "/fate/editCustomerGrid.do"
 		});
 		jQuery("#list").jqGrid(
 			'navGrid',

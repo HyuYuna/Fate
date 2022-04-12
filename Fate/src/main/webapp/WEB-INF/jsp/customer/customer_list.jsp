@@ -12,9 +12,9 @@
  		}
  	});
 
-	function fn_view(custno) {
-		url = "memberView.do";
-		url = url + "?custno=" + custno;
+	function fn_view(customerIdx) {
+		url = "customerView.do";
+		url = url + "?customerIdx=" + customerIdx;
 		location.href = url;
 	}
 	
@@ -22,7 +22,7 @@
 	    var page = ((range - 2) * rangeSize) + 1;
 	    var range = range - 1;
 		
-	    url = "${pageContext.request.contextPath}/memberList.do";
+	    url = "${pageContext.request.contextPath}/customerList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + searchType;
@@ -32,7 +32,7 @@
 	}
 	
 	function fn_pagination(page, range, rangeSize, searchType, keyword) {
-		url = "${pageContext.request.contextPath}/memberList.do";
+		url = "${pageContext.request.contextPath}/customerList.do";
 	 	url = url + "?page=" + page;
 	 	url = url + "&range=" + range;
 	 	url = url + "&searchType=" + searchType;
@@ -45,7 +45,7 @@
 		var page = parseInt(range * rangeSize) + 1;
 		var range = parseInt(range) + 1;
 		
-		url = "${pageContext.request.contextPath}/memberList.do";
+		url = "${pageContext.request.contextPath}/customerList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + searchType;
@@ -59,13 +59,13 @@
 	<br>
 	<br>
 	<div align="center">
-	<font size=5><strong>회원 목록</strong></font>
+	<font size=5><strong>고객 목록</strong></font>
 		<div class="container mt-50">
 			<div class="table-responsive">
 			<table  class="table table-striped table-sm">
 				<tr>
-					<td>회원번호</td>
-					<td>회원성명</td>
+					<td>고객번호</td>
+					<td>고객성명</td>
 					<td>전화번호</td>
 					<td>주소</td>
 					<td>가입일자</td>
@@ -74,8 +74,8 @@
 				</tr>
 				<c:forEach items="${list}" var="m">
 					<tr>
-						<td>${m.getCustno()}</td>
-						<td><a href="#" onClick="fn_view(${m.getCustno()})">${m.getCustname()}</a></td>
+						<td>${m.getCustomerIdx()}</td>
+						<td><a href="#" onClick="fn_view(${m.getCustomerIdx()})">${m.getCustomerName()}</a></td>
 						<td>${m.getPhone()}</td>
 						<td>${m.getAddress()}</td>
 						<td>${m.getJoindate()}</td>
@@ -87,10 +87,10 @@
 			</div>
 		</div>
 		
-		<form action="memberList.do" style="margin-bottom:5px;">
+		<form action="customerList.do" style="margin-bottom:5px;">
 			<select name="searchType">
-				<option value="custno">번호</option>
-				<option value="name">이름</option>
+				<option value="customerIdx">번호</option>
+				<option value="customerName">이름</option>
 			</select>
 			<input type="text" name="keyword" value="${vo.keyword}">
 			<button type="submit" class="btn btn-primary">검색하기</button>

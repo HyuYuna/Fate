@@ -2,28 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="customerDao">
 
-	<resultMap type="customerVO" id="customer">
-		<result property="customerIdx" column="CUSTOMER_IDX" />
-		<result property="customerName" column="CUSTOMER_NAME" />
-		<result property="phone" column="PHONE" />
-		<result property="address" column="address" />
-		<result property="joindate" column="JOINDATE" />
-		<result property="grade" column="GRADE" />
-		<result property="city" column="CITY" />
-		<result property="content" column="CONTENT" />
-	</resultMap>
-	<resultMap type="HashMap" id="Maps">
-		<result property="customerIdx" column="CUSTOMER_IDX" />
-		<result property="customerName" column="CUSTOMER_NAME" />
-		<result property="phone" column="PHONE" />
-		<result property="address" column="address" />
-		<result property="joindate" column="JOINDATE" />
-		<result property="grade" column="GRADE" />
-		<result property="city" column="CITY" />
-	</resultMap>
-	
-	<!--  전체 회원 목록 -->
-	<select id="selectAllCustomer" parameterType="customerVO" resultMap="customer">
+	<!--  전체 고객 목록 -->
+	<select id="selectAllCustomer" parameterType="customerVO" resultType="customerVO">
 		SELECT 
 			* 
 		FROM 
@@ -40,7 +20,7 @@
 		LIMIT #{startList} , #{listSize}
 	</select>
 
-	<!-- 전체 회원(그리드용) -->
+	<!-- 전체 고객(그리드용) -->
 	<select id="selectAllCustomerJson" parameterType="Map" resultType="customerVO">
 		SELECT 
 			AAA.* 
@@ -66,7 +46,7 @@
 
 	</select>
 	
-	<!-- 회원수 -->
+	<!-- 고객수 -->
 	<select id="customerCnt" parameterType="customerVO" resultType="Integer">
 	 	SELECT 
 	 		COUNT(*) as listCnt
@@ -82,7 +62,7 @@
 		</where>
 	</select>
 	
-	<!-- 총 회원수 -->
+	<!-- 총 고객수 -->
 	<select id="totalRecords" resultType="Integer">
 	 	SELECT 
 	 		COUNT(*) as listCnt
@@ -90,7 +70,7 @@
 	 		CUSTOMER 
 	</select>
 	
-	<!-- 총 회원수 -->
+	<!-- 총 고객수 -->
 	<select id="totalRecordsJson" parameterType="map" resultType="Integer">
 	 	SELECT 
 	 		COUNT(*) as listCnt
@@ -103,7 +83,7 @@
 	 	</where> 
 	</select>
 	
-	<!-- 회원 상세 -->
+	<!-- 고객 상세 -->
 	<select id="selectCustomer" parameterType="Integer" resultType="customerVO">
 	  <![CDATA[
 	   SELECT 
@@ -115,7 +95,7 @@
 	  ]]>
 	</select>
 	
-	<!-- 회원 등록 -->
+	<!-- 고객 등록 -->
 	<insert id="insertCustomer" parameterType="customerVO">
  	 <![CDATA[
 		INSERT INTO CUSTOMER
@@ -139,7 +119,7 @@
 		 ]]>
 	</insert>
 	
-	<!-- 회원 등록(그리드)-->
+	<!-- 고객 등록(그리드)-->
 	<insert id="insertCustomerJson" parameterType="Map">
  	 <![CDATA[
 		INSERT INTO CUSTOMER
@@ -155,7 +135,7 @@
 		 ]]>
 	</insert>
 	
-	 <!-- 회원 삭제 -->
+	 <!-- 고객 삭제 -->
 	<delete id="deleteCustomer" parameterType="Integer">
 	 <![CDATA[
 	 	DELETE FROM 
@@ -165,7 +145,7 @@
 	 ]]>
 	</delete>
 	
-	<!-- 회원 수정 -->
+	<!-- 고객 수정 -->
 	<update id="updateCustomer" parameterType="customerVO">
 	 <![CDATA[
 		UPDATE 
@@ -183,7 +163,7 @@
 	 ]]>
 	</update>
 	
-	<!-- 회원 수정(그리드) -->
+	<!-- 고객 수정(그리드) -->
 	<update id="updateCustomerJson" parameterType="Map">
 	 <![CDATA[
 		UPDATE 
@@ -193,7 +173,7 @@
 			ADDRESS= #{address},  
 			GRADE= #{grade}
 		WHERE 
-			CUSTOMER_IDX = #{customerIdx}
+			CUSTOMER_IDX = #{id}
 	 ]]>
 	</update>
 	

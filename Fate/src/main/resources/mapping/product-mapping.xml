@@ -7,12 +7,12 @@
  	 <![CDATA[
 		INSERT INTO PRODUCT
 		(
-			pdname, 
+			product_name, 
 			tel, 
 			address,
 			joindate
 		) VALUES (
-			#{pdname}, 
+			#{productName}, 
 			#{tel}, 
 			#{address},
 			#{joindate}
@@ -29,11 +29,11 @@
 		UPDATE 
 			PRODUCT
 		SET 
-			PDNAME= #{pdname}, 
+			PRODUCT_NAME= #{productName}, 
 			TEL= #{tel}, 
 			ADDRESS= #{address}
 		WHERE 
-			SERIAL = #{serial}
+			PRODUCT_IDX = #{productIdx}
 	 ]]>
 	</update>
 	
@@ -43,7 +43,7 @@
 	 	DELETE FROM 
 	 		PRODUCT
 	 	WHERE 
-	 		SERIAL = #{serial}
+	 		PRODUCT_IDX = #{productIdx}
 	 ]]>
 	</delete>
 	
@@ -51,20 +51,22 @@
 	<select id="selectAllProduct" parameterType="productVO" resultType="productVO">
 	 <![CDATA[
 		SELECT 
-			A.serial ,
-			A.pdname ,
+			A.product_idx ,
+			A.product_name ,
 			A.tel ,
 			A.address , 
 			A.joindate ,
-			B.STORED_FILE_NAME AS fname
+			B.stored_file_name AS fname
 		FROM 
 			PRODUCT AS A
 		LEFT JOIN
-			FILE AS B ON A.serial = B.serial AND B.DEL_GB ='N'
+			PRODUCT_FILE AS B ON A.product_idx = B.product_idx 
+		AND 
+			B.DEL_YN ='N'
 		GROUP BY
-			A.SERIAL
+			A.PRODUCT_IDX
 		ORDER BY 
-			A.SERIAL DESC
+			A.PRODUCT_IDX DESC
 	 ]]>
 	</select>
 	
@@ -72,17 +74,17 @@
 	<select id="selectProduct" parameterType="Integer" resultType="productVO">
 	  <![CDATA[
 	    SELECT 
-			serial ,
-			pdname ,
+			product_idx ,
+			product_name ,
 			tel ,
 			address , 
 			joindate
 		FROM 
 			PRODUCT
 		WHERE 
-	   	   SERIAL = #{serial}
+	   	   PRODUCT_IDX = #{productIdx}
 	    ORDER BY 
-			SERIAL DESC
+			PRODUCT_IDX DESC
 	  ]]>
 	</select>
 	
@@ -100,17 +102,17 @@
 	<select id="selectFileList" parameterType="Integer" resultType="Map">
 	  <![CDATA[
 	    SELECT 
-			NUM ,
+			FILE_IDX ,
 			ORIGINAL_FILE_NAME,
 		    ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
 		FROM 
-			FILE
+			PRODUCT_FILE
 		WHERE 
-	   	   SERIAL = #{serial}
+	   	   PRODUCT_IDX = #{productIdx}
 	   	AND 
-	   		DEL_GB = 'N'
+	   		DEL_YN = 'N'
 	    ORDER BY 
-			SERIAL DESC
+			PRODUCT_IDX DESC
 	  ]]>
 	</select>
 	
@@ -118,14 +120,14 @@
 	<select id="selectFileInfo" parameterType="Integer" resultType="fileVO">
 	  <![CDATA[
 	    SELECT 
-			serial ,
+			FILE_IDX ,
 			ORIGINAL_FILE_NAME as originalFileName,
 		    STORED_FILE_NAME as storedFileName
 		FROM 
-			FILE
+			PRODUCT_FILE
 		WHERE 
-	   	   NUM = #{num} 
-	   	   AND DEL_GB = 'N'
+	   	   FILE_IDX = #{fileIdx} 
+	   	   AND DEL_YN = 'N'
 	   		
 	  ]]>
 	</select>
@@ -133,14 +135,14 @@
 	<!-- 파일 저장 -->
 	<insert id="insertFile" parameterType="HashMap">
  	 <![CDATA[
-		INSERT INTO FILE
+		INSERT INTO PRODUCT_FILE
 		(
-			SERIAL, 
+			PRODUCT_IDX, 
 			ORIGINAL_FILE_NAME, 
 			STORED_FILE_NAME,
 			FILE_SIZE 
 		) VALUES (
-			#{serial}, 
+			#{productIdx}, 
 			#{ORIGINAL_FILE_NAME}, 
 			#{STORED_FILE_NAME},
 			#{FILE_SIZE}
@@ -152,9 +154,9 @@
 	<delete id="deleteFile" parameterType="Integer">
 	 <![CDATA[
 	 	DELETE FROM 
-	 		FILE
+	 		PRODUCT_FILE
 	 	WHERE 
-	 		SERIAL = #{serial}
+	 		PRODUCT_IDX = #{productIdx}
 	 ]]>
 	</delete>
 	
@@ -162,11 +164,11 @@
 	<update id="deleteFileGbY" parameterType="Map">
 	 <![CDATA[
 	 	UPDATE  
-	 		FILE
+	 		PRODUCT_FILE
 	 	SET
-	 		DEL_GB = 'Y'
+	 		DEL_YN = 'Y'
 	 	WHERE 
-	 		SERIAL = #{serial}
+	 		PRODUCT_IDX = #{productIdx}
 	 ]]>
 	</update>
 	
@@ -174,11 +176,11 @@
 	<update id="deleteFileGbN" parameterType="Map">
 	 <![CDATA[
 	 	UPDATE  
-	 		FILE
+	 		PRODUCT_FILE
 	 	SET
-	 		DEL_GB = 'N'
+	 		DEL_YN = 'N'
 	 	WHERE 
-	 		NUM = #{num}
+	 		FILE_IDX = #{fileIdx}
 	 ]]>
 	</update>
 	

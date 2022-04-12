@@ -18,14 +18,14 @@ public class FateDao extends AbstractDao {
 		return (Integer)selectOne("fateDao.idCheck", id);
 	}
 	
-	// 회원 가입
+	// 고객 가입
 	public void joinUser(UserVO vo) {
 		insert("fateDao.joinUser" , vo);
 	}
 	
-	// 회원 수정
+	// 고객 수정
 	public void editUser(UserVO vo) {
-		update("memberDao.editUser", vo);
+		update("fateDao.editUser", vo);
 	}
 	
 	

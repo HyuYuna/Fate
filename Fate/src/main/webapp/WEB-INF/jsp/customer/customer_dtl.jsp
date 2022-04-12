@@ -32,9 +32,9 @@
 	   
 		let mode = '<c:out value="${mode}" />';
 		if (mode == 'edit'){
-			$("input:hidden[name='custno']").val('<c:out value="${detail.custno}" />');
+			$("input:hidden[name='customerIdx']").val('<c:out value="${detail.customerIdx}" />');
 			$("input:hidden[name='mode']").val('<c:out value="${mode}" />');
-			$("#custname").val('<c:out value="${detail.custname}"/>');
+			$("#customerName").val('<c:out value="${detail.customerName}"/>');
 			$("#phone").val('<c:out value="${detail.phone}"/>');
 			$("#address").val('<c:out value="${detail.address}"/>');
 			$("#joindate").val('<c:out value="${detail.joindate}"/>');
@@ -62,23 +62,23 @@
 	
 </script>
 <div class="container mt-50" role="main">
-	<div align="center"><font size=5><strong>회원정보 수정하기</strong></font></div> <br>
+	<div align="center"><font size=5><strong>고객 정보 수정하기</strong></font></div> <br>
 	<br><br>
-	<form name="form" id="form" action="memberSave.do">
+	<form name="form" id="form" action="customerSave.do">
 		<c:if test="${mode eq 'edit'}">
-			<input type="hidden" name="custno" />
+			<input type="hidden" name="customerIdx" />
 		</c:if>
 		<input type="hidden" name="mode" />
 		<div class="mb-3">
-			<label for="custname">제목</label>
-			<input name="custname" id="custname" class="form-control" placeholder="제목을 입력해 주세요" />
+			<label for="customerName">제목</label>
+			<input name="customerName" id="customerName" class="form-control" placeholder="제목을 입력해 주세요" />
 		</div>
 		<div class="mb-3">
-			<label for="phone">회원전화</label>
+			<label for="phone">고객전화</label>
 			<input name="phone" id="phone" class="form-control" placeholder="번호을 입력해 주세요" />
 		</div>
 		<div class="mb-3">
-			<label for="address">회원주소</label>
+			<label for="address">고객주소</label>
 			<input name="address" id="address" class="form-control" placeholder="주소를 입력해 주세요" />
 		</div>
 		<div class="mb-3">
@@ -100,7 +100,7 @@
 		<br/>
 		<div>
 			<button type="submit" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-			<button type="button" class="btn btn-sm btn-primary" onClick="location.href='memberList.do'" id="btnList">목록</button>
+			<button type="button" class="btn btn-sm btn-primary" onClick="location.href='customerList.do'" id="btnList">목록</button>
 			<button type="reset" class="btn btn-sm btn-primary" value="다시 입력">초기화</button>
 		</div>
 	</form>

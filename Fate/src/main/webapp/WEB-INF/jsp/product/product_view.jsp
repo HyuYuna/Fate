@@ -21,11 +21,11 @@
 	
 	$(document).on('click', '#btnReplySave', function(){
 		let replyContent = $("#content").val();
-		let replyReg_id = $("#reg_id").val();
+		let replyRegister = $("#register").val();
 		
 		paramData = JSON.stringify({"content":replyContent, 
-							"reg_id":replyReg_id, 
-							"serial": '${detail.serial}'
+							"register":replyRegister, 
+							"productIdx": '${detail.productIdx}'
 		});
 		
 		headers = {"Content-Type" : "application/json"
@@ -41,7 +41,7 @@
 				showReplyList();
 				
 				$("#content").val('');
-				$("#reg_id").val('');
+				$("#register").val('');
 			} , 
 			error : function(error) {
 				console.log("에러 : " + error);
@@ -51,15 +51,15 @@
 		
 	
 	
-	function fn_detail(serial) {
+	function fn_detail(productIdx) {
 		url = "productDtl.do";
-		url = url + "?serial=" + serial;
+		url = url + "?productIdx=" + productIdx;
 		location.href = url;
 	}
 	
-	function fn_delete(serial,filename) {
+	function fn_delete(productIdx,filename) {
 		url = "deleteProduct.do";
-		url = url + "?serial=" + serial + "&fname=" + filename;
+		url = url + "?productIdx=" + productIdx + "&fname=" + filename;
 		location.href = url;
 	}
 	
@@ -69,17 +69,17 @@
 		location.href = url;
 	}
 	
-	function fn_downloadFile(num) {
+	function fn_downloadFile(fileIdx) {
 		//console.log(obj.parent());
-	 	//let num = obj.parent().find("#fileNum").val();
+	 	//let fileIdx = obj.parent().find("#fileIdx").val();
 		url = "downloadFile.do";
-		url = url + "?num=" + num;
+		url = url + "?fileIdx=" + fileIdx;
 		location.href = url;
 	}
 	
 	function showReplyList() {
 		url = "getReplyList.do";
-		paramData = {"serial" : "${detail.serial}"};
+		paramData = {"productIdx" : "${detail.productIdx}"};
 		$.ajax({
 			type : 'POST',
 			url : url,
@@ -91,7 +91,7 @@
 					htmls = "<br>등록된 댓글이 없습니다";
 				} else {
 					$(result).each(function(){
-						htmls += '<div class="media text-muted pt-3" id="num' + this.num + '">';
+						htmls += '<div class="media text-muted pt-3" id="reply' + this.replyIdx + '">';
 	                    htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
 	                    htmls += '<title>Placeholder</title>';
 	                    htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
@@ -99,10 +99,10 @@
 	                    htmls += '</svg>';
 	                    htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 	                    htmls += '<span class="d-block">';
-	                    htmls += '<strong class="text-gray-dark">' + this.reg_id + '</strong>';
+	                    htmls += '<strong class="text-gray-dark">' + this.register + '</strong>';
 	                    htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-	                    htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.num + ', \'' + this.reg_id + '\', \'' + this.content + '\' )" style="padding-right:5px">수정</a>';
-	                    htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.num + ')" >삭제</a>';
+	                    htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.replyIdx + ', \'' + this.register + '\', \'' + this.content + '\' )" style="padding-right:5px">수정</a>';
+	                    htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.replyIdx + ')" >삭제</a>';
 	                    htmls += '</span>';
 	                    htmls += '</span>';
 	                    htmls += this.content;
@@ -118,10 +118,10 @@
 		
 	}
 	
-	function fn_editReply(num, reg_id, content) {
+	function fn_editReply(replyIdx, register, content) {
 		
 		htmls = "";
-		htmls += '<div class="media text-muted pt-3" id="num' + num + '">';
+		htmls += '<div class="media text-muted pt-3" id="reply' + replyIdx + '">';
 		htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32x32">';
 		htmls += '<title>Placeholder</title>';
 		htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
@@ -129,28 +129,28 @@
 		htmls += '</svg>';
 		htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
 		htmls += '<span class="d-block">';
-		htmls += '<strong class="text-gray-dark">' + reg_id + '</strong>';
+		htmls += '<strong class="text-gray-dark">' + register + '</strong>';
 		htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + num + ', \'' + reg_id + '\')" style="padding-right:5px">저장</a>';
+		htmls += '<a href="javascript:void(0)" onclick="fn_updateReply(' + replyIdx + ', \'' + register + '\')" style="padding-right:5px">저장</a>';
 		htmls += '<a href="javascript:void(0)" onClick="showReplyList()">취소</a>';
 		htmls += '</span>';
 		htmls += '</span>';
-		htmls += '<textarea name="editContent'+num+'" id="editContent'+num+'" class="form-control" rows="3">';
+		htmls += '<textarea name="editContent'+replyIdx+'" id="editContent'+replyIdx+'" class="form-control" rows="3">';
 		htmls += content;
 		htmls += '</textarea>';
 		
 		htmls += '</p>';
 		htmls += '</div>';
 		
-		$('#num' + num).replaceWith(htmls);
+		$('#reply' + replyIdx).replaceWith(htmls);
 		$('#editContent').focus();
 
 	}
 	
-	function fn_updateReply(num, reg_id) {
-		let replyEditContent = $("#editContent"+num).val();
+	function fn_updateReply(replyIdx, register) {
+		let replyEditContent = $("#editContent"+replyIdx).val();
 		
-		paramData = JSON.stringify({"content": replyEditContent, "num":num});
+		paramData = JSON.stringify({"content": replyEditContent, "replyIdx":replyIdx});
 		headers = {"Content-Type" : "application/json", "X-HTTP-Method-Override": "POST"};
 		
 		$.ajax({
@@ -171,8 +171,8 @@
 		
 	}
 	
-	function fn_deleteReply(num) {
-		paramData = {"num": num};
+	function fn_deleteReply(replyIdx) {
+		paramData = {"replyIdx": replyIdx};
 		
 		$.ajax({
 			url : "deleteReply.do" ,
@@ -198,18 +198,18 @@
 	<br><br>
 	
 	<div class="bg-white rounded shadow-sm">
-		<div class="member_name">
-			<c:out value="${detail.pdname}" />
+		<div class="name">
+			<c:out value="${detail.productName}" />
 		</div>
-		<div class="member_info_box">
-			<span class="member_num"><c:out value="${detail.serial}" /></span>
-			<span class="member_date"><c:out value="${detail.joindate}" /></span>
+		<div class="info_box">
+			<span class="idx"><c:out value="${detail.productIdx}" /></span>
+			<span class="date"><c:out value="${detail.joindate}" /></span>
 		</div>
-		<div class="grade">주소 : <c:out value="${detail.address}" /> </div>
+		<div class="grade">주소 : <c:out value="${detail.address}" /> </div>	
 		<div class="grade">
 			<c:forEach var="file" items="${map}" varStatus="status">
-				<input type="hidden" id="fileNum" name="fileNum${status.index}" value="${file.NUM}" />
-				<a href="#" onclick="fn_downloadFile('${file.NUM}')" id="fileDown">${file.ORIGINAL_FILE_NAME}</a>
+				<input type="hidden" id="fileIdx" name="fileIdx${status.index}" value="${file.FILE_IDX}" />
+				<a href="#" onclick="fn_downloadFile('${file.FILE_IDX}')" id="fileDown">${file.ORIGINAL_FILE_NAME}</a>
 				(${file.FILE_SIZE}kb)
 				<br/>
 			</c:forEach>
@@ -217,21 +217,21 @@
 	</div>
 	
 	<div style="margin-top: 20px;">
-		<button type="button" class="btn btn-sm btn-primary" onClick="fn_detail(${detail.serial})" id="btnUpdate">수정</button>
-		<button type="button" class="btn btn-sm btn-primary" onClick="fn_delete('${detail.serial}','${detail.fname}')" id="btnDelete">삭제</button>
+		<button type="button" class="btn btn-sm btn-primary" onClick="fn_detail(${detail.productIdx})" id="btnUpdate">수정</button>
+		<button type="button" class="btn btn-sm btn-primary" onClick="fn_delete('${detail.productIdx}','${detail.fname}')" id="btnDelete">삭제</button>
 		<button type="button" class="btn btn-sm btn-primary"  id="btnList">목록</button>
 	</div>
 	
 	<!-- Reply Form -->
 	<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 		<form:form name="form" id="form" role="form" modelAttribute="replyVO" method="post">
-			<form:hidden path="serial" id="serial" />
+			<form:hidden path="productIdx" id="productIdx" />
 			<div class="row">
 				<div class="col-sm-10">
 					<form:textarea path="content" id="content" class="form-control" rows="3" placeholder="댓글을 입력해주세요" />
 				</div>
 				<div class="col-sm-2">
-					<form:input path="reg_id" class="form-control" id="reg_id" placeholder="댓글 작성자" />
+					<form:input path="register" class="form-control" id="register" placeholder="댓글 작성자" />
 					<button type="button" class="btn btn-sm btn-primary" id="btnReplySave" style="width: 100%; margin-top: 10px"> 저 장 </button>
 				</div>
 			</div>

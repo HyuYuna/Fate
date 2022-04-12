@@ -2,25 +2,25 @@ package com.hyuyuna.narcissus.common;
 
 public class FileVO {
 	
-	private int num;
-	private int custno;
+	private int fileIdx;
+	private int productIdx;
 	private String originalFileName;
 	private String storedFileName;
 	private String fileSize;
 	private String delGb;
 	
 	
-	public int getNum() {
-		return num;
+	public int getFileIdx() {
+		return fileIdx;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setFileIdx(int fileIdx) {
+		this.fileIdx = fileIdx;
 	}
-	public int getCustno() {
-		return custno;
+	public int getProductIdx() {
+		return productIdx;
 	}
-	public void setCustno(int custno) {
-		this.custno = custno;
+	public void setProductIdx(int productIdx) {
+		this.productIdx = productIdx;
 	}
 	public String getOriginalFileName() {
 		return originalFileName;

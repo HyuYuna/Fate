@@ -41,9 +41,9 @@ public class FileUtils {
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String,Object> listMap = null;
 		
-		int serial = Integer.parseInt(String.valueOf(map.get("serial")));
+		int productIdx = Integer.parseInt(String.valueOf(map.get("productIdx")));
 		String requestName = null;
-		String num = null;
+		String fileIdx = null;
 		
 		File file = new File(filePath);
 		if(file.exists() == false) {
@@ -71,18 +71,18 @@ public class FileUtils {
 				
 				listMap = new HashMap<String,Object>();
 				listMap.put("IS_NEW", "Y");
-				listMap.put("serial",serial);
+				listMap.put("productIdx",productIdx);
 				listMap.put("ORIGINAL_FILE_NAME", originalFileName); 
 				listMap.put("STORED_FILE_NAME", storedFileName);
 				listMap.put("FILE_SIZE", multipartFile.getSize());
 				list.add(listMap);
 			} else {
 				requestName = multipartFile.getName();
-				num = "num"+requestName.substring(requestName.indexOf("_"));
-				if(map.containsKey(num) == true && map.get(num) != null) {
+				fileIdx = "fileIdx"+requestName.substring(requestName.indexOf("_"));
+				if(map.containsKey(fileIdx) == true && map.get(fileIdx) != null) {
 					listMap = new HashMap<String,Object>();
 					listMap.put("IS_NEW" , "N");
-					listMap.put("num", map.get(num));
+					listMap.put("fileIdx", map.get(fileIdx));
 					list.add(listMap);
 				}
 			}

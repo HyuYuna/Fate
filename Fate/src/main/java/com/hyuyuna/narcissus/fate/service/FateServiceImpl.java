@@ -25,13 +25,13 @@ public class FateServiceImpl implements FateService{
 		return dao.idCheck(id);
 	}
 	
-	// 회원 가입
+	// 고객 가입
 	@Override
 	public void joinUser(UserVO vo) {
 		dao.joinUser(vo);
 	}
 	
-	// 회원 수정
+	// 고객 수정
 	@Override
 	public void editUser(UserVO vo) {
 		dao.editUser(vo);

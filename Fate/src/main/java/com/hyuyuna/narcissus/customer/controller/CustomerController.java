@@ -30,13 +30,13 @@ public class CustomerController {
 	private SessionManager sessionManager;
 	
 	
-	// 회원 등록 화면
+	// 고객 등록 화면
 	@RequestMapping(value="/customerForm.do")
 	public String customerForm(Model model) throws Exception {
 		return "customer/customer_dtl.main";
 	}
 	
-	// 회원 저장 및 수정
+	// 고객 저장 및 수정
 	@RequestMapping(value="/customerSave.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String customerSave(CustomerVO vo,
 				@RequestParam("mode") String mode) throws Exception {
@@ -50,7 +50,7 @@ public class CustomerController {
 		return "redirect:customerList.do";
 	}
 	
-	// 회원 목록
+	// 고객 목록
 	@RequestMapping(value="/customerList.do")
 	public String customerList(CustomerVO vo, Model model, HttpServletRequest request,
 			@RequestParam(required= false, defaultValue = "1") int range) throws Exception{
@@ -72,14 +72,14 @@ public class CustomerController {
 		return "customer/customer_list.main";
 	}
 	
-	// 회원 삭제
+	// 고객 삭제
 	@RequestMapping(value="/customerDelete.do")
 	public String customerDelete(CustomerVO vo) throws Exception {
 		service.deleteCustomer(vo.getCustomerIdx());
 		return "redirect:customerList.do";
 	}
 	
-	// 회원 정보화면
+	// 고객 정보화면
 	@RequestMapping(value="/customerView.do")
 	public String customerView(CustomerVO vo, Model model) throws Exception {
 		
@@ -90,7 +90,7 @@ public class CustomerController {
 		return "customer/customer_view.main";
 	}
 	
-	// 회원 상세
+	// 고객 상세
 	@RequestMapping(value="/customerDtl.do")
 	public String customerDtl(CustomerVO vo, Model model, @RequestParam("mode") String mode) throws Exception {
 
@@ -138,7 +138,7 @@ public class CustomerController {
 		return obj;
 	} */
 	
-    // 회원 목록(그리드용)
+    // 고객 목록(그리드용)
 	@RequestMapping(value="/customerListJson.do", method=RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> customerListJson(
@@ -188,7 +188,7 @@ public class CustomerController {
 		return resMap;
 	} 
 	
-	// 회원 수정(그리드용)
+	// 고객 수정(그리드용)
 	@RequestMapping(value="/editCustomerGrid.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String editCustomerGrid(HttpServletRequest request, 
@@ -201,8 +201,8 @@ public class CustomerController {
 		} else if(oper.equals("edit")) {
 			service.updateCustomerJson(map);
 		} else if(oper.equals("del")) {
-			int custno = Integer.parseInt(map.get("id"));
-			service.deleteCustomer(custno);
+			int customerIdx = Integer.parseInt(map.get("id"));
+			service.deleteCustomer(customerIdx);
 		}
 		
 		return "jsonView";

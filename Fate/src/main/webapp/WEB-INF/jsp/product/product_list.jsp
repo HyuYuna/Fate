@@ -5,15 +5,15 @@
 
 	let url;
 
-	function fn_view(serial) {
+	function fn_view(productIdx) {
 		url = "productView.do";
-		url = url + "?serial=" + serial;
+		url = url + "?productIdx=" + productIdx;
 		location.href = url;
 	}
 	
-	function fn_delete(serial,filename) {
+	function fn_delete(productIdx,filename) {
 		url = "deleteFile.do";
-		url = url + "?serial=" + serial + "&fname=" + filename;
+		url = url + "?productIdx=" + productIdx + "&fname=" + filename;
 		location.href = url;
 	}
 </script>
@@ -37,8 +37,8 @@
 				</tr>
 				<c:forEach items="${list}" var="m">
 					<tr>
-						<td>${m.getSerial()}</td>
-						<td><a href="#" onClick="fn_view(${m.getSerial()})">${m.getPdname()}</a></td>
+						<td>${m.getProductIdx()}</td>
+						<td><a href="#" onClick="fn_view(${m.getProductIdx()})">${m.getProductName()}</a></td>
 						<td>${m.getTel()}</td>
 						<td>${m.getAddress()}</td>
 						<td><img src="getImage.do?fileNm=${m.getFname()}" width="50" height="50"></td>

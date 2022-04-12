@@ -12,8 +12,8 @@ public class ReplyDao extends AbstractDao {
 	
 	// 댓글 목록
 	@SuppressWarnings("unchecked")
-	public List<ReplyVO> getReplyList(int serial) {
-		return (List<ReplyVO>)selectList("replyDao.getReplyList",serial);
+	public List<ReplyVO> getReplyList(int productIdx) {
+		return (List<ReplyVO>)selectList("replyDao.getReplyList",productIdx);
 	}
 	
 	// 댓글 저장
@@ -27,8 +27,8 @@ public class ReplyDao extends AbstractDao {
 	}
 	
 	// 댓글 삭제
-	public int deleteReply(int num) {
-		return (Integer)selectOne("replyDao.deleteReply",num);
+	public int deleteReply(int replyIdx) {
+		return (Integer)selectOne("replyDao.deleteReply",replyIdx);
 	}
 	 
 }
