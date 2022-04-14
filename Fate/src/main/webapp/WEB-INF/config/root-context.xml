@@ -18,7 +18,7 @@
 	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 </context:component-scan>
 
-<context:property-placeholder  location="classpath:config/globals.properties"  />
+<context:property-placeholder  location="/WEB-INF/config/globals.properties"  />
 	
 	<bean id="dataSource"  class="org.apache.commons.dbcp.BasicDataSource"  destroy-method="close">
 		<property name="driverClassName"  value="${jdbc.driver}" />
@@ -27,7 +27,7 @@
 		<property name="password"  value="${jdbc.password}" />
 	</bean>
 	
-<util:properties id='directory' location="classpath:config/globals.properties"  />
+<util:properties id='directory' location="/WEB-INF/config/globals.properties"  />
 
 <!-- <mvc:interceptors>
 	<mvc:interceptor>
@@ -38,7 +38,7 @@
 
 <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref="dataSource" />
-	<property name="configLocation" value="classpath:mybatis-config.xml" />
+	<property name="configLocation" value="/WEB-INF/config/mybatis-config.xml" />
 </bean>
 
 <bean class="org.mybatis.spring.SqlSessionTemplate">

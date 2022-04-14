@@ -1,12 +1,16 @@
 package com.hyuyuna.narcissus.fate.vo;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.hyuyuna.narcissus.common.PageVO;
 
-public class UserVO extends PageVO{
+public class UserVO extends PageVO implements UserDetails{
 	
 	private String userId;
 	private String checkPwd;
@@ -99,6 +103,42 @@ public class UserVO extends PageVO{
 
 	public void setRows(List<Map<String, Object>> rows) {
 		this.rows = rows;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
