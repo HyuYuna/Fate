@@ -54,7 +54,6 @@ public class FateController {
 	}
 	
 	// 로그인
-	@Test
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String login() {
 
