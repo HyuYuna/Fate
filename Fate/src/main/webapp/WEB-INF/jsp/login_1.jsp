@@ -290,7 +290,7 @@ body {
 	function logins() {
 		if(confirm("로그인하시겠습니다")) {
 			url = document.login;
-			url.action="/fate/actionLogin.do";
+			url.action="/actionLogin.do";
 			url.submit();
 		}
 	}

@@ -5,8 +5,8 @@
 
 <tiles-definitions>
 	<definition name="layout-tiles" template="/WEB-INF/jsp/layout/TilesLayout.jsp">
-		<put-attribute name="header" value="/WEB-INF/jsp/layout/headerTemplate.jsp" />
-		<put-attribute name="foot" value="/WEB-INF/jsp/layout/footerTemplate.jsp" />
+		<put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp" />
+		<put-attribute name="foot" value="/WEB-INF/jsp/layout/footer.jsp" />
 	</definition> 
 	
 	<definition name="*.main" extends="layout-tiles">

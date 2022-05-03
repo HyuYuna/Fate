@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hyuyuna.narcissus.common.CommonUtils;
-import com.hyuyuna.narcissus.common.SHA256;
 import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.fate.service.FateService;
 import com.hyuyuna.narcissus.fate.vo.UserVO;
@@ -38,6 +38,9 @@ public class FateController {
 	
 	@Autowired
 	private SessionManager sessionManager;
+	
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@Value("#{directory['globals.filesDir']}")
 	private String imagesDir;
@@ -56,27 +59,20 @@ public class FateController {
 	// 로그인
 	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String login() {
-
+		
 		return "login";
 		
 	}
 	
 	// 로그아웃
-	@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
+	/*@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletResponse response, HttpServletRequest request) {
-		/*expiredCookie(response, "userId");
-		try {
-			sessionManager.expire(request);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
 		}
 		return "redirect:login.do"; 
-	}
+	}*/
 	
 	// 쿠키 만료시간 설정
 	private void expiredCookie(HttpServletResponse response, String cookieName) {
@@ -90,7 +86,7 @@ public class FateController {
 	public String login(UserVO vo, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		
 		try {
-			String decrypt = SHA256.encrypt(vo.getPassword());
+			String decrypt = passwordEncoder.encode(vo.getPassword());
 			vo.setCheckPwd(decrypt);
 			UserVO user = service.login(vo);
 			if (user == null) {
@@ -123,8 +119,8 @@ public class FateController {
 	public String join(UserVO vo) throws Exception {
 		
 		try {
-			String shaPass = SHA256.getSHA256(vo.getPassword());
-			vo.setEncPassword(shaPass);
+			String bcrypt = passwordEncoder.encode(vo.getPassword());
+			vo.setPassword(bcrypt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,8 +134,8 @@ public class FateController {
 	public String editUser(UserVO vo, Model model) throws Exception {
 
 		try {
-			String shapass = SHA256.getSHA256(vo.getPassword());
-			vo.setEncPassword(shapass);
+			String bcrypt = passwordEncoder.encode(vo.getPassword());
+			vo.setPassword(bcrypt);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -50,12 +50,12 @@
 		$.ajax({
 			data : data,
 			type : "POST",
-			url : "/fate/uploadSummernoteImageFile.do",
+			url : "/uploadSummernoteImageFile.do",
 			contentType : false,
 			processData : false,
 			enctype : 'multipart/form-data',
 			success : function(data) {
-				$(editor).summernote('insertImage', '/fate/getImage.do?fileNm='+data.url);
+				$(editor).summernote('insertImage', '/getImage.do?fileNm='+data.url);
 			}
 		});
 	}

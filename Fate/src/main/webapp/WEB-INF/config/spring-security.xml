@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-			 xmlns:beans="http://www.springframework.org/schema/beans"
-		  	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-								 http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 								 
 								
 <http pattern="/**/*.js" security="none" />
@@ -11,7 +13,7 @@
 <http pattern="/images/*" security="none" />
 
 <http auto-config="true" use-expressions="true" >
-	<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+	<intercept-url pattern="/product/**" access="hasRole('ADMIN')" />
 	<intercept-url pattern="/login.do" access="isAnonymous()" />
 	<intercept-url pattern="/main.do" access="permitAll" />
 	<intercept-url pattern="/**" access="permitAll" />
@@ -20,16 +22,44 @@
 			password-parameter="pwd"
 			login-page="/login.do"
 			default-target-url="/customerList.do"
-			authentication-failure-url="/login.do?fail=true"
+			authentication-success-handler-ref="customAuthenticationSuccessHandler"
+			authentication-failure-handler-ref="customAuthenticationFailureHandler"
+	/>
+	<logout
+			logout-url="/logout.do"
+			logout-success-url="/customerList.do"
+			delete-cookies="JSESSIONID"	
 	/>
 </http>
+
+<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
 <authentication-manager>
-	<authentication-provider>
-		<user-service>
-			<user name="wndaud" password="1234" authorities="ROLE_USER" />
-			<user name="wndaud2412" password="1234" authorities="ROLE_ADMIN" />
-		</user-service>
+	<authentication-provider user-service-ref="userJdbcDaoImpl">
+		<password-encoder ref="bcryptPasswordEncoder" />
 	</authentication-provider>
 </authentication-manager>
+
+<beans:bean id="userJdbcDaoImpl" class="com.hyuyuna.narcissus.common.security.UserJdbcDaoImpl">
+	<beans:property name="dataSource" ref="dataSource" />
+	<beans:property name="rolePrefix" value="" />
+	<beans:property name="usersByUsernameQuery" value="SELECT USER_ID, PASSWORD, USER_NAME FROM USER WHERE USER_ID=?" />
+	<beans:property name="authoritiesByUsernameQuery" value="SELECT AUTHORITY_CODE FROM USER_AUTHORITY WHERE USER_ID=?" />
+	<beans:property name="enableGroups" value="false" />
+</beans:bean>
+
+<beans:bean id="customAuthenticationSuccessHandler" class="com.hyuyuna.narcissus.common.security.handler.CustomAuthenticationSuccessHandler">
+	<beans:property name="targetUrlParameter" value="loginRedirect" />
+	<beans:property name="useReferer" value="false" />
+	<beans:property name="defaultUrl" value="/main.do" />
+</beans:bean>
+
+<beans:bean id="customAuthenticationFailureHandler" class="com.hyuyuna.narcissus.common.security.handler.CustomAuthenticationFailureHandler">
+	<beans:property name="loginIdName" value="id" />
+	<beans:property name="loginPwdName" value="pwd" />
+	<beans:property name="loginRedirectName" value="loginRedirect" />
+	<beans:property name="exceptionMsgName" value="securityexceptionmsg" />
+	<beans:property name="defaultFailureUrl" value="/login.do?fail=true" />
+</beans:bean>
 
 </beans:beans>

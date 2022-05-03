@@ -26,7 +26,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		if (obj == null) {
-			response.sendRedirect("/fate/main.do");
+			response.sendRedirect("/main.do");
 			return false;
 		}
 		return super.preHandle(request,response,handler);

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class ProductController {
 	
 	@Autowired
 	private SessionManager sessionManager;
+	
+	@Value("#{directory['globals.filesDir']}")
+	private String filePath;
 	
 	
 	// 제품 등록 화면
@@ -136,7 +140,7 @@ public class ProductController {
 		String storedFileName = file.getStoredFileName();
 		String originalFileName  = file.getOriginalFileName();
 		
-		byte fileByte[] = FileUtils.readFileToByteArray(new File("C:\\Fate\\github\\files\\"+storedFileName));
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(filePath + "/" +storedFileName));
 		
 		response.setContentType("application/octet-stream"); 
 		response.setContentLength(fileByte.length); 
@@ -150,5 +154,5 @@ public class ProductController {
 		
 	}
 	
-
+	
 }

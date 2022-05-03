@@ -10,7 +10,7 @@
 
 	$(document).ready(function() {
 		jQuery("#list").jqGrid({
-			url : "/fate/customerListJson.do",
+			url : "/customerListJson.do",
 			styleUI : 'Bootstrap',
 			datatype : "json",
 			contentType: "application/json; charset=UTF-8",
@@ -41,7 +41,7 @@
 		    sortname : "customer_idx",	
 		    sortable : true,
 		    emptyRecords : "데이터가 없습니다",
-		    editurl : "/fate/editCustomerGrid.do"
+		    editurl : "/editCustomerGrid.do"
 		});
 		jQuery("#list").jqGrid(
 			'navGrid',

@@ -205,25 +205,25 @@ body {
 		<h2>Login</h2>
 		<form name="login" id="loginForm" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
 			<div class="user-box">
-				<input type="text" id="loginId" name="id"> <label>Username</label>
+				<input type="text" id="loginId" name="id" value="${id}"> <label>UserId</label>
 			</div>
 			<div class="user-box">
-				<input type="password" id="loginPwd" name="pwd"> <label>Password</label>
+				<input type="password" id="loginPwd" name="pwd" value="${pwd}"> <label>Password</label>
 			</div>
 			<button type="button" id="loginBtn">
 				<span></span> <span></span> <span></span> <span></span> Submit
 			</button>
+		
+			<c:if test="${not empty securityexceptionmsg}">
+				<div>
+					<font color="red">
+						<p>${securityexceptionmsg}</p>
+					</font>
+				</div>
+			</c:if>
+			
+			<input type="hidden" name="loginRedirect" value="${loginRedirect}" />
 		</form>
-		
-		<c:if test="${not empty param.fail}">
-			<div>
-				<font color="red">
-					<p>${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
-					<c:remove scope="session" var="SPRING_SECURITY_LAST_EXCEPTION" />
-				</font>
-			</div>
-		</c:if>
-		
 	</div>
 
 </body>

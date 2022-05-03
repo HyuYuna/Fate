@@ -11,11 +11,11 @@
 	<table>
 		<tr>
 			<td>아이디</td>
-			<td><input type="text" name="id"></td>
+			<td><input type="text" name="userId"></td>
 		</tr>
 		<tr>
 			<td>비밀번호</td>
-			<td><input type="text" name="pwd"></td>
+			<td><input type="text" name="password"></td>
 		</tr>
 		<tr>
 			<td colspan="2" align="center">
