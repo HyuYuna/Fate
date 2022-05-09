@@ -1,17 +1,17 @@
-package com.hyuyuna.narcissus.fate.service;
+package com.hyuyuna.narcissus.main.service;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.hyuyuna.narcissus.fate.dao.FateDao;
-import com.hyuyuna.narcissus.fate.vo.UserVO;
+import com.hyuyuna.narcissus.main.dao.MainDao;
+import com.hyuyuna.narcissus.main.vo.UserVO;
 
-@Service("fateService")
-public class FateServiceImpl implements FateService{
+@Service("mainService")
+public class MainServiceImpl implements MainService{
 	
-	@Resource(name="fateDao")
-	FateDao dao;
+	@Resource(name="mainDao")
+	MainDao dao;
 	
 	// 로그인
 	@Override
@@ -25,13 +25,13 @@ public class FateServiceImpl implements FateService{
 		return dao.idCheck(id);
 	}
 	
-	// 고객 가입
+	// 회원 가입
 	@Override
 	public void joinUser(UserVO vo) {
 		dao.joinUser(vo);
 	}
 	
-	// 고객 수정
+	// 회원 수정
 	@Override
 	public void editUser(UserVO vo) {
 		dao.editUser(vo);

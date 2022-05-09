@@ -1,4 +1,4 @@
-package com.hyuyuna.narcissus.fate.vo;
+package com.hyuyuna.narcissus.main.vo;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -27,8 +27,6 @@ public class UserVO extends PageVO implements UserDetails{
 	private int page;
     private int records;
     private int total;
-    
-    
     
 	public UserVO(String userId, String password, String userName, Collection<? extends GrantedAuthority> authorities) {
 		this.userId = userId;

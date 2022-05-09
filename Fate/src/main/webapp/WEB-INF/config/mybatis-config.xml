@@ -8,7 +8,8 @@
 	 </settings>
 	 
 	<typeAliases>
-		<typeAlias type="com.hyuyuna.narcissus.fate.vo.UserVO" alias="userVO" />
+		<typeAlias type="com.hyuyuna.narcissus.main.vo.UserVO" alias="userVO" />
+		<typeAlias type="com.hyuyuna.narcissus.admin.vo.UserInfoVO" alias="userInfoVO" />
 		<typeAlias type="com.hyuyuna.narcissus.product.vo.ProductVO" alias="productVO" />
 		<typeAlias type="com.hyuyuna.narcissus.reply.vo.ReplyVO" alias="replyVO" />
 		<typeAlias type="com.hyuyuna.narcissus.customer.vo.CustomerVO" alias="customerVO" />
@@ -16,7 +17,8 @@
 	</typeAliases>	  
 	
 	<mappers>
-		<mapper resource="mapping/fate-mapping.xml" />
+		<mapper resource="mapping/main-mapping.xml" />
+		<mapper resource="mapping/admin-mapping.xml" />
 		<mapper resource="mapping/customer-mapping.xml" />
 		<mapper resource="mapping/product-mapping.xml" />
 		<mapper resource="mapping/reply-mapping.xml" />

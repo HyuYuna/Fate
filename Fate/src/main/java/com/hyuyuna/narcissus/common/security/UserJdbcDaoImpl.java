@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
-import com.hyuyuna.narcissus.fate.vo.UserVO;
+import com.hyuyuna.narcissus.main.vo.UserVO;
 
 public class UserJdbcDaoImpl extends JdbcDaoImpl {
 	

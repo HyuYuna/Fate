@@ -1,4 +1,4 @@
-package com.hyuyuna.narcissus.fate.controller;
+package com.hyuyuna.narcissus.main.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,14 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hyuyuna.narcissus.common.CommonUtils;
 import com.hyuyuna.narcissus.common.SessionManager;
-import com.hyuyuna.narcissus.fate.service.FateService;
-import com.hyuyuna.narcissus.fate.vo.UserVO;
+import com.hyuyuna.narcissus.main.service.MainService;
 
 @Controller
-public class FateController {
+public class FileController {
 	
-	@Resource(name="fateService")
-	private FateService service;
+	@Resource(name="mainService")
+	private MainService service;
 	
 	@Autowired
 	private SessionManager sessionManager;
@@ -46,114 +43,8 @@ public class FateController {
 	private String imagesDir;
 	
 	 public interface sessionDefine {
-		 String loginFate = "HyuYuna";
+		 String loginMain = "HyuYuna";
 	 } 
-	
-	@RequestMapping(value="/main.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String main() {
-		
-		return "redirect:customerList.do";
-		
-	}
-	
-	// 로그인
-	@RequestMapping(value="/login.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login() {
-		
-		return "login";
-		
-	}
-	
-	// 로그아웃
-	/*@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String logout(HttpServletResponse response, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		return "redirect:login.do"; 
-	}*/
-	
-	// 쿠키 만료시간 설정
-	private void expiredCookie(HttpServletResponse response, String cookieName) {
-		Cookie cookie = new Cookie(cookieName, null);
-		cookie.setMaxAge(0);
-		response.addCookie(cookie);
-	} 
-	
-	// 로그인
-	@RequestMapping(value="/actionLogin.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String login(UserVO vo, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		
-		try {
-			String decrypt = passwordEncoder.encode(vo.getPassword());
-			vo.setCheckPwd(decrypt);
-			UserVO user = service.login(vo);
-			if (user == null) {
-				model.addAttribute("message","로그인에 실패하였습니다");
-				return "redirect:login.do";
-			} else {
-				/*
-				 * Cookie idCookie = new Cookie("userId", String.valueOf(user.getId()));
-				 * response.addCookie(idCookie);
-				 */
-				/*sessionManager.createSession(user, response);*/
-				HttpSession session = request.getSession();
-				session.setAttribute("login", user);
-				session.setMaxInactiveInterval(3000);
-				
-				return "redirect:main.do";
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("message", "로그인에 실패하였습니다");
-			return "redirect:login.do";
-		}
-		
-	}
-	
-	
-	// 고객 가입
-	@RequestMapping(value="/join.do", method=RequestMethod.POST)
-	public String join(UserVO vo) throws Exception {
-		
-		try {
-			String bcrypt = passwordEncoder.encode(vo.getPassword());
-			vo.setPassword(bcrypt);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		service.joinUser(vo);
-		
-		return "redirect:customerList.do";
-	}
-	
-	// 고객 수정
-	@RequestMapping(value="/editUser.do")
-	public String editUser(UserVO vo, Model model) throws Exception {
-
-		try {
-			String bcrypt = passwordEncoder.encode(vo.getPassword());
-			vo.setPassword(bcrypt);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		service.editUser(vo);
-		
-		return "redirect:customerList.do";
-	}
-	
-	// 아이디 중복체크
-	@RequestMapping(value="/idCheck.do", method=RequestMethod.POST)
-	@ResponseBody
-	public int idCheck(@RequestParam("id") String id) {
-		
-		int check = service.idCheck(id);
-		
-		return check;
-	}
 	
 	
 	// 이미지 파일 가져오기
