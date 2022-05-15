@@ -12,9 +12,9 @@
  		}
  	});
 
-	function fn_view(customerIdx) {
-		url = "customerView.do";
-		url = url + "?customerIdx=" + customerIdx;
+	function fn_detail(userId) {
+		url = "userDtl.do";
+		url = url + "?userId=" + userId;
 		location.href = url;
 	}
 	
@@ -22,7 +22,7 @@
 	    var page = ((range - 2) * rangeSize) + 1;
 	    var range = range - 1;
 		
-	    url = "${pageContext.request.contextPath}/customerList.do";
+	    url = "${pageContext.request.contextPath}/userList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + searchType;
@@ -32,7 +32,7 @@
 	}
 	
 	function fn_pagination(page, range, rangeSize, searchType, keyword) {
-		url = "${pageContext.request.contextPath}/customerList.do";
+		url = "${pageContext.request.contextPath}/userList.do";
 	 	url = url + "?page=" + page;
 	 	url = url + "&range=" + range;
 	 	url = url + "&searchType=" + searchType;
@@ -45,7 +45,7 @@
 		var page = parseInt(range * rangeSize) + 1;
 		var range = parseInt(range) + 1;
 		
-		url = "${pageContext.request.contextPath}/customerList.do";
+		url = "${pageContext.request.contextPath}/userList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		url = url + "&searchType=" + searchType;
@@ -59,31 +59,32 @@
 	<br>
 	<br>
 	<div align="center">
-	<font size=5><strong>회원 목록</strong></font>
+	<font size=5><strong>사용자 목록</strong></font>
 		<div class="container mt-50">
 			<div class="table-responsive">
 			<table  class="table table-striped table-sm">
 				<tr>
+					<td>번호</td>
 					<td>회원ID</td>
 					<td>회원이름</td>
 					<td>권한</td>
 				</tr>
 				<c:forEach items="${list}" var="m">
 					<tr>
-						<td>${m.getCustomerIdx()}</td>
-						<td><a href="#" onClick="fn_view(${m.getCustomerIdx()})">${m.getCustomerName()}</a></td>
-						<td>${m.getPhone()}</td>
-						<td>${m.getAddress()}</td>
+						<td>${m.getRnum()}</td>
+						<td><a href="#" onClick="fn_detail('${m.getUserId()}')">${m.getUserId()}</a></td>
+						<td>${m.getUserName()}</td>
+						<td>${m.getAuthorityName()}</td>
 					</tr>
 				</c:forEach>
 			</table>
 			</div>
 		</div>
 		
-		<form action="customerList.do" style="margin-bottom:5px;">
+		<form action="userList.do" style="margin-bottom:5px;">
 			<select name="searchType">
-				<option value="customerIdx">번호</option>
-				<option value="customerName">이름</option>
+				<option value="userId">아이디</option>
+				<option value="userName">이름</option>
 			</select>
 			<input type="text" name="keyword" value="${vo.keyword}">
 			<button type="submit" class="btn btn-primary">검색하기</button>

@@ -24,8 +24,8 @@ public class ProductServiceImpl implements ProductService{
 	
 	// 제품 목록
 	@Override
-	public List<ProductVO> selectAllProduct(ProductVO vo){
-		return dao.selectAllProduct(vo);
+	public List<ProductVO> selectProductList(ProductVO vo){
+		return dao.selectProductList(vo);
 	}
 	
 	// 제품 상세

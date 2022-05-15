@@ -9,6 +9,7 @@ import com.hyuyuna.narcissus.common.PageVO;
 public class ProductVO extends PageVO{
 	
 	private int productIdx;
+	private int rnum;
 	private int num;
 	private String productName;
 	private String tel;
@@ -34,6 +35,14 @@ public class ProductVO extends PageVO{
 
 	public void setProductIdx(int productIdx) {
 		this.productIdx = productIdx;
+	}
+	
+	public int getRnum() {
+		return rnum;
+	}
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 
 	public int getNum() {

@@ -8,11 +8,11 @@ import com.hyuyuna.narcissus.customer.vo.CustomerVO;
 
 public interface CustomerService {
 	
-	// 전체 고객 목록
-	public List<CustomerVO> selectAllCustomer(CustomerVO vo);
+	// 고객 목록
+	public List<CustomerVO> selectCustomerList(CustomerVO vo);
 	
-	// 전체 고객(그리드용)
-	public List<CustomerVO> selectAllCustomerJson(Map<String, Object> map);
+	// 고객 목록(그리드용)
+	public List<CustomerVO> selectCustomerListJson(Map<String, Object> map);
 	
 	// 고객수
 	public int customerCnt(CustomerVO vo);

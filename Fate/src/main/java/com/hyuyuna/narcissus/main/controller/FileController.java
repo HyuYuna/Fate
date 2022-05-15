@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,13 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hyuyuna.narcissus.common.CommonUtils;
 import com.hyuyuna.narcissus.common.SessionManager;
-import com.hyuyuna.narcissus.main.service.MainService;
 
 @Controller
 public class FileController {
-	
-	@Resource(name="mainService")
-	private MainService service;
 	
 	@Autowired
 	private SessionManager sessionManager;

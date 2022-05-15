@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <script>
 	
 	let url = null;
@@ -25,7 +24,7 @@
 		
 		paramData = JSON.stringify({"content":replyContent, 
 							"register":replyRegister, 
-							"productIdx": '${detail.productIdx}'
+							"boardIdx": '${detail.productIdx}'
 		});
 		
 		headers = {"Content-Type" : "application/json"
@@ -33,7 +32,7 @@
 		
 		$.ajax({
 			type : 'POST',
-			url : "saveReply.do",
+			url : "insertReply.do",
 			headers : headers,
 			data : paramData,
 			dataType : 'text',
@@ -79,7 +78,7 @@
 	
 	function showReplyList() {
 		url = "getReplyList.do";
-		paramData = {"productIdx" : "${detail.productIdx}"};
+		paramData = {"boardIdx" : "${detail.productIdx}"};
 		$.ajax({
 			type : 'POST',
 			url : url,
@@ -225,7 +224,7 @@
 	<!-- Reply Form -->
 	<div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 		<form:form name="form" id="form" role="form" modelAttribute="replyVO" method="post">
-			<form:hidden path="productIdx" id="productIdx" />
+			<form:hidden path="boardIdx" id="boardIdx" />
 			<div class="row">
 				<div class="col-sm-10">
 					<form:textarea path="content" id="content" class="form-control" rows="3" placeholder="댓글을 입력해주세요" />

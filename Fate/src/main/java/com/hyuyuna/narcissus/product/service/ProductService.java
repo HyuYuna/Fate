@@ -11,7 +11,7 @@ import com.hyuyuna.narcissus.product.vo.ProductVO;
 public interface ProductService {
 	
 	// 제품 목록
-	public List<ProductVO> selectAllProduct(ProductVO vo);
+	public List<ProductVO> selectProductList(ProductVO vo);
 	
 	// 제품 상세
 	public ProductVO selectProduct(int productIdx) throws Exception;

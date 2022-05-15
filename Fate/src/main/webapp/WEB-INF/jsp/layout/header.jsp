@@ -58,6 +58,7 @@
 	          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">관리자</a>
 	          <div class="dropdown-menu" aria-labelledby="dropdown01">
 	            <a class="dropdown-item" href="userJoin.do">사용자 등록</a>
+	            <a class="dropdown-item" href="userList.do">사용자 목록</a>
 	          </div>
 	        </li>
           </sec:authorize>
@@ -81,7 +82,7 @@
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-expanded="false">그리드</a>
 	            <div class="dropdown-menu" aria-labelledby="dropdown04">
-         	      <a class="dropdown-item" href="customerGrid.do">그리드</a>
+         	      <a class="dropdown-item" href="customerGrid.do">고객 그리드</a>
 	 	        </div>
 	        </li>
           </sec:authorize>

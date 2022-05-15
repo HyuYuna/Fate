@@ -14,8 +14,8 @@ public class ProductDao extends AbstractDao {
 	
 	// 제품 목록
 	@SuppressWarnings("unchecked")
-	public List<ProductVO> selectAllProduct(ProductVO vo) {
-		return (List<ProductVO>)selectList("productDao.selectAllProduct", vo);
+	public List<ProductVO> selectProductList(ProductVO vo) {
+		return (List<ProductVO>)selectList("productDao.selectProductList", vo);
 	}
 	
 	// 제품 상세

@@ -2,10 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="customerDao">
 
-	<!--  전체 고객 목록 -->
-	<select id="selectAllCustomer" parameterType="customerVO" resultType="customerVO">
+	<!-- 고객 목록 -->
+	<select id="selectCustomerList" parameterType="customerVO" resultType="customerVO">
 		SELECT 
-			* 
+			ROW_NUMBER() OVER(ORDER BY customer_idx asc) as rnum ,
+			customer_idx , 
+			customer_name , 
+			phone ,
+			address ,
+			joindate ,
+			grade ,
+			city ,
+			content 
 		FROM 
 			CUSTOMER
 		<where>
@@ -20,8 +28,8 @@
 		LIMIT #{startList} , #{listSize}
 	</select>
 
-	<!-- 전체 고객(그리드용) -->
-	<select id="selectAllCustomerJson" parameterType="Map" resultType="customerVO">
+	<!-- 고객 목록(그리드용) -->
+	<select id="selectCustomerListJson" parameterType="Map" resultType="customerVO">
 		SELECT 
 			AAA.* 
 		FROM (

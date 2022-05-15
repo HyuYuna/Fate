@@ -8,6 +8,7 @@ import com.hyuyuna.narcissus.common.PageVO;
 
 public class CustomerVO extends PageVO{
 	
+	private int rnum;
 	private int customerIdx;
 	private String customerName;
 	private String phone;
@@ -29,7 +30,12 @@ public class CustomerVO extends PageVO{
     private List<Map<String, Object>> rows = new ArrayList<Map<String, Object>>();
 	
 	
-    
+    public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
 	public int getCustomerIdx() {
 		return customerIdx;
 	}

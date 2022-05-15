@@ -20,15 +20,15 @@ public class CustomerServiceImpl implements CustomerService{
 	@Resource(name="customerDao")
 	CustomerDao dao;
 	
-	// 전체 고객 목록
+	// 고객 목록
 	@Override
-	public List<CustomerVO> selectAllCustomer(CustomerVO vo) {
-		return dao.selectAllCustomer(vo);
+	public List<CustomerVO> selectCustomerList(CustomerVO vo) {
+		return dao.selectCustomerList(vo);
 	}
 	
-	// 전체 고객(그리드용)
-	public List<CustomerVO> selectAllCustomerJson(Map<String, Object> map) {
-		return dao.selectAllCustomerJson(map);
+	// 고객 목록(그리드용)
+	public List<CustomerVO> selectCustomerListJson(Map<String, Object> map) {
+		return dao.selectCustomerListJson(map);
 	}
 	
 	// 고객수

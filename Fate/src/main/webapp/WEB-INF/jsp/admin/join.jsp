@@ -2,45 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section>
-<div class="container mt-50" role="main">
-	<div align="center"><font size=5><strong>회원 정보 입력하기</strong></font></div>
-	<br><br>
-	<form action="join.do" method="post" onsubmit="join();">
-		<div class="mb-3">
-			<label for="userId">아이디</label>
-			<input type=text class="form-control" id="userId" name="userId" size=10 placeholder="아이디을 입력해 주세요">
-			<button type="button" onClick="javascript:idCheck();">중복확인</button>
-		</div>
-		<div class="mb-3">
-			<label for="password">비밀번호</label>
-			<input type=text class="form-control" name="password" size=10 placeholder="비밀번호 입력해 주세요">
-		</div>
-		<div class="mb-3">
-			<label for="userName">회원명</label>
-			<input type=text class="form-control" name="userName" size=10 placeholder="회원명을 입력해 주세요">
-		</div>
-		<div>
-			<button type="submit" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-		</div>
-	</form>
-</div>
-</section>
 
 <script>
 	let idChk = "N";
 	let url;
+	const str = document.frm;
 
-	function join() {
+	$(document).on('click', '#btnSave', function() {
 		
 		if(idChk != "Y") {
 			alert("ID 중복확인을 해주세요");
 			return false;
+		} else if(str.password.value.length < 1) {
+			alert("비밀번호를 입력해주세요");
+		} else if(str.userName.value.length < 1) {
+			alert("회원명을 입력해주세요");
 		}
 		
-		return true;
+		document.frm.action = "join.do";
+		document.frm.submit();
+	})
 		
-	}
-	
 	function idCheck() {
 		
 		let userId = $("#userId").val();
@@ -70,5 +52,28 @@
 		});
 		
 	}
-	
 </script>
+
+<div class="container mt-50" role="main">
+	<div align="center"><font size=5><strong>사용자 정보 입력하기</strong></font></div>
+	<br><br>
+	<form name="frm" method="post">
+		<div class="mb-3">
+			<label for="userId">아이디</label>
+			<input type=text class="form-control" id="userId" name="userId" size=10 placeholder="아이디을 입력해 주세요">
+			<button type="button" onClick="javascript:idCheck();">중복확인</button>
+		</div>
+		<div class="mb-3">
+			<label for="password">비밀번호</label>
+			<input type=text class="form-control" name="password" size=10 placeholder="비밀번호 입력해 주세요">
+		</div>
+		<div class="mb-3">
+			<label for="userName">회원명</label>
+			<input type=text class="form-control" name="userName" size=10 placeholder="회원명을 입력해 주세요">
+		</div>
+		<div>
+			<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
+		</div>
+	</form>
+</div>
+</section>

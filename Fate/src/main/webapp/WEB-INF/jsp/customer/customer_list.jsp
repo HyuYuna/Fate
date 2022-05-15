@@ -64,7 +64,7 @@
 			<div class="table-responsive">
 			<table  class="table table-striped table-sm">
 				<tr>
-					<td>고객번호</td>
+					<td>순번</td>
 					<td>고객성명</td>
 					<td>전화번호</td>
 					<td>주소</td>
@@ -74,7 +74,7 @@
 				</tr>
 				<c:forEach items="${list}" var="m">
 					<tr>
-						<td>${m.getCustomerIdx()}</td>
+						<td>${m.getRnum()}</td>
 						<td><a href="#" onClick="fn_view(${m.getCustomerIdx()})">${m.getCustomerName()}</a></td>
 						<td>${m.getPhone()}</td>
 						<td>${m.getAddress()}</td>

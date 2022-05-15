@@ -3,33 +3,33 @@
 <mapper namespace="replyDao">
 	 
 	<!-- 댓글 목록 -->
-	<select id="getReplyList" resultType="replyVO">
+	<select id="selectReplyList" resultType="replyVO">
 		SELECT
 			REPLY_IDX ,
-			PRODUCT_IDX ,
+			BOARD_IDX ,
 			CONTENT ,
 			REGISTER, 
 			REGIST_DT, 
 			UPDATE_DT
 		FROM
-			PRODUCT_REPLY
+			BOARD_REPLY
 		WHERE
-			PRODUCT_IDX = #{productIdx}
+			BOARD_IDX = #{boardIdx}
 		ORDER BY
 			REGIST_DT DESC
 	</select>
 	
 	<!-- 댓글 저장 -->
-	<insert id="saveReply" parameterType="replyVO">
-		INSERT INTO PRODUCT_REPLY
+	<insert id="insertReply" parameterType="replyVO">
+		INSERT INTO BOARD_REPLY
 			(
-				PRODUCT_IDX, 
+				BOARD_IDX, 
 				CONTENT, 
 				REGISTER, 
 				REGIST_DT, 
 				UPDATE_DT
 			) VALUES (
-				#{productIdx},
+				#{boardIdx},
 				#{content},
 				#{register},
 				now(),
@@ -40,7 +40,7 @@
 	<!-- 댓글 수정 -->
 	<update id="updateReply" parameterType="replyVO">
 		UPDATE 
-			PRODUCT_REPLY
+			BOARD_REPLY
 		SET
 			CONTENT = #{content}, 
 			UPDATE_DT = now()
@@ -51,7 +51,7 @@
 	<!-- 댓글 삭제 -->
 	<delete id="deleteReply" parameterType="int">
 		DELETE FROM 
-			PRODUCT_REPLY
+			BOARD_REPLY
 		WHERE
 			REPLY_IDX = #{replyIdx}
 	</delete>

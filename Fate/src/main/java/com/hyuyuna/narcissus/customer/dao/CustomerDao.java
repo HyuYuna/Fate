@@ -11,16 +11,16 @@ import com.hyuyuna.narcissus.customer.vo.CustomerVO;
 @Repository("customerDao")
 public class CustomerDao extends AbstractDao {
 
-	// 전체 고객 목록
+	// 고객 목록
 	@SuppressWarnings("unchecked")
-	public List<CustomerVO> selectAllCustomer(CustomerVO vo) {
-		return (List<CustomerVO>)selectList("customerDao.selectAllCustomer", vo);
+	public List<CustomerVO> selectCustomerList(CustomerVO vo) {
+		return (List<CustomerVO>)selectList("customerDao.selectCustomerList", vo);
 	}
 	
-	// 전체 고객(그리드용)
+	// 고객 목록(그리드용)
 	@SuppressWarnings("unchecked")
-	public List<CustomerVO> selectAllCustomerJson(Map<String, Object> map) {
-		return (List<CustomerVO>)selectList("customerDao.selectAllCustomerJson", map);
+	public List<CustomerVO> selectCustomerListJson(Map<String, Object> map) {
+		return (List<CustomerVO>)selectList("customerDao.selectCustomerListJson", map);
 	}
 	
 	// 고객수

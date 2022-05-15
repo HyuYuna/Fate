@@ -30,20 +30,20 @@ public class ReplyController {
 	// 댓글 목록
 	@RequestMapping(value="/getReplyList.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<ReplyVO> getReplyList(@RequestParam("productIdx") int productIdx) throws Exception {
-		List<ReplyVO> replyList = service.getReplyList(productIdx);
+	public List<ReplyVO> getReplyList(@RequestParam("boardIdx") int boardIdx) throws Exception {
+		List<ReplyVO> replyList = service.selectReplyList(boardIdx);
 		
 		return replyList;
 	} 
 	
 	// 댓글 저장
-	@RequestMapping(value="/saveReply.do", method=RequestMethod.POST)
+	@RequestMapping(value="/insertReply.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> saveReply(@RequestBody ReplyVO replyVO) throws Exception {
 		Map<String, Object> result = new HashMap();
 		
 		try {
-			service.saveReply(replyVO);
+			service.insertReply(replyVO);
 			result.put("status", "OK");
 		} catch (Exception e) {
 			e.printStackTrace();

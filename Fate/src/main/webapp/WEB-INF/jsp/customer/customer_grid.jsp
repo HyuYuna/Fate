@@ -34,7 +34,6 @@
 			rowList:[10,20,30],
 			pager:'#pager',
 			viewrecords : true,
-			multiselect : true,
 			showpage : true,
 		    caption:"고객 관리" ,
 		    sortorder : "asc",

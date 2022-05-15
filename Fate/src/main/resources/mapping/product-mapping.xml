@@ -18,7 +18,7 @@
 			#{joindate}
 		) 
 		 ]]>
-		 <selectKey keyProperty="serial" resultType="int" order="AFTER">
+		 <selectKey keyProperty="productIdx" resultType="int" order="AFTER">
 		 	SELECT LAST_INSERT_ID()
 		 </selectKey>
 	</insert>
@@ -48,9 +48,9 @@
 	</delete>
 	
 	<!--  제품 목록 -->
-	<select id="selectAllProduct" parameterType="productVO" resultType="productVO">
-	 <![CDATA[
+	<select id="selectProductList" parameterType="productVO" resultType="productVO">
 		SELECT 
+			ROW_NUMBER() OVER(ORDER BY product_idx asc) as rnum ,
 			A.product_idx ,
 			A.product_name ,
 			A.tel ,
@@ -63,11 +63,18 @@
 			PRODUCT_FILE AS B ON A.product_idx = B.product_idx 
 		AND 
 			B.DEL_YN ='N'
+		<where>
+			<if test="searchType=='productIdx'">
+				AND A.PRODUCT_IDX LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType=='productName'">
+				AND A.PRODUCT_NAME LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</where>
 		GROUP BY
 			A.PRODUCT_IDX
 		ORDER BY 
 			A.PRODUCT_IDX DESC
-	 ]]>
 	</select>
 	
 	<!-- 제품 상세 -->

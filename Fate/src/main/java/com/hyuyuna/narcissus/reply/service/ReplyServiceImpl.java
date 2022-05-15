@@ -16,13 +16,13 @@ public class ReplyServiceImpl implements ReplyService{
 	ReplyDao dao;
 	
 	// 댓글 목록
-	public List<ReplyVO> getReplyList(int productIdx) {
-		return dao.getReplyList(productIdx);
+	public List<ReplyVO> selectReplyList(int boardIdx) {
+		return dao.selectReplyList(boardIdx);
 	}
 	
 	// 댓글 저장
-	public int saveReply(ReplyVO vo) {
-		return dao.saveReply(vo);
+	public int insertReply(ReplyVO vo) {
+		return dao.insertReply(vo);
 	}
 	
 	// 댓글 수정

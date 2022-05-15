@@ -70,7 +70,7 @@
 		</c:if>
 		<input type="hidden" name="mode" />
 		<div class="mb-3">
-			<label for="customerName">제목</label>
+			<label for="customerName">고객이름</label>
 			<input name="customerName" id="customerName" class="form-control" placeholder="제목을 입력해 주세요" />
 		</div>
 		<div class="mb-3">

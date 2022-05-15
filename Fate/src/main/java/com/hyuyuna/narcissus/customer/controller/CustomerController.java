@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.customer.service.CustomerService;
 import com.hyuyuna.narcissus.customer.vo.CustomerVO;
+import com.hyuyuna.narcissus.reply.vo.ReplyVO;
 
 @Controller
 public class CustomerController {
@@ -63,7 +64,7 @@ public class CustomerController {
 		vo.setListCnt(listCnt);
 		vo.pageInfo(page, range, listCnt);
 		
-		List<CustomerVO> list = service.selectAllCustomer(vo);
+		List<CustomerVO> list = service.selectCustomerList(vo);
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("cnt", listCnt);
@@ -86,6 +87,7 @@ public class CustomerController {
 		CustomerVO detail = service.selectCustomer(vo.getCustomerIdx());
 		
 		model.addAttribute("detail", detail);
+		model.addAttribute("replyVO", new ReplyVO());
 
 		return "customer/customer_view.main";
 	}
@@ -165,7 +167,7 @@ public class CustomerController {
 		order.put("searchField", searchField);
 		order.put("searchString", searchString);
 		
-		customerList = service.selectAllCustomerJson(order);
+		customerList = service.selectCustomerListJson(order);
 		
 		HashMap<String, Object> resMap = new HashMap<String, Object>();
 		if (searchField != null) {

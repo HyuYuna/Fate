@@ -12,13 +12,13 @@ public class ReplyDao extends AbstractDao {
 	
 	// 댓글 목록
 	@SuppressWarnings("unchecked")
-	public List<ReplyVO> getReplyList(int productIdx) {
-		return (List<ReplyVO>)selectList("replyDao.getReplyList",productIdx);
+	public List<ReplyVO> selectReplyList(int boardIdx) {
+		return (List<ReplyVO>)selectList("replyDao.selectReplyList", boardIdx);
 	}
 	
 	// 댓글 저장
-	public int saveReply(ReplyVO vo) {
-		return (Integer)selectOne("replyDao.saveReply",vo);
+	public int insertReply(ReplyVO vo) {
+		return (Integer)selectOne("replyDao.insertReply",vo);
 	}
 	
 	// 댓글 수정

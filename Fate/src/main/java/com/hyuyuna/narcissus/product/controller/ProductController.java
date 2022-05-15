@@ -44,12 +44,21 @@ public class ProductController {
 	
 	// 제품 목록
 	@RequestMapping(value = "/productList.do")
-	public String productList(ProductVO vo, Model model) throws Exception {
-		List<ProductVO> list = service.selectAllProduct(vo);
-		// 제품 수
-		int cnt = service.productCnt(vo);
+	public String productList(ProductVO vo, Model model, HttpServletRequest request,
+			@RequestParam(required=false, defaultValue = "1") int range) throws Exception {
 		
-		model.addAttribute("cnt", cnt);
+		int page = request.getParameter("page") == null ? 1 : Integer.parseInt("page");
+		int listCnt = service.productCnt(vo);
+		
+		vo.setPage(page);
+		vo.setRange(range);
+		vo.setListCnt(listCnt);
+		vo.pageInfo(page, range, listCnt);
+		
+		List<ProductVO> list = service.selectProductList(vo);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("cnt", listCnt);
 		model.addAttribute("list", list);
 		
 		return "product/product_list.main";
