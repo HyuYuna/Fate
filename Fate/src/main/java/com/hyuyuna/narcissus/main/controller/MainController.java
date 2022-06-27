@@ -59,15 +59,13 @@ public class MainController {
 		
 	}
 	
-	// 로그아웃
-	/*@RequestMapping(value="/logout.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String logout(HttpServletResponse response, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session != null) {
-			session.invalidate();
-		}
-		return "redirect:login.do"; 
-	}*/
+	// 접근 권한 오류
+	@RequestMapping(value="/accessDenied.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String accessDenied(HttpServletResponse response, HttpServletRequest request) {
+		
+		return "access_denied"; 
+		
+	}
 	
 	// 쿠키 만료시간 설정
 	private void expiredCookie(HttpServletResponse response, String cookieName) {

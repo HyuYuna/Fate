@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hyuyuna.narcissus.common.SessionManager;
+import com.hyuyuna.narcissus.common.security.ReloadableFilterInvocationSecurityMetadataSource;
 import com.hyuyuna.narcissus.customer.service.CustomerService;
 import com.hyuyuna.narcissus.customer.vo.CustomerVO;
 import com.hyuyuna.narcissus.reply.vo.ReplyVO;
@@ -27,13 +28,17 @@ public class CustomerController {
 	@Resource(name="customerService")
 	CustomerService service;
 	
+	@Resource(name="reloadableFilterInvocationSecurityMetadataSource")
+	ReloadableFilterInvocationSecurityMetadataSource reloadFilter;
+	
 	@Autowired
 	private SessionManager sessionManager;
 	
 	
 	// 고객 등록 화면
-	@RequestMapping(value="/customerForm.do")
-	public String customerForm(Model model) throws Exception {
+	@RequestMapping(value="/customerReg.do")
+	public String customerReg(Model model) throws Exception {
+		reloadFilter.reload();
 		return "customer/customer_dtl.main";
 	}
 	
@@ -157,7 +162,7 @@ public class CustomerController {
 		int total;
 		int records;
 							
-		List<CustomerVO> customerList = null;
+		List<Map<String, Object>> customerList = null;
 		
 		HashMap<String, Object> order = new HashMap<String, Object>();
 		order.put("SORD", sord);
@@ -193,10 +198,9 @@ public class CustomerController {
 	// 고객 수정(그리드용)
 	@RequestMapping(value="/editCustomerGrid.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String editCustomerGrid(HttpServletRequest request, 
+	public String editCustomerGrid(
 				@RequestParam("oper") String oper,
 				@RequestParam Map<String, String> map) {
-		
 		
 		if(oper.equals("add")) {
 			service.insertCustomerJson(map);

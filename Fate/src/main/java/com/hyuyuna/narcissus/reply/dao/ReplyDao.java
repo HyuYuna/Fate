@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.hyuyuna.narcissus.common.AbstractDao;
+import com.hyuyuna.narcissus.common.dao.AbstractDao;
 import com.hyuyuna.narcissus.reply.vo.ReplyVO;
+
 
 @Repository("replyDao")
 public class ReplyDao extends AbstractDao {

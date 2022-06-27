@@ -10,10 +10,11 @@
 	<typeAliases>
 		<typeAlias type="com.hyuyuna.narcissus.main.vo.UserVO" alias="userVO" />
 		<typeAlias type="com.hyuyuna.narcissus.admin.vo.UserInfoVO" alias="userInfoVO" />
+		<typeAlias type="com.hyuyuna.narcissus.admin.vo.AuthorityVO" alias="authorityVO" />
 		<typeAlias type="com.hyuyuna.narcissus.product.vo.ProductVO" alias="productVO" />
 		<typeAlias type="com.hyuyuna.narcissus.reply.vo.ReplyVO" alias="replyVO" />
 		<typeAlias type="com.hyuyuna.narcissus.customer.vo.CustomerVO" alias="customerVO" />
-		<typeAlias type="com.hyuyuna.narcissus.common.FileVO" alias="fileVO" />
+		<typeAlias type="com.hyuyuna.narcissus.common.vo.FileVO" alias="fileVO" />
 	</typeAliases>	  
 	
 	<mappers>

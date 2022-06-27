@@ -110,6 +110,18 @@
 	 ]]>
 	</update>
 	
+	<!-- 권한 변경(사용자)-->
+	 <select id="updateUserAuthority" parameterType="UserInfoVO">
+	  <![CDATA[
+		UPDATE
+			USER_AUTHORITY
+		SET
+			AUTHORITY = #{authority}
+		WHERE
+			USER_ID = #{userId}
+	 ]]>
+	</select>
+	
 	<!-- 사용자 수정 -->
 	 <delete id="deleteUser" parameterType="String">
 	  <![CDATA[
@@ -121,7 +133,7 @@
 	</delete>
 	
 	 <!-- 권한 목록-->
-	 <select id="selectAuthorityList" resultType="Map">
+	 <select id="selectAuthorityList" resultType="authorityVO">
 	  <![CDATA[
 		SELECT
 			*
@@ -130,18 +142,160 @@
 	 ]]>
 	</select>
 	
-	<!-- 권한 변경-->
-	 <select id="updateAuthority" parameterType="userInfoVO">
+	 <!-- 권한 상세-->
+	 <select id="selectAuthority" parameterType="Integer" resultType="authorityVO">
+	  <![CDATA[
+		SELECT
+			*
+		FROM
+			AUTHORITY
+		WHERE
+			AUTHORITY_IDX = #{idx}
+	 ]]>
+	</select>
+	
+	<!-- 권한 등록-->
+	<insert id="insertAuthority" parameterType="authorityVO">
+	 <![CDATA[
+		INSERT INTO AUTHORITY
+		(
+			AUTHORITY ,
+			AUTHORITY_NAME
+		) VALUES (
+			#{authority} ,
+			#{authorityName}
+		) 	
+	 ]]>
+	</insert>	
+	
+	<!-- 권한 수정-->
+	 <select id="updateAuthority" parameterType="authorityVO">
 	  <![CDATA[
 		UPDATE
-			USER_AUTHORITY
+			AUTHORITY
+		SET
+			AUTHORITY = #{authority} ,
+			AUTHORITY_NAME = #{authorityName}
+		WHERE
+			AUTHORITY_IDX = #{authorityIdx}
+	 ]]>
+	</select>
+	
+	 <!-- 권한 삭제 -->
+	<delete id="deleteAuthority" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		AUTHORITY
+	 	WHERE 
+	 		AUTHORITY_IDX = #{idx}
+	 ]]>
+	</delete>
+
+	 <!-- 리소스 목록-->
+	 <select id="selectResourceList" resultType="authorityVO">
+	  <![CDATA[
+		SELECT
+			a.* ,
+			b.authority
+		FROM
+			secured_resource as a
+		INNER JOIN
+			secured_resource_authority as b ON a.resource_idx = b.resource_idx
+	 ]]>
+	</select>
+	
+	<!-- 리소스 상세-->
+	 <select id="selectResource" parameterType="Integer" resultType="authorityVO">
+	  <![CDATA[
+		SELECT
+			*
+		FROM
+			secured_resource as a
+		LEFT JOIN
+			secured_resource_authority as b ON a.resource_idx = b.resource_idx
+		WHERE
+			a.RESOURCE_IDX = #{idx}
+	 ]]>
+	</select>
+	
+	<!-- 리소스 등록-->
+	<insert id="insertResource" parameterType="authorityVO">
+	 <![CDATA[
+		INSERT INTO SECURED_RESOURCE
+		(
+			RESOURCE_NAME ,
+			RESOURCE_PATTERN ,
+			SORT_ORDER
+		) VALUES (
+			#{resourceName} ,
+			#{resourcePattern} ,
+			#{sortOrder}
+		) 	
+	 ]]>
+		<selectKey keyProperty="resourceIdx" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>	
+	
+	<!-- 리소스 권한 등록-->
+	<insert id="insertResourceAuthority" parameterType="authorityVO">
+	 <![CDATA[
+		INSERT INTO SECURED_RESOURCE_AUTHORITY
+		(
+			resource_idx ,
+			authority
+		) VALUES (
+			#{resourceIdx} ,
+			#{authority}
+		) 	
+	 ]]>
+	</insert>	
+	
+	<!-- 리소스 수정-->
+	 <select id="updateResource" parameterType="authorityVO">
+	  <![CDATA[
+		UPDATE
+			SECURED_RESOURCE
+		SET
+			resource_name = #{resourceName} ,
+			RESOURCE_PATTERN = #{resourcePattern} ,
+			SORT_ORDER = #{sortOrder}
+		WHERE
+			RESOURCE_IDX = #{resourceIdx}
+	 ]]>
+	</select>
+	
+	<!-- 리소스 권한 수정-->
+	 <select id="updateResourceAuthority" parameterType="authorityVO">
+	  <![CDATA[
+		UPDATE
+			SECURED_RESOURCE_AUTHORITY
 		SET
 			AUTHORITY = #{authority}
 		WHERE
-			USER_ID = #{userId}
+			RESOURCE_IDX = #{resourceIdx}
 	 ]]>
 	</select>
-	 
-	 
 	
+	 <!-- 리소스 삭제 -->
+	<delete id="deleteResource" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		SECURED_RESOURCE
+	 	WHERE 
+	 		RESOURCE_IDX = #{idx}
+	 ]]>
+	</delete>
+	
+	<!-- 리소스 권한 삭제 -->
+	<delete id="deleteResourceAuthority" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		SECURED_RESOURCE_AUTHORITY
+	 	WHERE 
+	 		RESOURCE_IDX = #{idx}
+	 ]]>
+	</delete>
+
+
 </mapper>

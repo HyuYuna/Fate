@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hyuyuna.narcissus.common.FileVO;
+import com.hyuyuna.narcissus.common.vo.FileVO;
 import com.hyuyuna.narcissus.product.vo.ProductVO;
 
 public interface ProductService {

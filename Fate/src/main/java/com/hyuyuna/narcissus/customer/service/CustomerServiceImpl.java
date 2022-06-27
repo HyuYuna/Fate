@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 	
 	// 고객 목록(그리드용)
-	public List<CustomerVO> selectCustomerListJson(Map<String, Object> map) {
+	public List<Map<String, Object>> selectCustomerListJson(Map<String, Object> map) {
 		return dao.selectCustomerListJson(map);
 	}
 	

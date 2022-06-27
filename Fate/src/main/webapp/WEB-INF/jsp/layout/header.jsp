@@ -44,60 +44,56 @@
   
 <header>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-      <a class="navbar-brand" href="main.do">Fate</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/main.do">Fate</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="main.do">Home</a>
+            <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/main.do">Home</a>
           </li>
-          <sec:authorize access="hasRole('ADMIN')">
+          <%-- <sec:authorize access="hasRole('ADMIN')"> --%>
           	<li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">관리자</a>
 	          <div class="dropdown-menu" aria-labelledby="dropdown01">
-	            <a class="dropdown-item" href="userJoin.do">사용자 등록</a>
-	            <a class="dropdown-item" href="userList.do">사용자 목록</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/userList.do">사용자</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/authorityList.do">권한</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/resourceList.do">리소스</a>
 	          </div>
 	        </li>
-          </sec:authorize>
-          <sec:authorize access="hasAnyRole('ADMIN','MANAGER')">
+         <%--  </sec:authorize>
+         <sec:authorize access="hasAnyRole('ADMIN','MANAGER')"> --%>
             <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-expanded="false">등록</a>
+	          <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown" aria-expanded="false">고객</a>
 	          <div class="dropdown-menu" aria-labelledby="dropdown02">
-	            <a class="dropdown-item" href="customerForm.do">고객 등록</a>
-	            <a class="dropdown-item" href="productForm.do">제품 등록</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/customerReg.do">등록</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/customerList.do">조회/수정</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/customerGrid.do">그리드</a>
 	          </div>
 	        </li>
-          </sec:authorize>
-	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-expanded="false">조회/수정</a>
-	        <div class="dropdown-menu" aria-labelledby="dropdown03">
-	          	<a class="dropdown-item" href="customerList.do">고객 목록 조회/수정</a>
-	          <a class="dropdown-item" href="productList.do">제품 목록 조회/수정</a>
-	        </div>
-	      </li>
-          <sec:authorize access="hasRole('ADMIN')">
+         <%--  </sec:authorize> 
+         <sec:authorize access="hasRole('ADMIN')"> --%>
 	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-expanded="false">그리드</a>
-	            <div class="dropdown-menu" aria-labelledby="dropdown04">
-         	      <a class="dropdown-item" href="customerGrid.do">고객 그리드</a>
-	 	        </div>
+	          <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-expanded="false">제품</a>
+	          <div class="dropdown-menu" aria-labelledby="dropdown03">
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/productReg.do">등록</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/productList.do">조회/수정</a>
+	          </div>
 	        </li>
-          </sec:authorize>
+         <%--  </sec:authorize> --%>
       	</ul>
       	<sec:authorize access="isAuthenticated()">
 	     	<span style="color:#fff; margin-right:5px"><%=name%></span>
 	      	<li class="nav-item" style="display:initial;">
-	          <a class="nav-link" href="logout.do" >로그아웃</a>
+	          <a class="nav-link" href="${pageContext.request.contextPath}/logout.do" >로그아웃</a>
 	        </li>
         </sec:authorize>
-      	<sec:authorize access="isAnonymous()">
+        <sec:authorize access="isAnonymous()"> 
 	      	<li class="nav-item" style="display:initial;">
-	          <a class="nav-link" href="login.do" >로그인</a>
+	          <a class="nav-link" href="${pageContext.request.contextPath}/login.do" >로그인</a>
 	        </li>
-        </sec:authorize>
+        </sec:authorize> 
     </div>
   </nav>
 </header>

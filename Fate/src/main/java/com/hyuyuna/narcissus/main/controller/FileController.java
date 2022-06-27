@@ -92,7 +92,7 @@ public class FileController {
 	// 첨부파일 업로드
 	@RequestMapping(value="/uploadSummernoteImageFile.do", produces = "application/json; charset=utf8", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelMap uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request, ModelMap model)  {
+	public ModelMap uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, ModelMap model)  {
 		
 		String filePath = imagesDir;
 		String originalFileName = multipartFile.getOriginalFilename();

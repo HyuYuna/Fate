@@ -57,7 +57,7 @@
 			<label for="authority">권한</label>
 			<select class="form-select" id="authority" name="authority" aria-label="권한선택" style="display:block;">
 				<c:forEach var="auth" items="${authorityList}">
-					<option value="${auth.authority}">${auth.authority_name}</option>
+					<option value="${auth.authority}">${auth.authorityName}</option>
 				</c:forEach>
 			</select>
 		</div>

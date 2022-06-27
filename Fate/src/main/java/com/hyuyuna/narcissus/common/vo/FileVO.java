@@ -1,4 +1,4 @@
-package com.hyuyuna.narcissus.common;
+package com.hyuyuna.narcissus.common.vo;
 
 public class FileVO {
 	

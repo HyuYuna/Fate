@@ -1,14 +1,13 @@
 package com.hyuyuna.narcissus.admin.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.hyuyuna.narcissus.admin.dao.AdminDao;
+import com.hyuyuna.narcissus.admin.vo.AuthorityVO;
 import com.hyuyuna.narcissus.admin.vo.UserInfoVO;
 
 @Service("adminService")
@@ -48,8 +47,8 @@ public class AdminServiceImpl implements AdminService{
 	public void updateUser(UserInfoVO vo) {
 		dao.updateUser(vo);
 		
-		// 권한 변경
-		dao.updateAuthority(vo);
+		// 권한 변경(사용자)
+		dao.updateUserAuthority(vo);
 	}
 	
 	// 사용자 삭제
@@ -66,9 +65,70 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	// 권한 목록
-	public List<Map<String, Object>> selectAuthorityList() {
+	public List<AuthorityVO> selectAuthorityList() {
 		return dao.selectAuthorityList();
 	}
 	
-	 
+	//권한 상세
+	@Override
+	public AuthorityVO selectAuthority(int idx) {
+		return dao.selectAuthority(idx);
+	}
+	
+	// 권한 등록
+	@Override
+	public void insertAuthority(AuthorityVO vo) {
+		dao.insertAuthority(vo);
+	}
+		
+	// 권한 수정
+	@Override
+	public void updateAuthority(AuthorityVO vo) {
+		dao.updateAuthority(vo);
+	}
+	
+	// 권한 삭제
+	@Override
+	public void deleteAuthority(int idx) {
+		dao.deleteAuthority(idx);
+	}
+	
+	// 리소스 목록
+	public List<AuthorityVO> selectResourceList() {
+		return dao.selectResourceList();
+	}
+	
+	// 리소스 상세
+	@Override
+	public AuthorityVO selectResource(int idx) {
+		return dao.selectResource(idx);
+	}
+	
+	// 리소스 등록
+	@Override
+	public void insertResource(AuthorityVO vo) {
+		dao.insertResource(vo);
+		
+		// 리소스 권한 등록
+		dao.insertResourceAuthority(vo);
+	}
+		
+	// 리소스 수정
+	@Override
+	public void updateResource(AuthorityVO vo) {
+		dao.updateResource(vo);
+		
+		// 리소스 권한 수정
+		dao.updateResourceAuthority(vo);
+	}
+	
+	// 리소스 삭제
+	@Override
+	public void deleteResource(int idx) {
+		dao.deleteResource(idx);
+		
+		// 리소스 권한 삭제
+		dao.deleteResourceAuthority(idx);
+	}
+	
 }

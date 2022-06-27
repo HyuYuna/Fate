@@ -62,8 +62,15 @@
 	
 </script>
 <div class="container mt-50" role="main">
-	<div align="center"><font size=5><strong>고객 정보 수정하기</strong></font></div> <br>
-	<br><br>
+	<div align="center">
+		<c:if test="${mode ne 'edit' }">
+			<font size=5><strong>고객 등록</strong></font>
+		</c:if>
+		<c:if test="${mode eq 'edit' }">
+			<font size=5><strong>고객 정보 수정하기</strong></font>
+		</c:if>
+	</div> 
+	<br><br><br>
 	<form name="form" id="form" action="customerSave.do">
 		<c:if test="${mode eq 'edit'}">
 			<input type="hidden" name="customerIdx" />

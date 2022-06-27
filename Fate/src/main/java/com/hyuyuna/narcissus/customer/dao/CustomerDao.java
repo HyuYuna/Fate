@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.hyuyuna.narcissus.common.AbstractDao;
+import com.hyuyuna.narcissus.common.dao.AbstractDao;
 import com.hyuyuna.narcissus.customer.vo.CustomerVO;
 
 @Repository("customerDao")
@@ -19,8 +19,8 @@ public class CustomerDao extends AbstractDao {
 	
 	// 고객 목록(그리드용)
 	@SuppressWarnings("unchecked")
-	public List<CustomerVO> selectCustomerListJson(Map<String, Object> map) {
-		return (List<CustomerVO>)selectList("customerDao.selectCustomerListJson", map);
+	public List<Map<String, Object>> selectCustomerListJson(Map<String, Object> map) {
+		return (List<Map<String, Object>>)selectList("customerDao.selectCustomerListJson", map);
 	}
 	
 	// 고객수

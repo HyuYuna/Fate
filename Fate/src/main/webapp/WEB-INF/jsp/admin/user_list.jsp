@@ -11,6 +11,10 @@
  			$('select[name=searchType]').val('${vo.searchType}').prop("selected",true);
  		}
  	});
+ 	
+ 	$(document).on('click','#btnReg', function() {
+ 		document.location.href = "userJoin.do"
+ 	});
 
 	function fn_detail(userId) {
 		url = "userDtl.do";
@@ -60,6 +64,9 @@
 	<br>
 	<div align="center">
 	<font size=5><strong>사용자 목록</strong></font>
+		<div class="container">
+			<button type="button" id="btnReg" class="btn btn-sm btn-primary" style="float:right;">등록</button>
+		</div>
 		<div class="container mt-50">
 			<div class="table-responsive">
 			<table  class="table table-striped table-sm">

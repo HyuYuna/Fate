@@ -5,9 +5,10 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.hyuyuna.narcissus.common.AbstractDao;
-import com.hyuyuna.narcissus.common.FileVO;
+import com.hyuyuna.narcissus.common.dao.AbstractDao;
+import com.hyuyuna.narcissus.common.vo.FileVO;
 import com.hyuyuna.narcissus.product.vo.ProductVO;
+
 
 @Repository("productDao")
 public class ProductDao extends AbstractDao {

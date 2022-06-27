@@ -24,8 +24,8 @@
 			height : 250,
 			colNames : [ '번호', '이름', '주소', '등급', '도시' ],
 			colModel : [ 
-				{name : 'customerIdx', align : 'right', key:true},
-				{name : 'customerName', align : 'right', editable:true, edittype:"text"},
+				{name : 'customer_idx', align : 'right', key:true},
+				{name : 'customer_name', align : 'right', editable:true, edittype:"text"},
 				{name : 'address', align : 'right', editable:true, edittype:"text"},
 				{name : 'grade', align : 'right', editable:true, edittype:"text"},
 				{name : 'city', align : 'right',hidden:true, editrules: {edithidden: true}}

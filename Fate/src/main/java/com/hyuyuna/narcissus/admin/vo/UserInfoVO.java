@@ -1,6 +1,6 @@
 package com.hyuyuna.narcissus.admin.vo;
 
-import com.hyuyuna.narcissus.common.PageVO;
+import com.hyuyuna.narcissus.common.vo.PageVO;
 
 public class UserInfoVO extends PageVO{
 	

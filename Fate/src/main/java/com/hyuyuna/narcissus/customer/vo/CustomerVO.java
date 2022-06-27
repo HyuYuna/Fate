@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.hyuyuna.narcissus.common.PageVO;
+import com.hyuyuna.narcissus.common.vo.PageVO;
 
 public class CustomerVO extends PageVO{
 	

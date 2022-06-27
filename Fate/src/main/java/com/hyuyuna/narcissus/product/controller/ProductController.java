@@ -17,8 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hyuyuna.narcissus.common.FileVO;
 import com.hyuyuna.narcissus.common.SessionManager;
+import com.hyuyuna.narcissus.common.vo.FileVO;
 import com.hyuyuna.narcissus.product.service.ProductService;
 import com.hyuyuna.narcissus.product.vo.ProductVO;
 import com.hyuyuna.narcissus.reply.vo.ReplyVO;
@@ -37,8 +37,8 @@ public class ProductController {
 	
 	
 	// 제품 등록 화면
-	@RequestMapping(value="/productForm.do")
-	public String productForm(Model model) throws Exception {
+	@RequestMapping(value="/productReg.do")
+	public String productReg(Model model) throws Exception {
 		return "product/product_reg.main";
 	}
 	

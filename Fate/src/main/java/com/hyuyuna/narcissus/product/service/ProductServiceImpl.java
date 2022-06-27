@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 import com.hyuyuna.narcissus.common.FileUtils;
-import com.hyuyuna.narcissus.common.FileVO;
+import com.hyuyuna.narcissus.common.vo.FileVO;
 import com.hyuyuna.narcissus.product.dao.ProductDao;
 import com.hyuyuna.narcissus.product.vo.ProductVO;
 

@@ -28,7 +28,7 @@ public class FileUtils {
 	@Value("#{directory['globals.filesDir']}")
 	private String filePath;
 	
-	// 이미지 목록 및 저장
+	// 파일 목록 및 저장
 	public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{
 		
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;

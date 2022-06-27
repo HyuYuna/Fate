@@ -29,7 +29,7 @@
 	</select>
 
 	<!-- 고객 목록(그리드용) -->
-	<select id="selectCustomerListJson" parameterType="Map" resultType="customerVO">
+	<select id="selectCustomerListJson" parameterType="Map" resultType="Map">
 		SELECT 
 			AAA.* 
 		FROM (
@@ -39,7 +39,7 @@
 					<if test="SORD == ('asc')">ASC</if>
 					<if test="SORD == ('desc')">DESC</if>
 				) RNUM,
-					E.CUSTOMER_IDX, E.CUSTOMER_NAME, E.phone, E.address, E.joindate, E.grade, E.city
+					E.customer_idx, E.customer_name, E.phone, E.address, E.joindate, E.grade, E.city
 				FROM CUSTOMER AS E
 				<where>
 					<if test="searchString != null">

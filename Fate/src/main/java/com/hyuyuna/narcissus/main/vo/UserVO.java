@@ -13,7 +13,7 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
-import com.hyuyuna.narcissus.common.PageVO;
+import com.hyuyuna.narcissus.common.vo.PageVO;
 
 public class UserVO extends PageVO implements UserDetails{
 	
