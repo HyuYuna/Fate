@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<!-- Appenders -->
+	<Appenders>
+	    <Console name="console" target="SYSTEM_OUT">
+        	<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+	    </Console>
+    </Appenders>
+	 
+	<!-- Application Loggers -->
+	<Loggers>
+
+        <logger name="jdbc.sqlonly" additivity="false" level="error">
+        	<appender-ref ref="console" />
+        </logger>
+        
+        <Logger name="jdbc.sqltiming" additivity="false" level="debug">
+			<AppenderRef ref="console" />
+		</Logger>
+        
+        <!-- SQL결과 상세하기 -->
+        <Logger name="jdbc.audit" additivity="false" level="error">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- SQL결과 상세하게 -->
+        <Logger name="jdbc.resultset" additivity="false" level="error">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        <!-- 결과 TABLE 형태로 출력 -->
+        <Logger name="jdbc.resultsettable" additivity="false" level="info">
+            <AppenderRef ref="console" />
+        </Logger>
+        
+        
+        <Root level="info">
+            <AppenderRef ref="console" />
+        </Root>
+        
+    </Loggers>
+    
+</Configuration>

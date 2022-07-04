@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customerDao">
+
+	<!-- 고객 목록 -->
+	<select id="selectCustomerList" parameterType="customerVO" resultType="customerVO">
+		SELECT 
+			ROW_NUMBER() OVER(ORDER BY customer_idx asc) as rnum ,
+			customer_idx , 
+			customer_name , 
+			phone ,
+			address ,
+			joindate ,
+			grade ,
+			city ,
+			content 
+		FROM 
+			CUSTOMER
+		<where>
+			<if test="searchType=='customerIdx'">
+				AND CUSTOMER_IDX LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType=='customerName'">
+				AND CUSTOMER_NAME LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</where>
+		ORDER BY CUSTOMER_IDX DESC
+		LIMIT #{startList} , #{listSize}
+	</select>
+
+	<!-- 고객 목록(그리드용) -->
+	<select id="selectCustomerListJson" parameterType="Map" resultType="Map">
+		SELECT 
+			AAA.* 
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER ( 
+					order by ${SIDX}
+					<if test="SORD == ('asc')">ASC</if>
+					<if test="SORD == ('desc')">DESC</if>
+				) RNUM,
+					E.customer_idx, E.customer_name, E.phone, E.address, E.joindate, E.grade, E.city
+				FROM CUSTOMER AS E
+				<where>
+					<if test="searchString != null">
+						AND ${searchField} like concat('%', #{searchString}, '%')
+					</if>
+				</where>
+			) AAA
+		WHERE
+			AAA.RNUM 
+		BETWEEN 
+			${startCount} AND ${endCount}
+
+	</select>
+	
+	<!-- 고객수 -->
+	<select id="customerCnt" parameterType="customerVO" resultType="Integer">
+	 	SELECT 
+	 		COUNT(*) as listCnt
+	 	FROM
+	 		CUSTOMER 
+	 	<where>
+			<if test="searchType=='customerIdx'">
+				AND CUSTOMER_IDX LIKE CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="searchType=='customerName'">
+				AND CUSTOMER_NAME LIKE CONCAT('%',#{keyword},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 총 고객수 -->
+	<select id="totalRecords" resultType="Integer">
+	 	SELECT 
+	 		COUNT(*) as listCnt
+	 	FROM
+	 		CUSTOMER 
+	</select>
+	
+	<!-- 총 고객수 -->
+	<select id="totalRecordsJson" parameterType="map" resultType="Integer">
+	 	SELECT 
+	 		COUNT(*) as listCnt
+	 	FROM
+	 		CUSTOMER
+	 	<where>
+	 		<if test="searchField != null">
+	 			AND ${searchField} like CONCAT('%', #{searchString}, '%')
+	 		</if>
+	 	</where> 
+	</select>
+	
+	<!-- 고객 상세 -->
+	<select id="selectCustomer" parameterType="Integer" resultType="customerVO">
+	  <![CDATA[
+	   SELECT 
+	   	   * 
+	   FROM 
+	   	   CUSTOMER 
+	   WHERE 
+	   	   CUSTOMER_IDX = #{customerIdx}
+	  ]]>
+	</select>
+	
+	<!-- 고객 등록 -->
+	<insert id="insertCustomer" parameterType="customerVO">
+ 	 <![CDATA[
+		INSERT INTO CUSTOMER
+		(
+			customer_name, 
+			phone, 
+			address,
+			joindate, 
+			grade, 
+			city,
+			content
+		) VALUES (
+			#{customerName}, 
+			#{phone}, 
+			#{address},
+			#{joindate}, 
+			#{grade}, 
+			#{city},
+			#{content}
+		) 	
+		 ]]>
+	</insert>
+	
+	<!-- 고객 등록(그리드)-->
+	<insert id="insertCustomerJson" parameterType="Map">
+ 	 <![CDATA[
+		INSERT INTO CUSTOMER
+		(
+			customer_name, 
+			address,
+			grade
+		) VALUES (
+			#{customerName}, 
+			#{address},
+			#{grade}
+		) 	
+		 ]]>
+	</insert>
+	
+	 <!-- 고객 삭제 -->
+	<delete id="deleteCustomer" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		CUSTOMER 
+	 	WHERE 
+	 		CUSTOMER_IDX = #{customerIdx}
+	 ]]>
+	</delete>
+	
+	<!-- 고객 수정 -->
+	<update id="updateCustomer" parameterType="customerVO">
+	 <![CDATA[
+		UPDATE 
+			CUSTOMER 
+		SET 
+			CUSTOMER_NAME= #{customerName}, 
+			PHONE= #{phone}, 
+			ADDRESS= #{address},  
+			JOINDATE= #{joindate},  
+			GRADE= #{grade}, 
+			CITY= #{city},
+			CONTENT= #{content}
+		WHERE 
+			CUSTOMER_IDX = #{customerIdx}
+	 ]]>
+	</update>
+	
+	<!-- 고객 수정(그리드) -->
+	<update id="updateCustomerJson" parameterType="Map">
+	 <![CDATA[
+		UPDATE 
+			CUSTOMER 
+		SET 
+			CUSTOMER_NAME= #{customerName}, 
+			ADDRESS= #{address},  
+			GRADE= #{grade}
+		WHERE 
+			CUSTOMER_IDX = #{id}
+	 ]]>
+	</update>
+	
+</mapper>
