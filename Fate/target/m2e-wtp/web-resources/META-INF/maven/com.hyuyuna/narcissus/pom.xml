@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.hyuyuna</groupId>
 	<artifactId>narcissus</artifactId>
-	<name>Fate</name>
+	<name>fate</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
