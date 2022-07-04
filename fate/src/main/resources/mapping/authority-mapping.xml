@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="authorityDao">
+
+	 <!-- 권한 목록-->
+	 <select id="selectAuthorityList" resultType="authorityVO">
+	  <![CDATA[
+		SELECT
+			*
+		FROM
+			AUTHORITY
+	 ]]>
+	</select>
+	
+	 <!-- 권한 상세-->
+	 <select id="selectAuthority" parameterType="Integer" resultType="authorityVO">
+	  <![CDATA[
+		SELECT
+			*
+		FROM
+			AUTHORITY
+		WHERE
+			AUTHORITY_IDX = #{idx}
+	 ]]>
+	</select>
+	
+	<!-- 권한 등록-->
+	<insert id="insertAuthority" parameterType="authorityVO">
+	 <![CDATA[
+		INSERT INTO AUTHORITY
+		(
+			AUTHORITY ,
+			AUTHORITY_NAME
+		) VALUES (
+			#{authority} ,
+			#{authorityName}
+		) 	
+	 ]]>
+	</insert>	
+	
+	<!-- 권한 수정-->
+	 <select id="updateAuthority" parameterType="authorityVO">
+	  <![CDATA[
+		UPDATE
+			AUTHORITY
+		SET
+			AUTHORITY = #{authority} ,
+			AUTHORITY_NAME = #{authorityName}
+		WHERE
+			AUTHORITY_IDX = #{authorityIdx}
+	 ]]>
+	</select>
+	
+	 <!-- 권한 삭제 -->
+	<delete id="deleteAuthority" parameterType="Integer">
+	 <![CDATA[
+	 	DELETE FROM 
+	 		AUTHORITY
+	 	WHERE 
+	 		AUTHORITY_IDX = #{idx}
+	 ]]>
+	</delete>
+
+</mapper>
