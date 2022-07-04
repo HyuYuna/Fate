@@ -62,27 +62,31 @@
 	<font size=5><strong>고객 목록</strong></font>
 		<div class="container mt-50">
 			<div class="table-responsive">
-			<table  class="table table-striped table-sm">
-				<tr>
-					<td>순번</td>
-					<td>고객성명</td>
-					<td>전화번호</td>
-					<td>주소</td>
-					<td>가입일자</td>
-					<td>고객등급</td>
-					<td>거주지역</td>
-				</tr>
-				<c:forEach items="${list}" var="m">
+			<table class="table table-striped table-sm">
+				<thead>
 					<tr>
-						<td>${m.getRnum()}</td>
-						<td><a href="#" onClick="fn_view(${m.getCustomerIdx()})">${m.getCustomerName()}</a></td>
-						<td>${m.getPhone()}</td>
-						<td>${m.getAddress()}</td>
-						<td>${m.getJoindate()}</td>
-						<td>${m.getGrade()}</td>
-						<td>${m.getCity()}</td>
+						<th>순번</th>
+						<th>고객성명</th>
+						<th>전화번호</th>
+						<th>주소</th>
+						<th>가입일자</th>
+						<th>고객등급</th>
+						<th>거주지역</th>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach items="${list}" var="m">
+						<tr>
+							<td>${m.getRnum()}</td>
+							<td><a href="#" onClick="fn_view(${m.getCustomerIdx()})">${m.getCustomerName()}</a></td>
+							<td>${m.getPhone()}</td>
+							<td>${m.getAddress()}</td>
+							<td>${m.getJoindate()}</td>
+							<td>${m.getGrade()}</td>
+							<td>${m.getCity()}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			</div>
 		</div>
@@ -117,6 +121,5 @@
 				</c:if>
 			</ul>
 		</div>
-
 	</div>
 </section>

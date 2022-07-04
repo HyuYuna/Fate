@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hyuyuna.narcissus.common.SessionManager;
 import com.hyuyuna.narcissus.reply.service.ReplyService;
 import com.hyuyuna.narcissus.reply.vo.ReplyVO;
 
@@ -23,9 +21,6 @@ public class ReplyController {
 	
 	@Resource(name="replyService")
 	ReplyService service;
-	
-	@Autowired
-	private SessionManager sessionManager;
 	
 	// 댓글 목록
 	@RequestMapping(value="/getReplyList.do", method=RequestMethod.POST)
@@ -39,7 +34,7 @@ public class ReplyController {
 	// 댓글 저장
 	@RequestMapping(value="/insertReply.do", method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> saveReply(@RequestBody ReplyVO replyVO) throws Exception {
+	public Map<String,Object> insertReply(@RequestBody ReplyVO replyVO) throws Exception {
 		Map<String, Object> result = new HashMap();
 		
 		try {

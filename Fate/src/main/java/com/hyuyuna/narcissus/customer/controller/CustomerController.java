@@ -31,10 +31,6 @@ public class CustomerController {
 	@Resource(name="reloadableFilterInvocationSecurityMetadataSource")
 	ReloadableFilterInvocationSecurityMetadataSource reloadFilter;
 	
-	@Autowired
-	private SessionManager sessionManager;
-	
-	
 	// 고객 등록 화면
 	@RequestMapping(value="/customerReg.do")
 	public String customerReg(Model model) throws Exception {

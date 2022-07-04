@@ -60,6 +60,7 @@
 	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/userList.do">사용자</a>
 	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/authorityList.do">권한</a>
 	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/resourceList.do">리소스</a>
+	            <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/menuList.do">메뉴</a>
 	          </div>
 	        </li>
          <%--  </sec:authorize>

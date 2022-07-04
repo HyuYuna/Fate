@@ -11,6 +11,7 @@
 		<typeAlias type="com.hyuyuna.narcissus.main.vo.UserVO" alias="userVO" />
 		<typeAlias type="com.hyuyuna.narcissus.admin.vo.UserInfoVO" alias="userInfoVO" />
 		<typeAlias type="com.hyuyuna.narcissus.admin.vo.AuthorityVO" alias="authorityVO" />
+		<typeAlias type="com.hyuyuna.narcissus.admin.vo.MenuVO" alias="menuVO" />
 		<typeAlias type="com.hyuyuna.narcissus.product.vo.ProductVO" alias="productVO" />
 		<typeAlias type="com.hyuyuna.narcissus.reply.vo.ReplyVO" alias="replyVO" />
 		<typeAlias type="com.hyuyuna.narcissus.customer.vo.CustomerVO" alias="customerVO" />
@@ -19,7 +20,10 @@
 	
 	<mappers>
 		<mapper resource="mapping/main-mapping.xml" />
-		<mapper resource="mapping/admin-mapping.xml" />
+		<mapper resource="mapping/user-mapping.xml" />
+		<mapper resource="mapping/menu-mapping.xml" />
+		<mapper resource="mapping/authority-mapping.xml" />
+		<mapper resource="mapping/resource-mapping.xml" />
 		<mapper resource="mapping/customer-mapping.xml" />
 		<mapper resource="mapping/product-mapping.xml" />
 		<mapper resource="mapping/reply-mapping.xml" />

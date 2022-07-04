@@ -29,12 +29,9 @@ public class ProductController {
 	@Resource(name="productService")
 	ProductService service;
 	
-	@Autowired
-	private SessionManager sessionManager;
-	
 	@Value("#{directory['globals.filesDir']}")
 	private String filePath;
-	
+
 	
 	// 제품 등록 화면
 	@RequestMapping(value="/productReg.do")

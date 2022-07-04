@@ -66,22 +66,26 @@
 		<div class="container mt-50">
 			<div class="table-responsive">
 				<table  class="table table-striped table-sm">
-					<tr>
-						<td>순번</td>
-						<td>제품명</td>
-						<td>연락처</td>
-						<td>주소</td>
-						<td>이미지</td>
-					</tr>
-					<c:forEach items="${list}" var="m">
+					<thead>
 						<tr>
-							<td>${m.getRnum()}</td>
-							<td><a href="#" onClick="fn_view(${m.getProductIdx()})">${m.getProductName()}</a></td>
-							<td>${m.getTel()}</td>
-							<td>${m.getAddress()}</td>
-							<td><img src="getImage.do?fileNm=${m.getFname()}" width="50" height="50"></td>
+							<th>순번</th>
+							<th>제품명</th>
+							<th>연락처</th>
+							<th>주소</th>
+							<th>이미지</th>
 						</tr>
-					</c:forEach>
+					</thead>
+					<tbody>
+						<c:forEach items="${list}" var="m">
+							<tr>
+								<td>${m.getRnum()}</td>
+								<td><a href="#" onClick="fn_view(${m.getProductIdx()})">${m.getProductName()}</a></td>
+								<td>${m.getTel()}</td>
+								<td>${m.getAddress()}</td>
+								<td><img src="getImage.do?fileNm=${m.getFname()}" width="50" height="50"></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 		</div>

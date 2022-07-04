@@ -70,20 +70,24 @@
 		<div class="container mt-50">
 			<div class="table-responsive">
 			<table  class="table table-striped table-sm">
-				<tr>
-					<td>번호</td>
-					<td>회원ID</td>
-					<td>회원이름</td>
-					<td>권한</td>
-				</tr>
-				<c:forEach items="${list}" var="m">
+				<thead>
 					<tr>
-						<td>${m.getRnum()}</td>
-						<td><a href="#" onClick="fn_detail('${m.getUserId()}')">${m.getUserId()}</a></td>
-						<td>${m.getUserName()}</td>
-						<td>${m.getAuthorityName()}</td>
+						<th>번호</th>
+						<th>회원ID</th>
+						<th>회원이름</th>
+						<th>권한</th>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach items="${list}" var="m">
+						<tr>
+							<td>${m.getRnum()}</td>
+							<td><a href="#" onClick="fn_detail('${m.getUserId()}')">${m.getUserId()}</a></td>
+							<td>${m.getUserName()}</td>
+							<td>${m.getAuthorityName()}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			</div>
 		</div>
