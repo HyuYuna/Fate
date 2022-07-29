@@ -22,11 +22,6 @@ public class AuthorityDao extends AbstractDao {
 		return (AuthorityVO)selectOne("authorityDao.selectAuthority", idx);
 	}
 	
-	// 권한 변경(사용자)
-	public void updateUserAuthority(UserInfoVO vo) {
-		update("authorityDao.updateUserAuthority", vo);
-	}
-	
 	// 권한 등록
 	public void insertAuthority(AuthorityVO vo) {
 		insert("authorityDao.insertAuthority", vo);

@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 		dao.updateUser(vo);
 		
 		// 권한 변경(사용자)
-		authorityDao.updateUserAuthority(vo);
+		dao.updateUserAuthority(vo);
 	}
 	
 	// 사용자 삭제

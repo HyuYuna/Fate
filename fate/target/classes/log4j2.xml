@@ -5,6 +5,18 @@
 	    <Console name="console" target="SYSTEM_OUT">
         	<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
 	    </Console>
+	    
+	    <RollingFile name="dailyRollingFileAppender">
+	    	<fileName>C:/Fate/github/shopping/logs/log.log</fileName>
+	    	<filePattern>C:/Fate/github/shopping/logs/log_%d{yyyy-MM-dd}.log</filePattern>
+	    	<!-- <fileName>/site/fate/logs/log.log</fileName>
+	    	<filePattern>/site/fate/logs/log_%d{yyyy-MM-dd}.log</filePattern> -->
+    		<append>true</append>
+	    	<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n" />
+	    	<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+			</Policies>
+	    </RollingFile>
     </Appenders>
 	 
 	<!-- Application Loggers -->
@@ -36,6 +48,7 @@
         
         <Root level="info">
             <AppenderRef ref="console" />
+            <AppenderRef ref="dailyRollingFileAppender" level="error" />
         </Root>
         
     </Loggers>

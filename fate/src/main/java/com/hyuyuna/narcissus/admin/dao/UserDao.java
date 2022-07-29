@@ -41,6 +41,11 @@ public class UserDao extends AbstractDao {
 		update("userDao.updateUser", vo);
 	}
 	
+	// 권한 변경(사용자)
+	public void updateUserAuthority(UserInfoVO vo) {
+		update("userDao.updateUserAuthority", vo);
+	}
+	
 	// 사용자 삭제
 	public void deleteUser(String userId) {
 		update("userDao.deleteUser", userId);
