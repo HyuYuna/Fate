@@ -13,9 +13,9 @@
 		if(idChk != "Y") {
 			alert("ID 중복확인을 해주세요");
 			return false;
-		} else if(str.password.value.length < 1) {
+		} else if(document.frm.password.value.length < 1) {
 			alert("비밀번호를 입력해주세요");
-		} else if(str.userName.value.length < 1) {
+		} else if(document.frm.userName.value.length < 1) {
 			alert("회원명을 입력해주세요");
 		}
 		
