@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
--- 서버 버전:                        10.2.38-MariaDB - mariadb.org binary distribution
+-- 서버 버전:                        10.3.31-MariaDB - mariadb.org binary distribution
 -- 서버 OS:                        Win64
--- HeidiSQL 버전:                  11.2.0.6213
+-- HeidiSQL 버전:                  11.3.0.6295
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -70,12 +70,112 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `city` varchar(50) DEFAULT NULL COMMENT '도시 등급',
   `content` mediumtext DEFAULT NULL COMMENT '내용',
   PRIMARY KEY (`customer_idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='고객';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COMMENT='고객';
 
--- 테이블 데이터 fate.customer:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.customer:~101 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 INSERT INTO `customer` (`customer_idx`, `customer_name`, `phone`, `address`, `joindate`, `grade`, `city`, `content`) VALUES
-	(1, '양호', '01012345576', '경기도 안양시', '2022', 'A', 'C', '<p><img src="/getImage.do?fileNm=0de6b321ba5841ee8440bc58788b7dd9..jpg" style="width: 450px;"><br></p>');
+	(1, '양호', '01012345576', '경기도 안양시', '2022', 'A', 'C', '<p><img src="/getImage.do?fileNm=0de6b321ba5841ee8440bc58788b7dd9..jpg" style="width: 450px;"><br></p>'),
+	(2, '테스트1', NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, '테스트2', NULL, NULL, NULL, NULL, NULL, NULL),
+	(4, '테스트3', NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, '테스트4', NULL, NULL, NULL, NULL, NULL, NULL),
+	(6, '테스트5', NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, '테스트6', NULL, NULL, NULL, NULL, NULL, NULL),
+	(8, '테스트7', NULL, NULL, NULL, NULL, NULL, NULL),
+	(9, '테스트8', NULL, NULL, NULL, NULL, NULL, NULL),
+	(10, '테스트9', NULL, NULL, NULL, NULL, NULL, NULL),
+	(11, '테스트10', NULL, NULL, NULL, NULL, NULL, NULL),
+	(12, '테스트11', NULL, NULL, NULL, NULL, NULL, NULL),
+	(13, '테스트12', NULL, NULL, NULL, NULL, NULL, NULL),
+	(14, '테스트13', NULL, NULL, NULL, NULL, NULL, NULL),
+	(15, '테스트14', NULL, NULL, NULL, NULL, NULL, NULL),
+	(16, '테스트15', NULL, NULL, NULL, NULL, NULL, NULL),
+	(17, '테스트16', NULL, NULL, NULL, NULL, NULL, NULL),
+	(18, '테스트17', NULL, NULL, NULL, NULL, NULL, NULL),
+	(19, '테스트18', NULL, NULL, NULL, NULL, NULL, NULL),
+	(20, '테스트19', NULL, NULL, NULL, NULL, NULL, NULL),
+	(21, '테스트20', NULL, NULL, NULL, NULL, NULL, NULL),
+	(22, '테스트21', NULL, NULL, NULL, NULL, NULL, NULL),
+	(23, '테스트22', NULL, NULL, NULL, NULL, NULL, NULL),
+	(24, '테스트23', NULL, NULL, NULL, NULL, NULL, NULL),
+	(25, '테스트24', NULL, NULL, NULL, NULL, NULL, NULL),
+	(26, '테스트25', NULL, NULL, NULL, NULL, NULL, NULL),
+	(27, '테스트26', NULL, NULL, NULL, NULL, NULL, NULL),
+	(28, '테스트27', NULL, NULL, NULL, NULL, NULL, NULL),
+	(29, '테스트28', NULL, NULL, NULL, NULL, NULL, NULL),
+	(30, '테스트29', NULL, NULL, NULL, NULL, NULL, NULL),
+	(31, '테스트30', NULL, NULL, NULL, NULL, NULL, NULL),
+	(32, '테스트31', NULL, NULL, NULL, NULL, NULL, NULL),
+	(33, '테스트32', NULL, NULL, NULL, NULL, NULL, NULL),
+	(34, '테스트33', NULL, NULL, NULL, NULL, NULL, NULL),
+	(35, '테스트34', NULL, NULL, NULL, NULL, NULL, NULL),
+	(36, '테스트35', NULL, NULL, NULL, NULL, NULL, NULL),
+	(37, '테스트36', NULL, NULL, NULL, NULL, NULL, NULL),
+	(38, '테스트37', NULL, NULL, NULL, NULL, NULL, NULL),
+	(39, '테스트38', NULL, NULL, NULL, NULL, NULL, NULL),
+	(40, '테스트39', NULL, NULL, NULL, NULL, NULL, NULL),
+	(41, '테스트40', NULL, NULL, NULL, NULL, NULL, NULL),
+	(42, '테스트41', NULL, NULL, NULL, NULL, NULL, NULL),
+	(43, '테스트42', NULL, NULL, NULL, NULL, NULL, NULL),
+	(44, '테스트43', NULL, NULL, NULL, NULL, NULL, NULL),
+	(45, '테스트44', NULL, NULL, NULL, NULL, NULL, NULL),
+	(46, '테스트45', NULL, NULL, NULL, NULL, NULL, NULL),
+	(47, '테스트46', NULL, NULL, NULL, NULL, NULL, NULL),
+	(48, '테스트47', NULL, NULL, NULL, NULL, NULL, NULL),
+	(49, '테스트48', NULL, NULL, NULL, NULL, NULL, NULL),
+	(50, '테스트49', NULL, NULL, NULL, NULL, NULL, NULL),
+	(51, '테스트50', NULL, NULL, NULL, NULL, NULL, NULL),
+	(52, '테스트51', NULL, NULL, NULL, NULL, NULL, NULL),
+	(53, '테스트52', NULL, NULL, NULL, NULL, NULL, NULL),
+	(54, '테스트53', NULL, NULL, NULL, NULL, NULL, NULL),
+	(55, '테스트54', NULL, NULL, NULL, NULL, NULL, NULL),
+	(56, '테스트55', NULL, NULL, NULL, NULL, NULL, NULL),
+	(57, '테스트56', NULL, NULL, NULL, NULL, NULL, NULL),
+	(58, '테스트57', NULL, NULL, NULL, NULL, NULL, NULL),
+	(59, '테스트58', NULL, NULL, NULL, NULL, NULL, NULL),
+	(60, '테스트59', NULL, NULL, NULL, NULL, NULL, NULL),
+	(61, '테스트60', NULL, NULL, NULL, NULL, NULL, NULL),
+	(62, '테스트61', NULL, NULL, NULL, NULL, NULL, NULL),
+	(63, '테스트62', NULL, NULL, NULL, NULL, NULL, NULL),
+	(64, '테스트63', NULL, NULL, NULL, NULL, NULL, NULL),
+	(65, '테스트64', NULL, NULL, NULL, NULL, NULL, NULL),
+	(66, '테스트65', NULL, NULL, NULL, NULL, NULL, NULL),
+	(67, '테스트66', NULL, NULL, NULL, NULL, NULL, NULL),
+	(68, '테스트67', NULL, NULL, NULL, NULL, NULL, NULL),
+	(69, '테스트68', NULL, NULL, NULL, NULL, NULL, NULL),
+	(70, '테스트69', NULL, NULL, NULL, NULL, NULL, NULL),
+	(71, '테스트70', NULL, NULL, NULL, NULL, NULL, NULL),
+	(72, '테스트71', NULL, NULL, NULL, NULL, NULL, NULL),
+	(73, '테스트72', NULL, NULL, NULL, NULL, NULL, NULL),
+	(74, '테스트73', NULL, NULL, NULL, NULL, NULL, NULL),
+	(75, '테스트74', NULL, NULL, NULL, NULL, NULL, NULL),
+	(76, '테스트75', NULL, NULL, NULL, NULL, NULL, NULL),
+	(77, '테스트76', NULL, NULL, NULL, NULL, NULL, NULL),
+	(78, '테스트77', NULL, NULL, NULL, NULL, NULL, NULL),
+	(79, '테스트78', NULL, NULL, NULL, NULL, NULL, NULL),
+	(80, '테스트79', NULL, NULL, NULL, NULL, NULL, NULL),
+	(81, '테스트80', NULL, NULL, NULL, NULL, NULL, NULL),
+	(82, '테스트81', NULL, NULL, NULL, NULL, NULL, NULL),
+	(83, '테스트82', NULL, NULL, NULL, NULL, NULL, NULL),
+	(84, '테스트83', NULL, NULL, NULL, NULL, NULL, NULL),
+	(85, '테스트84', NULL, NULL, NULL, NULL, NULL, NULL),
+	(86, '테스트85', NULL, NULL, NULL, NULL, NULL, NULL),
+	(87, '테스트86', NULL, NULL, NULL, NULL, NULL, NULL),
+	(88, '테스트87', NULL, NULL, NULL, NULL, NULL, NULL),
+	(89, '테스트88', NULL, NULL, NULL, NULL, NULL, NULL),
+	(90, '테스트89', NULL, NULL, NULL, NULL, NULL, NULL),
+	(91, '테스트90', NULL, NULL, NULL, NULL, NULL, NULL),
+	(92, '테스트91', NULL, NULL, NULL, NULL, NULL, NULL),
+	(93, '테스트92', NULL, NULL, NULL, NULL, NULL, NULL),
+	(94, '테스트93', NULL, NULL, NULL, NULL, NULL, NULL),
+	(95, '테스트94', NULL, NULL, NULL, NULL, NULL, NULL),
+	(96, '테스트95', NULL, NULL, NULL, NULL, NULL, NULL),
+	(97, '테스트96', NULL, NULL, NULL, NULL, NULL, NULL),
+	(98, '테스트97', NULL, NULL, NULL, NULL, NULL, NULL),
+	(99, '테스트98', NULL, NULL, NULL, NULL, NULL, NULL),
+	(100, '테스트99', NULL, NULL, NULL, NULL, NULL, NULL),
+	(101, '테스트100', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 
 -- 테이블 fate.groups 구조 내보내기
@@ -108,6 +208,18 @@ CREATE TABLE IF NOT EXISTS `groups_user` (
 /*!40000 ALTER TABLE `groups_user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `groups_user` ENABLE KEYS */;
 
+-- 프로시저 fate.insertCustomer 구조 내보내기
+DELIMITER //
+CREATE PROCEDURE `insertCustomer`()
+BEGIN
+    DECLARE i INT DEFAULT 1; -- ⓑ i변수 선언, defalt값으로 1설정
+    WHILE (i <= 130) DO -- ⓒ for문 작성(i가 1000이 될 때까지 반복)
+        INSERT INTO customer (customer_name) VALUE (CONCAT("테스트",i)); -- ⓓ 테이블에 i값 넣어주기
+        SET i = i + 1; -- ⓔ i값에 1더해주고 WHILE문 처음으로 이동
+    END WHILE;
+END//
+DELIMITER ;
+
 -- 테이블 fate.menu 구조 내보내기
 CREATE TABLE IF NOT EXISTS `menu` (
   `menu_idx` int(11) NOT NULL AUTO_INCREMENT COMMENT '메뉴 번호',
@@ -132,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`product_idx`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='제품';
 
--- 테이블 데이터 fate.product:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.product:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`product_idx`, `product_name`, `tel`, `address`, `joindate`) VALUES
 	(1, '양말', '0101234567', '경기도 안양시', '2021-12-13');
@@ -166,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `secured_resource` (
   PRIMARY KEY (`resource_idx`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='리소스 테이블';
 
--- 테이블 데이터 fate.secured_resource:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.secured_resource:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `secured_resource` DISABLE KEYS */;
 INSERT INTO `secured_resource` (`resource_idx`, `resource_name`, `resource_pattern`, `resource_type`, `sort_order`) VALUES
 	(1, '관리자', '/admin/**', 'URL', 0);
@@ -178,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `secured_resource_authority` (
   `authority` varchar(100) DEFAULT NULL COMMENT '권한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='리소스에 따른 접근 권한 테이블';
 
--- 테이블 데이터 fate.secured_resource_authority:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.secured_resource_authority:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `secured_resource_authority` DISABLE KEYS */;
 INSERT INTO `secured_resource_authority` (`resource_idx`, `authority`) VALUES
 	(1, 'ADMIN');
@@ -192,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원 테이블';
 
--- 테이블 데이터 fate.user:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.user:~2 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`user_id`, `password`, `user_name`) VALUES
 	('test', '$2a$10$EWSlUMDC01HAStcHkr8wo.m/m1mR8.mfQeYYDre2uDfJe6Bc0TVme', '테스트'),
@@ -205,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `user_authority` (
   `authority` varchar(50) DEFAULT NULL COMMENT '권한'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='회원 권한';
 
--- 테이블 데이터 fate.user_authority:~1 rows (대략적) 내보내기
+-- 테이블 데이터 fate.user_authority:~4 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `user_authority` DISABLE KEYS */;
 INSERT INTO `user_authority` (`user_id`, `authority`) VALUES
 	('wndaud2412', 'ADMIN'),
