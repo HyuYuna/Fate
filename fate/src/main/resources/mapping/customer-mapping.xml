@@ -136,7 +136,7 @@
 			address,
 			grade
 		) VALUES (
-			#{customerName}, 
+			#{customer_name}, 
 			#{address},
 			#{grade}
 		) 	
@@ -177,7 +177,7 @@
 		UPDATE 
 			CUSTOMER 
 		SET 
-			CUSTOMER_NAME= #{customerName}, 
+			CUSTOMER_NAME= #{customer_name}, 
 			ADDRESS= #{address},  
 			GRADE= #{grade}
 		WHERE 
