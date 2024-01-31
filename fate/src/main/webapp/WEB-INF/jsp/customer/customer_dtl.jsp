@@ -78,7 +78,7 @@
 		<input type="hidden" name="mode" />
 		<div class="mb-3">
 			<label for="customerName">고객이름</label>
-			<input name="customerName" id="customerName" class="form-control" placeholder="제목을 입력해 주세요" />
+			<input name="customerName" id="customerName" class="form-control" placeholder="제목을 입력해 주세요" required />
 		</div>
 		<div class="mb-3">
 			<label for="phone">고객전화</label>
