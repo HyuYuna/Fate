@@ -30,7 +30,7 @@
 	<form action="productInsert.do" method="POST" enctype="multipart/form-data">
 		<div class="mb-3">
 			<label for="productName">제품명</label>
-			<input type=text class="form-control" name=productName size=10 placeholder="이름을 입력해 주세요">
+			<input type=text class="form-control" name=productName size=10 placeholder="이름을 입력해 주세요" required>
 		</div>
 		<div class="mb-3">
 			<label for="tel">연락처</label>
